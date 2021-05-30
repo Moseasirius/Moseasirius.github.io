@@ -369,16 +369,22 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
 
         
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>标准模板库（standard template library,简写为STL）是用模板定义的一组类和函数。STL定义了一组常用的数据结构，如向量，链表，集合，映射等，这些数据结构都被称为容器（container），为什么叫做容器呢？在我们的生活中，容器就是用来装一堆东西的。在这里，它们都用来管理一组元素，所以称之为容器。STL定义了一组常用的算法，如排序，查找，集合计算（交集，并集）等。</p>
-<p>容器是什么？一个数组其实就是一个容器，管理某种类型的一个元素序列，每个元素都可按下标随机访问。数组作为容器的特点就是连续空间，固定大小，随机访问。缺点就是不容易在数组中间插入或者删除一个元素，因为会导致后面的元素逐个后移或前移。</p>
-<p>STL容器是一组类模板，用来管理元素的序列。一个容器中的多个元素都具有相同类型，可以是基本类型，也可以是自定义类型。<br>容器可分为三大类：<br>序列容器（sequence container）、关联容器（associative container）和容器适配器（container adapter）<br>一、序列容器能维护插入元素的顺序，包括vector，deque,list等<br>二、关联容器按预定义顺序管理所插入元素，包括set,multiset,map,multimap<br>三、容器适配器是基于头等容器而建立的简单容器，包括stack，queue,priority_queue等。<br>序列容器与关联容器统称为头等容器（first-class container），意思是编程首选容器。</p>
-<p>迭代器是什么？以数组为例，访问一个数组元素要使用下标，如a[i],则下标就是数组元素的迭代器。下标本质上是一个指针，指向要访问的那个元素。迭代器是用来访问容器中的元素的一种数据结构，是指针的抽象，但更安全，功能更强。不论是范性思维或者STL的实际运用，迭代器（iterators）都扮演者重要角色。STL的中心思想在于：将数据容器（containers）和算法（algorithms）分开，彼此独立设计，最后再以一贴胶着剂将它们撮合在一起。</p>
-<p>STL算法包括<algorithm>与<numeric></p>
+                <p>The Standard Template Library (STL) is a set of C++ template classes to provide common programming data structures and functions such as lists, stacks, arrays, etc. It is a library of container classes, algorithms, and iterators. It is a generalized library and so, its components are parameterized. A working knowledge of <a target="_blank" rel="noopener" href="https://www.geeksforgeeks.org/templates-cpp/">template classes</a> is a prerequisite for working with STL.</p>
+<p><strong>STL has four components</strong></p>
+<ul>
+<li>Algorithms</li>
+<li>Containers</li>
+<li>Functions</li>
+<li>Iterators</li>
+</ul>
 
                 
             </div>
@@ -534,8 +540,6 @@
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
 
 <!-- 代码语言 -->
-
-<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
 
 
 <!-- 代码块复制 -->
