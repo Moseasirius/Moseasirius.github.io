@@ -439,6 +439,223 @@ int main()
         cout&lt;&lt;lowt;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
+<h3 id="202012-1期末预测之安全指数"><a href="#202012-1期末预测之安全指数" class="headerlink" title="202012-1期末预测之安全指数"></a>202012-1期末预测之安全指数</h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
+using namespace std;
+int main()&#123;
+	int n;
+	int w,score;
+	cin&gt;&gt;n;
+	int sum&#x3D;0;
+	for(int i&#x3D;0;i&lt;n;i++)&#123;
+		cin&gt;&gt;w&gt;&gt;score;
+		sum+&#x3D;w*score;
+	&#125;
+	if(sum&lt;0)&#123;
+		sum&#x3D;0;
+	&#125;
+	cout&lt;&lt;sum;
+&#125; <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="202012-2期末预测之最佳阈值"><a href="#202012-2期末预测之最佳阈值" class="headerlink" title="202012-2期末预测之最佳阈值"></a>202012-2期末预测之最佳阈值</h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
+#include&lt;algorithm&gt;
+
+using namespace std;
+typedef struct Node&#123;
+	int theta;
+	int predict;
+&#125;Node;
+
+bool cmp(Node a,Node b)&#123;
+	return a.theta&lt;b.theta;
+&#125; 
+int main()&#123;
+	int m;
+	Node node[100005];
+	int flag0[100005]&#x3D;&#123;0&#125;; &#x2F;&#x2F;记录小于每个位置点阈值的result&#x3D;0的个数 
+	int flag1[100005]&#x3D;&#123;0&#125;; &#x2F;&#x2F;记录大于等于每个位置点阈值的result&#x3D;1的个数  
+	cin&gt;&gt;m;
+	for(int i&#x3D;0;i&lt;m;i++)&#123;
+		cin&gt;&gt;node[i].theta&gt;&gt;node[i].predict;
+	&#125;
+	sort(node,node+m,cmp); &#x2F;&#x2F;输入后排序  	
+	int thetaid&#x3D;0;
+	int max&#x3D;0;
+&#x2F;&#x2F;	记录小于每个位置点阈值的result&#x3D;0的个数
+	for(int i&#x3D;1;i&lt;&#x3D;m;++i)&#123;
+		if(node[i].predict&#x3D;&#x3D;0)&#123;
+			flag0[i]&#x3D;flag0[i-1]+1;
+		&#125;
+		else&#123;
+			flag0[i]&#x3D;flag0[i-1];
+		&#125;	
+	&#125;
+&#x2F;&#x2F;记录大于等于每个位置点阈值的result&#x3D;1的个数 	
+	for(int i&#x3D;m;i&gt;&#x3D;1;--i)&#123;
+		if(node[i].predict&#x3D;&#x3D;1)&#123;
+			flag1[i]&#x3D;flag1[i+1]+1;&#125;
+		else&#123;
+			flag1[i]&#x3D;flag1[i+1];&#125;
+	&#125;	
+
+	for(int i&#x3D;1;i&lt;&#x3D;m;++i)&#123;
+		if(node[i].theta&#x3D;&#x3D;node[i-1].theta)&#123;
+				continue;&#125;
+		if(flag0[i-1]+flag1[i]&gt;&#x3D;max)&#123;
+		max&#x3D;flag0[i-1]+flag1[i];
+		thetaid&#x3D;node[i].theta;&#125;
+	&#125;
+	cout&lt;&lt;thetaid;
+	return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h3 id="202009-1称检测点查询"><a href="#202009-1称检测点查询" class="headerlink" title="202009-1称检测点查询"></a>202009-1称检测点查询</h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
+#include&lt;math.h&gt;
+#include&lt;algorithm&gt; 
+using namespace std;
+
+typedef struct Node&#123;
+	int x;
+	int y;
+	int id;
+	double distance; 
+&#125;Node;
+
+bool cmp (Node a,Node b)&#123;
+	if(a.distance!&#x3D;b.distance)&#123;
+		return a.distance&lt;b.distance;
+	&#125;
+	return a.id&lt;b.id;
+&#125;
+&#x2F;&#x2F;编写sort的排序方法，如果没有，默认从小到大排血 
+
+int main()&#123;
+	int n,x,y;
+	Node node[500];
+	cin&gt;&gt;n&gt;&gt;x&gt;&gt;y;
+	for(int i&#x3D;0;i&lt;n;i++)&#123;
+		cin&gt;&gt;node[i].x&gt;&gt;node[i].y;
+		node[i].id&#x3D;i+1;
+		node[i].distance&#x3D;sqrt((node[i].x-x)*(node[i].x-x)+(node[i].y-y)*(node[i].y-y));
+		
+		 
+	&#125;
+	sort(node,node+n,cmp);
+	for(int i&#x3D;0;i&lt;3;i++)&#123;
+		cout&lt;&lt;node[i].id&lt;&lt;endl;
+	&#125;
+&#125; 
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="202009-2风险人群筛查"><a href="#202009-2风险人群筛查" class="headerlink" title="202009-2风险人群筛查"></a>202009-2风险人群筛查</h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
+using namespace std;
+
+typedef struct Node&#123;
+	int x,y;
+	int through,danger,k;
+&#125;Node; 
+int main()&#123;
+	int t,k,n,x1,y1,x2,y2;
+	int through&#x3D;0,danger&#x3D;0;
+	cin&gt;&gt;t&gt;&gt;k&gt;&gt;n&gt;&gt;x1&gt;&gt;y1&gt;&gt;x2&gt;&gt;y2;
+	for(int i&#x3D;0;i&lt;t;i++)&#123;
+		Node node;
+		node.through&#x3D;0;
+		node.danger&#x3D;0;
+		node.k&#x3D;0;
+		for(int j&#x3D;0;j&lt;n;j++)&#123;
+			int x,y;
+			cin&gt;&gt;x&gt;&gt;y;
+			if(x1&lt;&#x3D;x&amp;&amp;x&lt;&#x3D;x2&amp;&amp;y1&lt;&#x3D;y&amp;&amp;y&lt;&#x3D;y2)&#123;
+				node.through&#x3D;1;
+				node.k+&#x3D;1;
+				if(node.k&#x3D;&#x3D;k)&#123;
+					node.danger&#x3D;1; 	&#125;
+			  &#125;&#x2F;&#x2F;连续k个或更多坐标均位于矩形内（含边界），
+			  &#x2F;&#x2F;则认为该居民曾在高危区域逗留。 
+			else node.k&#x3D;0 ;  
+			&#125; 	
+			through+&#x3D;node.through;
+			danger+&#x3D;node.danger;
+	&#125;		
+	cout&lt;&lt;through&lt;&lt;endl&lt;&lt;danger;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="202006-1线性分类器"><a href="#202006-1线性分类器" class="headerlink" title="202006-1线性分类器"></a>202006-1线性分类器</h3><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">#include&lt;iostream&gt;
+#include&lt;set&gt;
+#include&lt;algorithm&gt; 
+using namespace std; 
+
+typedef struct Node&#123;
+	double x,y;
+	char type;
+&#125;Node;
+
+int main()&#123;
+	int n,m;
+	Node node[1001];
+	cin&gt;&gt;n&gt;&gt;m;
+	for (int i&#x3D;0;i&lt;n;i++)&#123;
+		cin&gt;&gt;node[i].x&gt;&gt;node[i].y&gt;&gt;node[i].type;		
+	&#125;
+	
+	double n0,n1,n2;
+	
+	while(m--)&#123;
+		cin&gt;&gt;n0&gt;&gt;n1&gt;&gt;n2;
+		set&lt;char&gt; up,down;
+		for( int i&#x3D;0;i&lt;n;i++)&#123;
+			if(n0+n1*node[i].x+n2*node[i].y&gt;0)&#123;
+				up.insert(node[i].type);
+			&#125;else &#123;
+		     	down.insert(node[i].type);
+		    &#125;
+		&#125;
+	&#x2F;&#x2F;在set中，size()返回的元素种类的个数，同一种元素即使有很多个，也算一个
+	&#x2F;&#x2F;所以我们可以用来判断分类是否正确，
+	&#x2F;&#x2F;如果set不是同一种元素，即size()的值大于1，则分类错误，反之则正确 
+	if(up.size()&gt;1||down.size()&gt;1)&#123;
+		cout&lt;&lt;&quot;No&quot;&lt;&lt;endl;
+	&#125;
+	else &#123;
+	cout&lt;&lt;&quot;Yes&quot;&lt;&lt;endl;
+    &#125;
+	&#125;	
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="202006-2稀疏向量解法一"><a href="#202006-2稀疏向量解法一" class="headerlink" title="202006-2稀疏向量解法一"></a>202006-2稀疏向量解法一</h3><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">#include&lt;iostream&gt;
+using namespace std;
+int main()&#123;
+	int n,a,b;
+	cin&gt;&gt;n&gt;&gt;a&gt;&gt;b;
+	int index,value;
+	long long result&#x3D;0;
+
+	int *arraya&#x3D;new int[n];
+	int *arrayb&#x3D;new int[n];
+	
+	for(int i&#x3D;0;i&lt;n;i++)&#123;
+		arraya[i]&#x3D;0;
+		arrayb[i]&#x3D;0;
+	&#125;
+	for(int i&#x3D;0;i&lt;a;i++)&#123;
+		cin&gt;&gt;index&gt;&gt;value;
+		arraya[index]&#x3D;value;
+	&#125;
+	for(int j&#x3D;0;j&lt;b;j++)&#123;
+		cin&gt;&gt;index&gt;&gt;value;
+		arrayb[index]&#x3D;value;
+	&#125;
+	for(int k&#x3D;0;k&lt;n;k++)&#123;
+		result+&#x3D;arraya[k]*arrayb[k];	
+	&#125;
+	cout&lt;&lt;result&lt;&lt;endl;	
+	delete [] arraya; 
+	delete [] arrayb; 
+	return 0;
+&#125; <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 
                 
             </div>
