@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="MySQL, moblog">
+    <meta name="keywords" content="Makefile, moblog">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>MySQL | moblog</title>
+    <title>Makefile | moblog</title>
     <link rel="icon" type="image/jpeg" href="/favicon.jpg">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -247,12 +247,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">MySQL</h1>
+                    <h1 class="description center-align post-title">Makefile</h1>
                 </div>
             </div>
         </div>
@@ -368,8 +368,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">
-                                <span class="chip bg-color">数据库</span>
+                            <a href="/tags/Linux/">
+                                <span class="chip bg-color">Linux</span>
                             </a>
                         
                     </div>
@@ -384,7 +384,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-09-30
+                    2021-10-06
                 </div>
                 
 
@@ -408,20 +408,181 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>数据库（Database）</p>
+                <p>Makefile</p>
 <span id="more"></span> 
 
-<p>每个数据库都有一个或多个不同的 API 用于创建，访问，管理，搜索和复制所保存的数据。</p>
-<p>我们也可以将数据存储在文件中，但是在文件中读写数据速度相对较慢。</p>
-<p>所以，现在我们使用关系型数据库管理系统（RDBMS）来存储和管理大数据量。所谓的关系型数据库，是建立在关系模型基础上的数据库，借助于集合代数等数学概念和方法来处理数据库中的数据。</p>
-<p>RDBMS 即关系数据库管理系统(Relational Database Management System)的特点：</p>
-<ul>
-<li>1.数据以表格的形式出现</li>
-<li>2.每行为各种记录名称</li>
-<li>3.每列为记录名称所对应的数据域</li>
-<li>4.许多的行和列组成一张表单</li>
-<li>5.若干的表单组成database</li>
-</ul>
+<h2 id="为什么要使用Makefile"><a href="#为什么要使用Makefile" class="headerlink" title="为什么要使用Makefile"></a>为什么要使用Makefile</h2><pre class="line-numbers language-c" data-language="c"><code class="language-c">mo@mo<span class="token operator">-</span>virtual<span class="token operator">-</span>machine<span class="token operator">:</span><span class="token operator">~</span><span class="token operator">/</span>Operatingsystem<span class="token operator">/</span>helloworld$ vim hello<span class="token punctuation">.</span>cpp
+
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;iostream></span></span>
+using namespace std<span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        cout<span class="token operator">&lt;&lt;</span><span class="token string">"Hello world!"</span><span class="token operator">&lt;&lt;</span>endl<span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">//the first program hello.c</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;stdio.h></span></span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Hello, world!\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p> 在Linux中运行c/c++程序的方式:</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">gcc filename -o filename
+gcc hello.c -o hello
+.&#x2F;hello
+g++ hello.cpp -o hellocpp
+.&#x2F;hellocpp<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这是我们运行一个文件的方式。</p>
+<p>如果说我们有很多这样的程序需要运行，这样运行我们的程序，就会显得十分的繁琐。</p>
+<p>如果我们的一个程序需要调用其他程序文件，我们又应该解决呢？</p>
+<h3 id="运行一个包含头文件的程序"><a href="#运行一个包含头文件的程序" class="headerlink" title="运行一个包含头文件的程序"></a>运行一个包含头文件的程序</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">//main.c program</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">"stdio.h"</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">"max.h"</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">"min.h"</span></span>
+using namespace std
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> array<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">9</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">6</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> n <span class="token operator">=</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>array<span class="token punctuation">)</span><span class="token operator">/</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> max <span class="token operator">=</span> <span class="token function">getmax</span><span class="token punctuation">(</span>array<span class="token punctuation">,</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+   
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"max: =%d\n"</span><span class="token punctuation">,</span>max<span class="token punctuation">)</span><span class="token punctuation">;</span>
+   
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">//max.h program</span>
+<span class="token keyword">int</span> <span class="token function">getmax</span><span class="token punctuation">(</span><span class="token keyword">int</span> array <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token keyword">int</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//max.c propram</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">"max.h"</span></span>
+<span class="token keyword">int</span> <span class="token function">getmax</span><span class="token punctuation">(</span><span class="token keyword">int</span> array <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token keyword">int</span> n<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> maxnum <span class="token operator">=</span> array<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>n<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>array<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">></span>maxnum<span class="token punctuation">)</span>
+            maxnum <span class="token operator">=</span> array<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">return</span> maxnum<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h3 id="Makefile"><a href="#Makefile" class="headerlink" title="Makefile"></a>Makefile</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">
+
+main: main.c max.o
+	gcc main.c max.o -o main
+max.o
+	gcc max.c 
+	<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="运行两个个包含头文件的程序"><a href="#运行两个个包含头文件的程序" class="headerlink" title="运行两个个包含头文件的程序"></a>运行两个个包含头文件的程序</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">//main.c program</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">"stdio.h"</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">"max.h"</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">"min.h"</span></span>
+using namespace std
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+<span class="token keyword">int</span> array<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">9</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">6</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> n <span class="token operator">=</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>array<span class="token punctuation">)</span><span class="token operator">/</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+    <span class="token keyword">int</span> max <span class="token operator">=</span> <span class="token function">getmax</span><span class="token punctuation">(</span>array<span class="token punctuation">,</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> min <span class="token operator">=</span> <span class="token function">getmin</span><span class="token punctuation">(</span>array<span class="token punctuation">,</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"max: =%d\n"</span><span class="token punctuation">,</span>max<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"min: =%d\n"</span><span class="token punctuation">,</span>min<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">//max.h program</span>
+<span class="token keyword">int</span> <span class="token function">getmax</span><span class="token punctuation">(</span><span class="token keyword">int</span> array <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token keyword">int</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//max.c propram</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">"max.h"</span></span>
+<span class="token keyword">int</span> <span class="token function">getmax</span><span class="token punctuation">(</span><span class="token keyword">int</span> array <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token keyword">int</span> n<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> maxnum <span class="token operator">=</span> array<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>n<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>array<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">></span>maxnum<span class="token punctuation">)</span>
+            maxnum <span class="token operator">=</span> array<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">return</span> maxnum<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">//min.h program</span>
+<span class="token keyword">int</span> <span class="token function">getmin</span><span class="token punctuation">(</span><span class="token keyword">int</span> array <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token keyword">int</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">//min.c propram</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">"min.h"</span></span>
+<span class="token keyword">int</span> <span class="token function">getmin</span><span class="token punctuation">(</span><span class="token keyword">int</span> array <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token keyword">int</span> n<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> minnum <span class="token operator">=</span> array<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>n<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>array<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">&lt;</span>minnum<span class="token punctuation">)</span>
+            minnum <span class="token operator">=</span> array<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">return</span> minnum<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h3 id="Makefile-1"><a href="#Makefile-1" class="headerlink" title="Makefile"></a>Makefile</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">
+
+main: main.c max.o
+	gcc main.c max.o min.o -o main
+max.o:
+	gcc max.c 
+min.o:
+	gcc min.c<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="运行完程序后删除可执行文件"><a href="#运行完程序后删除可执行文件" class="headerlink" title="运行完程序后删除可执行文件"></a>运行完程序后删除可执行文件</h3><h3 id="Makefile-2"><a href="#Makefile-2" class="headerlink" title="Makefile"></a>Makefile</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">
+
+main: main.c max.o min.o
+	gcc main.c max.o min.o -o main
+max.o:
+	gcc max.c 
+min.o:
+	gcc min.c
+clean:
+	rm *.o main
+	<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="Makefile-3"><a href="#Makefile-3" class="headerlink" title="Makefile"></a>Makefile</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">CC &#x3D; gcc
+
+main: main.c max.o min.o
+	$(cc) main.c max.o min.o -o main
+max.o
+	$(cc) max.c 
+min.o
+	$(cc) min.c
+clean
+	rm *.o main<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="编译多个含有main函数的程序文件"><a href="#编译多个含有main函数的程序文件" class="headerlink" title="编译多个含有main函数的程序文件"></a>编译多个含有main函数的程序文件</h3><h3 id="Makefile-4"><a href="#Makefile-4" class="headerlink" title="Makefile"></a>Makefile</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">
+cc &#x3D; gcc
+all:hellocpp hello main
+
+hellocpp: hello.cpp
+        g++ hello.cpp -o hellocpp
+
+hello: hello.c
+        $(cc) hello.c -o hello
+main: main.c max.o min.o
+        $(cc) main.c max.o min.o -o main
+max.o:
+        $(cc) -c max.c 
+min.o: 
+        $(cc) -c min.c
+clean:
+        rm *.o hellocpp hello main
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 
                 
             </div>
@@ -436,8 +597,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">
-                                    <span class="chip bg-color">数据库</span>
+                                <a href="/tags/Linux/">
+                                    <span class="chip bg-color">Linux</span>
                                 </a>
                             
                         </div>
@@ -478,29 +639,30 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2021/09/30/Java/">
+                <a href="/2021/10/06/Makefile/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="Java">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="Makefile">
                         
-                        <span class="card-title">Java</span>
+                        <span class="card-title">Makefile</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Java 
+                            Makefile
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-09-30
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-10-06
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -509,11 +671,12 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Java/">
-                        <span class="chip bg-color">Java</span>
+                    <a href="/tags/Linux/">
+                        <span class="chip bg-color">Linux</span>
                     </a>
                     
                 </div>
@@ -527,33 +690,29 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/09/29/Git/">
+                <a href="/2021/09/30/SortingAlgorithm/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="Git">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="SortingAlgorithm">
                         
-                        <span class="card-title">Git</span>
+                        <span class="card-title">SortingAlgorithm</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Git基本命令
+                            Sorting
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-09-29
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-09-30
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/CodeTool/" class="post-category">
-                                    CodeTool
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            moseairius
                             
                         </span>
                     </div>
@@ -561,8 +720,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Git/">
-                        <span class="chip bg-color">Git</span>
+                    <a href="/tags/Sort/">
+                        <span class="chip bg-color">Sort</span>
                     </a>
                     
                 </div>
