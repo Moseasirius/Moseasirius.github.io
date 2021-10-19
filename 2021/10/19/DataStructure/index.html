@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Makefile, moblog">
+    <meta name="keywords" content="DataStructure, moblog">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Makefile | moblog</title>
+    <title>DataStructure | moblog</title>
     <link rel="icon" type="image/jpeg" href="/favicon.jpg">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -247,12 +247,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Makefile</h1>
+                    <h1 class="description center-align post-title">DataStructure</h1>
                 </div>
             </div>
         </div>
@@ -368,8 +368,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Linux/">
-                                <span class="chip bg-color">Linux</span>
+                            <a href="/tags/data-structure/">
+                                <span class="chip bg-color">data structure</span>
                             </a>
                         
                     </div>
@@ -384,7 +384,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-10-06
+                    2021-10-19
                 </div>
                 
 
@@ -408,180 +408,299 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>Makefile</p>
-<span id="more"></span> 
+                <p>Data structure <span id="more"></span></p>
+<p>In computer science, a data structure is a data organization, management, and storage format that enables efficient access and modification. More precisely, a data structure is a collection of data values, the relationships among them, and the functions or operations that can be applied to the data, it is an algebraic structure about data.</p>
+<p>Stack Queue  Array   Linked List   Tree Graph  Heap    Hash table</p>
+<h2 id="Tree"><a href="#Tree" class="headerlink" title="Tree"></a>Tree</h2><p>In computer science, a tree is a widely used abstract data type that simulates a hierarchical tree structure, with a root value and subtrees of children with a parent node, represented as a set of linked nodes.</p>
+<p>A tree data structure can be defined recursively as a collection of nodes, where each node is a data structure consisting of a value and a list of references to nodes. The start of the tree is the “root node” and the reference nodes are the “children”. No reference is duplicated and none points to the root.</p>
+<p>Alternatively, a tree can be defined abstractly as a whole (globally) as an ordered tree, with a value assigned to each node. Both these perspectives are useful: while a tree can be analyzed mathematically as a whole, when actually represented as a data structure it is usually represented and worked with separately by node (rather than as a set of nodes and an adjacency list of edges between nodes, as one may represent a digraph, for instance). For example, looking at a tree as a whole, one can talk about “the parent node” of a given node, but in general, as a data structure, a given node only contains the list of its children but does not contain a reference to its parent (if any).</p>
+<p>在计算机科学中，<strong>树</strong>（英语：tree）是一种抽象数据类型（ADT）或是实现这种抽象数据类型的数据结构，用来模拟具有树状结构性质的数据集合。它是由n（n&gt;0）个有限节点组成一个具有层次关系的集合合。把它叫做“树”是因为它看起来像一棵倒挂的树，也就是说它是根朝上，而叶朝下的。它具有以下的特点：</p>
+<ul>
+<li>每个节点都只有有限个子节点或无子节点；</li>
+<li>没有父节点的节点称为根节点；</li>
+<li>每一个非根节点有且只有一个父节点；</li>
+<li>除了根节点外，每个子节点可以分为多个不相交的子树；</li>
+<li>树里面没有环路(cycle)</li>
+</ul>
+<h3 id="术语"><a href="#术语" class="headerlink" title="术语"></a>术语</h3><ol>
+<li><strong>节点的度</strong>：一个节点含有的子树的个数称为该节点的度；</li>
+<li><strong>树的度</strong>：一棵树中，最大的节点度称为树的度；</li>
+<li><strong>叶节点</strong>或<strong>终端节点</strong>：度为零的节点；</li>
+<li><strong>非终端节点</strong>或<strong>分支节点</strong>：度不为零的节点；</li>
+<li><strong>父亲节点</strong>或<strong>父节点</strong>：若一个节点含有子节点，则这个节点称为其子节点的父节点；</li>
+<li><strong>孩子节点</strong>或<strong>子节点</strong>：一个节点含有的子树的根节点称为该节点的子节点；</li>
+<li><strong>兄弟节点</strong>：具有相同父节点的节点互称为兄弟节点；</li>
+<li>节点的<strong>层次</strong>：从根开始定义起，根为第1层，根的子节点为第2层，以此类推；</li>
+<li><strong>深度</strong>：对于任意节点n,n的深度为从根到n的唯一路径长，根的深度为0；</li>
+<li><strong>高度</strong>：对于任意节点n,n的高度为从n到一片树叶的最长路径长，所有树叶的高度为0；</li>
+<li><strong>堂兄弟节点</strong>：父节点在同一层的节点互为堂兄弟；</li>
+<li><strong>节点的祖先</strong>：从根到该节点所经分支上的所有节点；</li>
+<li><strong>子孙</strong>：以某节点为根的子树中任一节点都称为该节点的子孙。</li>
+<li><strong>森林</strong>：由m（m&gt;=0）棵互不相交的树的集合称为森林；</li>
+</ol>
+<h3 id="树的种类"><a href="#树的种类" class="headerlink" title="树的种类"></a>树的种类</h3><ul>
+<li><p>无序树：树中任意节点的子节点之间没有顺序关系，这种树称为无序树，也称为自由树。</p>
+</li>
+<li><p>有序树：树中任意节点的子节点之间有顺序关系，这种树称为有序树；</p>
+<ul>
+<li><p>二叉树</p>
+<p>：每个节点最多含有两个子树的树称为二叉树；</p>
+<ul>
+<li><p>完全二叉树</p>
+<p>：对于一棵二叉树，假设其深度为d（d&gt;1）。除了第d层外，其它各层的节点数目均已达最大值，且第d层所有节点从左向右连续地紧密排列，这样的二叉树被称为完全二叉树；</p>
+<ul>
+<li>满二叉树：所有叶节点都在最底层的完全二叉树；</li>
+</ul>
+</li>
+<li><p>平衡二叉树（AVL树）：当且仅当任何节点的两棵子树的高度差不大于1的二叉树；</p>
+</li>
+<li><p>排序二叉树(二叉查找树（英语：Binary Search Tree))：也称二叉搜索树、有序二叉树、二分搜索树；</p>
+</li>
+</ul>
+</li>
+<li><p>霍夫曼树：带权路径最短的二叉树称为哈夫曼树或最优二叉树；</p>
+</li>
+<li><p>B树：一种对读写操作进行优化的自平衡的二叉查找树，能够保持数据有序，拥有多于两个子树。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="二分搜索树的前中后序遍历"><a href="#二分搜索树的前中后序遍历" class="headerlink" title="二分搜索树的前中后序遍历"></a>二分搜索树的前中后序遍历</h3><p>关键  递归  递归顺序都是一样的，递归中一个根节点有三次接触机会，根节点的输出的时机不同</p>
+<p>遍历方式的命名 如果把左节点和右节点的位置固定不动，那么根节点放在左节点的左边，称为前序（pre-order）、根节点放在左节点和右节点的中间，称为中序（in-order）、根节点放在右节点的右边，称为后序（post-order）。</p>
+<p><strong>前序遍历 Pre-Order Traversal</strong>(先根遍历 先序遍历)   </p>
+<p> 根结点 —&gt; 左子树 —&gt; 右子树</p>
+<p>先访问当前节点，再依次递归访问左右子树</p>
+<div style="width:50%;margin:auto"><img src="/2021/10/19/DataStructure/Sorted_binary_tree_preorder.png" class> </div>
 
-<h2 id="为什么要使用Makefile"><a href="#为什么要使用Makefile" class="headerlink" title="为什么要使用Makefile"></a>为什么要使用Makefile</h2><pre class="line-numbers language-c" data-language="c"><code class="language-c">mo@mo<span class="token operator">-</span>virtual<span class="token operator">-</span>machine<span class="token operator">:</span><span class="token operator">~</span><span class="token operator">/</span>Operatingsystem<span class="token operator">/</span>helloworld$ vim hello<span class="token punctuation">.</span>cpp
-
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;iostream></span></span>
-using namespace std<span class="token punctuation">;</span>
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-        cout<span class="token operator">&lt;&lt;</span><span class="token string">"Hello world!"</span><span class="token operator">&lt;&lt;</span>endl<span class="token punctuation">;</span>
-        <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">//the first program hello.c</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;stdio.h></span></span>
-
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Hello, world!\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p> 在Linux中运行c/c++程序的方式:</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">gcc filename -o filename
-gcc hello.c -o hello
-.&#x2F;hello
-g++ hello.cpp -o hellocpp
-.&#x2F;hellocpp<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>这是我们运行一个文件的方式。</p>
-<p>如果说我们有很多这样的程序需要运行，这样运行我们的程序，就会显得十分的繁琐。</p>
-<p>如果我们的一个程序需要调用其他程序文件，我们又应该解决呢？</p>
-<h3 id="运行一个包含头文件的程序"><a href="#运行一个包含头文件的程序" class="headerlink" title="运行一个包含头文件的程序"></a>运行一个包含头文件的程序</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">//main.c program</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">"stdio.h"</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">"max.h"</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">"min.h"</span></span>
-using namespace std
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-    <span class="token keyword">int</span> array<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">9</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">6</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> n <span class="token operator">=</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>array<span class="token punctuation">)</span><span class="token operator">/</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> max <span class="token operator">=</span> <span class="token function">getmax</span><span class="token punctuation">(</span>array<span class="token punctuation">,</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
-   
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"max: =%d\n"</span><span class="token punctuation">,</span>max<span class="token punctuation">)</span><span class="token punctuation">;</span>
-   
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">//max.h program</span>
-<span class="token keyword">int</span> <span class="token function">getmax</span><span class="token punctuation">(</span><span class="token keyword">int</span> array <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token keyword">int</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment">//max.c propram</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">"max.h"</span></span>
-<span class="token keyword">int</span> <span class="token function">getmax</span><span class="token punctuation">(</span><span class="token keyword">int</span> array <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token keyword">int</span> n<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-    <span class="token keyword">int</span> maxnum <span class="token operator">=</span> array<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>n<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-        <span class="token keyword">if</span><span class="token punctuation">(</span>array<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">></span>maxnum<span class="token punctuation">)</span>
-            maxnum <span class="token operator">=</span> array<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-    <span class="token keyword">return</span> maxnum<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-<h3 id="Makefile"><a href="#Makefile" class="headerlink" title="Makefile"></a>Makefile</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">
-
-main: main.c max.o
-	gcc main.c max.o -o main
-max.o
-	gcc max.c 
-	<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="运行两个包含头文件的程序"><a href="#运行两个包含头文件的程序" class="headerlink" title="运行两个包含头文件的程序"></a>运行两个包含头文件的程序</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">//main.c program</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">"stdio.h"</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">"max.h"</span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">"min.h"</span></span>
-using namespace std
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-<span class="token keyword">int</span> array<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">9</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">6</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> n <span class="token operator">=</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>array<span class="token punctuation">)</span><span class="token operator">/</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    
-    <span class="token keyword">int</span> max <span class="token operator">=</span> <span class="token function">getmax</span><span class="token punctuation">(</span>array<span class="token punctuation">,</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> min <span class="token operator">=</span> <span class="token function">getmin</span><span class="token punctuation">(</span>array<span class="token punctuation">,</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"max: =%d\n"</span><span class="token punctuation">,</span>max<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"min: =%d\n"</span><span class="token punctuation">,</span>min<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">//max.h program</span>
-<span class="token keyword">int</span> <span class="token function">getmax</span><span class="token punctuation">(</span><span class="token keyword">int</span> array <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token keyword">int</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment">//max.c propram</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">"max.h"</span></span>
-<span class="token keyword">int</span> <span class="token function">getmax</span><span class="token punctuation">(</span><span class="token keyword">int</span> array <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token keyword">int</span> n<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-    <span class="token keyword">int</span> maxnum <span class="token operator">=</span> array<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>n<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-        <span class="token keyword">if</span><span class="token punctuation">(</span>array<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">></span>maxnum<span class="token punctuation">)</span>
-            maxnum <span class="token operator">=</span> array<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-    <span class="token keyword">return</span> maxnum<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>前序遍历：F, B, A, D, C, E, G, I, H.</p>
+<p><strong>中序遍历 In-Order Traversal</strong>  </p>
+<p> 左子树—&gt; 根结点 —&gt; 右子树</p>
+<p>先递归访问左子树，再访问自身，再递归访问右子树</p>
+<p>结果按从小到大输出</p>
+<div style="width:50%;margin:auto"><img src="/2021/10/19/DataStructure/Sorted_binary_tree_inorder.png" class> </div>
 
 
 
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">//min.h program</span>
-<span class="token keyword">int</span> <span class="token function">getmin</span><span class="token punctuation">(</span><span class="token keyword">int</span> array <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token keyword">int</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment">//min.c propram</span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">"min.h"</span></span>
-<span class="token keyword">int</span> <span class="token function">getmin</span><span class="token punctuation">(</span><span class="token keyword">int</span> array <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token keyword">int</span> n<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-    <span class="token keyword">int</span> minnum <span class="token operator">=</span> array<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>n<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-        <span class="token keyword">if</span><span class="token punctuation">(</span>array<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">&lt;</span>minnum<span class="token punctuation">)</span>
-            minnum <span class="token operator">=</span> array<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-    <span class="token keyword">return</span> minnum<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p> 中序遍历：A, B, C, D, E, F, G, H, I.</p>
+<p><strong>后序遍历 Post-Order Traversal</strong> </p>
+<p>左子树 —&gt; 右子树 —&gt; 根结点</p>
+<p>先递归访问左右子树，再访问自身节点</p>
+<p>左右子树都输出完在输出自身节点</p>
+<div style="width:50%;margin:auto"> <img src="/2021/10/19/DataStructure/Sorted_binary_tree_postorder.png" class></div>
+
+<p>后序遍历：A, C, E, D, B, H, I, G, F.</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;queue&gt;
+#include &lt;ctime&gt;
+
+using namespace std;
+
+&#x2F;&#x2F; 二分搜索树
+template &lt;typename Key, typename Value&gt;
+class BST&#123;
+
+private:
+    &#x2F;&#x2F; 树中的节点为私有的结构体, 外界不需要了解二分搜索树节点的具体实现
+    struct Node&#123;
+        Key key;
+        Value value;
+        Node *left;
+        Node *right;
+
+        Node(Key key, Value value)&#123;
+            this-&gt;key &#x3D; key;
+            this-&gt;value &#x3D; value;
+            this-&gt;left &#x3D; this-&gt;right &#x3D; NULL;
+        &#125;
+    &#125;;
+
+    Node *root; &#x2F;&#x2F; 根节点
+    int count;  &#x2F;&#x2F; 树中的节点个数
+
+public:
+    &#x2F;&#x2F; 构造函数, 默认构造一棵空二分搜索树
+    BST()&#123;
+        root &#x3D; NULL;
+        count &#x3D; 0;
+    &#125;
+
+    &#x2F;&#x2F; 析构函数, 释放二分搜索树的所有空间
+    ~BST()&#123;
+        destroy( root );
+    &#125;
+
+    &#x2F;&#x2F; 返回二分搜索树的节点个数
+    int size()&#123;
+        return count;
+    &#125;
+
+    &#x2F;&#x2F; 返回二分搜索树是否为空
+    bool isEmpty()&#123;
+        return count &#x3D;&#x3D; 0;
+    &#125;
+
+    &#x2F;&#x2F; 向二分搜索树中插入一个新的(key, value)数据对
+    void insert(Key key, Value value)&#123;
+        root &#x3D; insert(root, key, value);
+    &#125;
+
+    &#x2F;&#x2F; 查看二分搜索树中是否存在键key
+    bool contain(Key key)&#123;
+        return contain(root, key);
+    &#125;
+
+    &#x2F;&#x2F; 在二分搜索树中搜索键key所对应的值。如果这个值不存在, 则返回NULL
+    Value* search(Key key)&#123;
+        return search( root , key );
+    &#125;
+
+    &#x2F;&#x2F; 二分搜索树的前序遍历
+    void preOrder()&#123;
+        preOrder(root);
+    &#125;
+
+    &#x2F;&#x2F; 二分搜索树的中序遍历
+    void inOrder()&#123;
+        inOrder(root);
+    &#125;
+
+    &#x2F;&#x2F; 二分搜索树的后序遍历
+    void postOrder()&#123;
+        postOrder(root);
+    &#125;
+
+private:
+    &#x2F;&#x2F; 向以node为根的二分搜索树中, 插入节点(key, value), 使用递归算法
+    &#x2F;&#x2F; 返回插入新节点后的二分搜索树的根
+    Node* insert(Node *node, Key key, Value value)&#123;
+
+        if( node &#x3D;&#x3D; NULL )&#123;
+            count ++;
+            return new Node(key, value);
+        &#125;
+
+        if( key &#x3D;&#x3D; node-&gt;key )
+            node-&gt;value &#x3D; value;
+        else if( key &lt; node-&gt;key )
+            node-&gt;left &#x3D; insert( node-&gt;left , key, value);
+        else    &#x2F;&#x2F; key &gt; node-&gt;key
+            node-&gt;right &#x3D; insert( node-&gt;right, key, value);
+
+        return node;
+    &#125;
+
+    &#x2F;&#x2F; 查看以node为根的二分搜索树中是否包含键值为key的节点, 使用递归算法
+    bool contain(Node* node, Key key)&#123;
+
+        if( node &#x3D;&#x3D; NULL )
+            return false;
+
+        if( key &#x3D;&#x3D; node-&gt;key )
+            return true;
+        else if( key &lt; node-&gt;key )
+            return contain( node-&gt;left , key );
+        else &#x2F;&#x2F; key &gt; node-&gt;key
+            return contain( node-&gt;right , key );
+    &#125;
+
+    &#x2F;&#x2F; 在以node为根的二分搜索树中查找key所对应的value, 递归算法
+    &#x2F;&#x2F; 若value不存在, 则返回NULL
+    Value* search(Node* node, Key key)&#123;
+
+        if( node &#x3D;&#x3D; NULL )
+            return NULL;
+
+        if( key &#x3D;&#x3D; node-&gt;key )
+            return &amp;(node-&gt;value);
+        else if( key &lt; node-&gt;key )
+            return search( node-&gt;left , key );
+        else &#x2F;&#x2F; key &gt; node-&gt;key
+            return search( node-&gt;right, key );
+    &#125;
+
+    &#x2F;&#x2F; 对以node为根的二叉搜索树进行前序遍历, 递归算法
+    void preOrder(Node* node)&#123;
+
+        if( node !&#x3D; NULL )&#123;
+            cout&lt;&lt;node-&gt;key&lt;&lt;endl;
+            preOrder(node-&gt;left);
+            preOrder(node-&gt;right);
+        &#125;
+    &#125;
+
+    &#x2F;&#x2F; 对以node为根的二叉搜索树进行中序遍历, 递归算法
+    void inOrder(Node* node)&#123;
+
+        if( node !&#x3D; NULL )&#123;
+            inOrder(node-&gt;left);
+            cout&lt;&lt;node-&gt;key&lt;&lt;endl;
+            inOrder(node-&gt;right);
+        &#125;
+    &#125;
+
+    &#x2F;&#x2F; 对以node为根的二叉搜索树进行后序遍历, 递归算法
+    void postOrder(Node* node)&#123;
+
+        if( node !&#x3D; NULL )&#123;
+            postOrder(node-&gt;left);
+            postOrder(node-&gt;right);
+            cout&lt;&lt;node-&gt;key&lt;&lt;endl;
+        &#125;
+    &#125;
+
+    &#x2F;&#x2F; 释放以node为根的二分搜索树的所有节点
+    &#x2F;&#x2F; 采用后续遍历的递归算法
+    void destroy(Node* node)&#123;
+
+        if( node !&#x3D; NULL )&#123;
+            destroy( node-&gt;left );
+            destroy( node-&gt;right );
+
+            delete node;
+            count --;
+        &#125;
+    &#125;
+&#125;;
 
 
+&#x2F;&#x2F; 测试二分搜索树的前中后序遍历
+int main() &#123;
 
-<h3 id="Makefile-1"><a href="#Makefile-1" class="headerlink" title="Makefile"></a>Makefile</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">
+    srand(time(NULL));
+    BST&lt;int,int&gt; bst &#x3D; BST&lt;int,int&gt;();
 
-main: main.c max.o
-	gcc main.c max.o min.o -o main
-max.o:
-	gcc max.c 
-min.o:
-	gcc min.c<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    &#x2F;&#x2F; 取n个取值范围在[0...m)的随机整数放进二分搜索树中
+    int N &#x3D; 10;
+    int M &#x3D; 100;
+    for( int i &#x3D; 0 ; i &lt; N ; i ++ )&#123;
+        int key &#x3D; rand()%M;
+        &#x2F;&#x2F; 为了后续测试方便,这里value值取和key值一样
+        int value &#x3D; key;
+        cout&lt;&lt;key&lt;&lt;&quot; &quot;;
+        bst.insert(key,value);
+    &#125;
+    cout&lt;&lt;endl;
 
-<h3 id="运行完程序后删除可执行文件"><a href="#运行完程序后删除可执行文件" class="headerlink" title="运行完程序后删除可执行文件"></a>运行完程序后删除可执行文件</h3><h3 id="Makefile-2"><a href="#Makefile-2" class="headerlink" title="Makefile"></a>Makefile</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">
+    &#x2F;&#x2F; 测试二分搜索树的size()
+    cout&lt;&lt;&quot;size: &quot;&lt;&lt;bst.size()&lt;&lt;endl&lt;&lt;endl;
 
-main: main.c max.o min.o
-	gcc main.c max.o min.o -o main
-max.o:
-	gcc max.c 
-min.o:
-	gcc min.c
-clean:
-	rm *.o main
-	<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    &#x2F;&#x2F; 测试二分搜索树的前序遍历 preOrder
+    cout&lt;&lt;&quot;preOrder: &quot;&lt;&lt;endl;
+    bst.preOrder();
+    cout&lt;&lt;endl;
 
-<h3 id="Makefile-3"><a href="#Makefile-3" class="headerlink" title="Makefile"></a>Makefile</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">CC &#x3D; gcc
+    &#x2F;&#x2F; 测试二分搜索树的中序遍历 inOrder
+    cout&lt;&lt;&quot;inOrder: &quot;&lt;&lt;endl;
+    bst.inOrder();
+    cout&lt;&lt;endl;
 
-main: main.c max.o min.o
-	$(cc) main.c max.o min.o -o main
-max.o
-	$(cc) max.c 
-min.o
-	$(cc) min.c
-clean
-	rm *.o main<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    &#x2F;&#x2F; 测试二分搜索树的后序遍历 postOrder
+    cout&lt;&lt;&quot;postOrder: &quot;&lt;&lt;endl;
+    bst.postOrder();
+    cout&lt;&lt;endl;
 
-<h3 id="编译多个含有main函数的程序文件"><a href="#编译多个含有main函数的程序文件" class="headerlink" title="编译多个含有main函数的程序文件"></a>编译多个含有main函数的程序文件</h3><h3 id="Makefile-4"><a href="#Makefile-4" class="headerlink" title="Makefile"></a>Makefile</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">
-cc &#x3D; gcc
-all:hellocpp hello main
-
-hellocpp: hello.cpp
-        g++ hello.cpp -o hellocpp
-
-hello: hello.c
-        $(cc) hello.c -o hello
-main: main.c max.o min.o
-        $(cc) main.c max.o min.o -o main
-max.o:
-        $(cc) -c max.c 
-min.o: 
-        $(cc) -c min.c
-clean:
-        rm *.o hellocpp hello main
-
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
                 
@@ -597,8 +716,8 @@ clean:
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Linux/">
-                                    <span class="chip bg-color">Linux</span>
+                                <a href="/tags/data-structure/">
+                                    <span class="chip bg-color">data structure</span>
                                 </a>
                             
                         </div>
@@ -639,9 +758,10 @@ clean:
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2021/10/19/DataStructure/">
                     <div class="card-image">
@@ -659,9 +779,9 @@ clean:
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-10-19
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-10-19
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -670,6 +790,7 @@ clean:
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -688,24 +809,24 @@ clean:
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/09/30/SortingAlgorithm/">
+                <a href="/2021/10/06/Makefile/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="SortingAlgorithm">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="Makefile">
                         
-                        <span class="card-title">SortingAlgorithm</span>
+                        <span class="card-title">Makefile</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Sorting
+                            Makefile
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-09-30
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-10-06
                             </span>
                         <span class="publish-author">
                             
@@ -718,8 +839,8 @@ clean:
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Sort/">
-                        <span class="chip bg-color">Sort</span>
+                    <a href="/tags/Linux/">
+                        <span class="chip bg-color">Linux</span>
                     </a>
                     
                 </div>
