@@ -411,6 +411,478 @@
                 <p>Sorting</p>
 <span id="more"></span> 
 
+<h1 id="排序算法"><a href="#排序算法" class="headerlink" title="排序算法"></a>排序算法</h1><p>排序算法测试的辅助函数</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">namespace SortTestHelper &#123;
+    &#x2F;&#x2F;生成有n个随机数的数组，每个元素的随机范围为[rangeL,rangeR]
+    &#x2F;&#x2F;这里只是使用int型数组，可以使用template&lt;typename T&gt;
+    int *generateRandomArray(int n, int range_l, int range_r) &#123;
+        int *array &#x3D; new int[n];
+        &#x2F;&#x2F;设置随机数种子
+        srand(time(NULL));
+        for (int i &#x3D; 0; i &lt; n; i++) &#123;
+            array[i] &#x3D; rand() % (range_r - range_l + 1) + range_l;
+        &#125;
+        return array;
+        &#x2F;&#x2F;注意这里申请了内存空间，使用完以后记得释放内存
+    &#125;
+
+    &#x2F;&#x2F;生成一个近乎有序的数组，
+    &#x2F;&#x2F;首先生成一个[0...n-1]的完全有序数组，然后随机交换swapTimes对数据
+    &#x2F;&#x2F;swapTimes定义了数组无序的程度
+    int *generateNearlyOrderedArray(int n, int swapTimes) &#123;
+        int *array &#x3D; new int[n];
+        for (int i &#x3D; 0; i &lt; n; i++) &#123;
+            array[i] &#x3D; i;
+        &#125;
+        srand(time(NULL));
+        for (int i &#x3D; 0; i &lt; swapTimes; i++) &#123;
+            int pos1 &#x3D; rand() % n;&#x2F;&#x2F;交换的位置1
+            int pos2 &#x3D; rand() % n;&#x2F;&#x2F;交换的位置2
+            swap(array[pos1], array[pos2]);
+        &#125;
+        return array;
+        &#x2F;&#x2F;这里申请了内存空间，使用完以后记得释放
+    &#125;
+
+    &#x2F;&#x2F;拷贝数组a中的元素的新的数组，并返回新的数组
+    int *copyArray(int a[], int n) &#123;
+        int *array &#x3D; new int[n];
+        for (int i &#x3D; 0; i &lt; n; i++) &#123;
+            array[i] &#x3D; a[i];
+        &#125;
+        return array;
+        &#x2F;&#x2F;这里申请了内存空间，使用完后记得释放
+    &#125;
+
+    &#x2F;&#x2F;打印数组内容
+    template&lt;typename T&gt;
+    void printArray(T array[], int n) &#123;
+        for (int i &#x3D; 0; i &lt; n; i++) &#123;
+            cout &lt;&lt; array[i] &lt;&lt; &quot; &quot;;
+        &#125;
+        cout &lt;&lt; endl;
+    &#125;
+
+    &#x2F;&#x2F; 判断arr数组是否有序
+    template&lt;typename T&gt;
+    bool isSorted(T arr[], int n) &#123;
+
+        for (int i &#x3D; 0; i &lt; n - 1; i++)
+            if (arr[i] &gt; arr[i + 1])
+                return false;
+
+        return true;
+    &#125;
+     template&lt;typename T&gt;
+    void testSort(const string &amp;sortName, void (*sort)(T [], int), T array[], int n) &#123;
+        clock_t startTime &#x3D; clock();
+        sort(array, n);
+        clock_t endTime &#x3D; clock();
+&#x2F;&#x2F;        cout&lt;&lt;endTime-startTime&lt;&lt;endl;
+&#x2F;&#x2F;        cout&lt;&lt;CLOCKS_PER_SEC&lt;&lt;endl;
+        cout &lt;&lt; sortName &lt;&lt; &quot; &quot; &lt;&lt; double(endTime - startTime) &#x2F; CLOCKS_PER_SEC &lt;&lt; &quot;s&quot; &lt;&lt; endl;
+        &#x2F;&#x2F;CLOCKS_PER_SEC 每秒钟的时钟周期数
+
+        assert(isSorted(array, n));
+&#x2F;&#x2F;        cout&lt;&lt;isSorted(array,n)&lt;&lt;endl;
+        cout &lt;&lt; &quot;############################################################&quot; &lt;&lt; endl;
+        return;
+    &#125;
+
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h2 id="O（n-2"><a href="#O（n-2" class="headerlink" title="O（n^2)"></a>O（n^2)</h2><p>为什么要学习O（n^2)的排序算法</p>
+<p>基础 编码简单，易于实现，是一些简单情景的首选</p>
+<p>在一些特殊情况下，简单的排序算法更有效</p>
+<p>简单的排序算法思想衍生出复杂的排序算法</p>
+<p>作为子过程，改进更加复杂的排序算法</p>
+<h3 id="冒泡排序-Bubble-Sort"><a href="#冒泡排序-Bubble-Sort" class="headerlink" title="冒泡排序 Bubble Sort"></a>冒泡排序 Bubble Sort</h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">template&lt;typename T&gt;
+void BubbleSort(T array, int length) &#123;
+    int i, j;
+    &#x2F;&#x2F;总共需要进行多少次冒泡
+    for (i &#x3D; 0; i &lt; length - 1; i++) &#123;
+        &#x2F;&#x2F;每一次冒泡需要比较的次数
+        for (j &#x3D; 0; j &lt; length - 1 - i; j++) &#123;
+            if (array[j] &gt; array[j + 1]) &#123;
+                &#x2F;&#x2F;比较以后，大的数往后面放
+                swap(array[j], array[j + 1]);
+            &#125;
+        &#125;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h3 id="选择排序-Selection-Sort"><a href="#选择排序-Selection-Sort" class="headerlink" title="选择排序  Selection Sort"></a>选择排序  Selection Sort</h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">template&lt;typename T&gt;
+void SelectionSort(T array[], int length) &#123;
+    &#x2F;&#x2F;总共需要进行多少次选择
+    for (int i &#x3D; 0; i &lt; length - 1; ++i) &#123;
+        int min &#x3D; i;&#x2F;&#x2F;假定每一轮起始的下标对应的值最小，注意这里是下标，往后找到最小值的下标
+        for (int j &#x3D; i + 1; j &lt; length; j++) &#123;
+            if (array[j] &lt; array[min]) &#123;
+                min &#x3D; j;
+            &#125;
+        &#125;
+        swap(array[i], array[min]);
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h3 id="插入排序-Insertion-Sort"><a href="#插入排序-Insertion-Sort" class="headerlink" title="插入排序  Insertion Sort"></a>插入排序  Insertion Sort</h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">template&lt;typename T&gt;
+void InsertionSort(T array[], int length) &#123;
+    &#x2F;&#x2F;假设i前面已经排好序
+    for (int i &#x3D; 1; i &lt; length; i++) &#123;
+        &#x2F;&#x2F;从i往前比较，如果大于或者等于就停止比较，如果小于就交换
+        for (int j &#x3D; i; j &gt; 0 &amp;&amp; array[j - 1] &gt; array[j]; j--)&#x2F;&#x2F;注意这种写法j不能等于0 因为j-1会数组越界，产生错误。
+        &#123;
+            swap(array[j - 1], array[j]);
+        &#125;
+        &#x2F;&#x2F;或者可以写成这样
+&#x2F;&#x2F;        for(int j&#x3D;i;j&gt;&#x3D;0;j--)
+&#x2F;&#x2F;        &#123;
+&#x2F;&#x2F;            if(array[j-1]&gt;array[j])
+&#x2F;&#x2F;                swap(array[j-1],array[j]);
+&#x2F;&#x2F;            else
+&#x2F;&#x2F;                break;&#x2F;&#x2F;之前自己忘记写如果条件不满足break循环，导致一些错误，就是数组元素变为很大的值，可能是数组越界了
+&#x2F;&#x2F;        &#125;
+    &#125;
+&#125;
+
+&#x2F;&#x2F;第一种插入排序交换次数比较多，优化，只需要比较，需要最后一次交换。
+template&lt;typename T&gt;
+void InsertionSort_advance(T array[], int length) &#123;
+    &#x2F;&#x2F;假设i前面已经排好序
+    for (int i &#x3D; 1; i &lt; length; i++) &#123;
+        &#x2F;&#x2F;从i往前比较，如果小于就一直比较，直到大于等于就停止比较
+        int key &#x3D; array[i];
+        int j;
+        for (j &#x3D; i; j &gt;&#x3D; 0 &amp;&amp; array[j - 1] &gt; key; j--)
+            array[j] &#x3D; array[j - 1];
+        array[j] &#x3D; key;&#x2F;&#x2F;这里的array[j]与上一行的array[j]不一样
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h3 id="希尔排序-Shell-Sort"><a href="#希尔排序-Shell-Sort" class="headerlink" title="希尔排序 Shell Sort"></a>希尔排序 Shell Sort</h3><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">template&lt;typename T&gt;
+void ShellSort(T array[], int length) &#123;
+    &#x2F;&#x2F;计算 increment sequence: 1, 4, 13, 40, 121, 364, 1093...
+    int step &#x3D; 1;
+    while (step &lt; length &#x2F; 3)
+        step &#x3D; step * 3 + 1;&#x2F;&#x2F;跳出循环之后，step为increment sequence 的一项，该项大于或等于且最靠近length&#x2F;3
+
+    while (step &gt;&#x3D; 1) &#123;
+        &#x2F;&#x2F;思想就是，按步长分组，每一组按照插入排序思想排序
+        for (int i &#x3D; step; i &lt; length; i++) &#123;
+            &#x2F;&#x2F;插入排序思想
+            for (int j &#x3D; i; j &gt;&#x3D; 0 &amp;&amp; array[j - setp] &gt; array[j]; j--) &#123;
+                swap(array[j - step], array[j]);
+            &#125;
+        &#125;
+        step &#x3D; step &#x2F; 3;&#x2F;&#x2F;步长变小
+    &#125;
+&#125;
+
+void ShellSort_advance(T array[], int length) &#123;
+    &#x2F;&#x2F;计算 increment sequence: 1, 4, 13, 40, 121, 364, 1093...
+    int step &#x3D; 1;
+    while (step &lt; length &#x2F; 3)
+        step &#x3D; step * 3 + 1;&#x2F;&#x2F;跳出循环之后，step为increment sequence 的一项，该项大于或等于且最靠近length&#x2F;3
+    &#x2F;&#x2F;int step &#x3D; length&#x2F;2;&#x2F;&#x2F;可以这样设置步长
+    while (step &gt;&#x3D; 1) &#123;
+        &#x2F;&#x2F;思想就是，按步长分组，每一组按照插入排序思想排序
+        for (int i &#x3D; step; i &lt; length; i++) &#123;
+            &#x2F;&#x2F;插入排序思想
+            int j;
+            int key &#x3D; array[i];
+            for (j &#x3D; i; j &gt;&#x3D; 0 &amp;&amp; array[j - setp] &gt; key; j--) &#123;
+                array[j] &#x3D; array[j - step];
+            &#125;
+            array[j] &#x3D; key;
+        &#125;
+        step &#x3D; step &#x2F; 3;&#x2F;&#x2F;步长变小
+        &#x2F;&#x2F;step&#x3D;step&#x2F;2;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h3 id="归并排序-Merge-Sort"><a href="#归并排序-Merge-Sort" class="headerlink" title="归并排序 Merge Sort"></a>归并排序 Merge Sort</h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;l:left m:middle r:right 使用的是左闭右闭区间[l,r]
+template&lt;typename T&gt;
+&#x2F;&#x2F;__表示私有函数
+void __merge(T array[], int l, int mid, int r) &#123;
+    T aux[r - l + 1];
+    &#x2F;&#x2F;
+    for (int i &#x3D; l; i &lt;&#x3D; r; i++) &#123;
+        aux[i - l] &#x3D; array[i];
+    &#125;
+    &#x2F;&#x2F;初始化，i指向左半部分数组的起始索引位置l,j指向右半部分数组的起始索引位置mid+1
+    int i &#x3D; l, j &#x3D; mid + 1;
+    for (int k &#x3D; l; k &lt;&#x3D; r; k++) &#123;
+        if (i &gt; mid)&#x2F;&#x2F;如果左半部分数组已经处理完毕
+        &#123;
+            array[k] &#x3D; aux[j - l];
+            j++;
+        &#125; else if (j &gt; r)&#x2F;&#x2F;如果右半部分数组已经处理完毕
+        &#123;
+            array[k] &#x3D; aux[i - l];
+            i++;
+        &#125; else if (aux[i - l] &lt; aux[j - l])&#x2F;&#x2F;左半部分索引指的元素小于右半部分索引指的数组的元素
+        &#123;
+            array[k] &#x3D; aux[i - l];
+            i++;
+        &#125; else&#x2F;&#x2F;右半部分索引指的元素小于左半部分数组索引指的元素
+        &#123;
+            array[k] &#x3D; aux[j - l];
+            j++;
+        &#125;
+
+    &#125;
+&#125;
+
+template&lt;typename T&gt;
+&#x2F;&#x2F;__表示私有函数
+void __mergesort(T array[], int l, int r) &#123;
+    if (l &gt;&#x3D; r)
+        return;
+    int mid &#x3D; l + (r - l) &#x2F; 2; &#x2F;&#x2F;等价于(l+r)&#x2F;2 为了防止溢出，如果l和r都很大，两个很大int型的数相加可能会溢出
+    __mergesort(array, l, mid);
+    __mergesort(array, mid + 1, r);
+    __merge(array, l, mid, r);
+&#125;
+
+template&lt;typename T&gt;
+void MergeSort(T array[], int length) &#123;
+    __mergesort(array, 0, length - 1);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="快速排序-Quick-Sort"><a href="#快速排序-Quick-Sort" class="headerlink" title="快速排序  Quick Sort"></a>快速排序  Quick Sort</h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;对array[l,r]进行partition操作
+template&lt;typename T&gt;
+int __partition(T array[], int l, int r) &#123;
+    swap(array[l], array[rand() % (r - l + 1) + l]);&#x2F;&#x2F;[l,r]的任意一个索引
+    T v &#x3D; array[l];
+
+    &#x2F;&#x2F;array[l+1,j]&lt;v array[j+1,i)&gt;v 为什么是开区间 因为当前考察的是第i个元素
+    int j &#x3D; l;
+    for (int i &#x3D; l + 1; i &lt;&#x3D; r; i++) &#123;
+        if (array[i] &lt; v) &#123;
+            swap(array[j + 1], array[i]);
+            j++;
+        &#125;
+    &#125;
+    swap(array[l], array[j]);
+    return j;
+&#125;
+
+&#x2F;&#x2F;对array[l,r]部分进行快速排序
+template&lt;typename T&gt;
+void __quickSort(T array[], int l, int r) &#123;
+    if (l &gt;&#x3D; r)
+        return;
+    int p &#x3D; __partition(array, l, r);
+    __quickSort(array, l, p - 1);
+    __quickSort(array, p + 1, r);
+&#125;
+
+template&lt;typename T&gt;
+void QuickSort(T array[], int n) &#123;
+    srand(time(NULL));
+    __quickSort(array, 0, n - 1);
+&#125;
+
+&#x2F;&#x2F;QuickSort2
+&#x2F;&#x2F;对array[l,r]进行partition操作
+template&lt;typename T&gt;
+int __partition2(T array[], int l, int r) &#123;
+    swap(array[l], array[rand() % (r - l + 1) + l]);&#x2F;&#x2F;[l,r]的任意一个索引
+    T v &#x3D; array[l];
+
+    &#x2F;&#x2F;array[l+1,j]&lt;&#x3D;v array(j+1,i]&gt;&#x3D;v
+    int i &#x3D; l + 1, j &#x3D; r;
+    while (true) &#123;
+        while (i &lt;&#x3D; r &amp;&amp; array[i] &lt; v) i++;
+        while (j &gt;&#x3D; l + 1 &amp;&amp; array[j] &gt; v) j--;
+        if (i &gt; j) break;
+        swap(array[i], array[j]);
+        i++;
+        j--;
+    &#125;
+    swap(array[l], array[j]);
+    return j;
+&#125;
+
+&#x2F;&#x2F;对array[l,r]部分进行快速排序
+template&lt;typename T&gt;
+void __quickSort2(T array[], int l, int r) &#123;
+    if (l &gt;&#x3D; r)
+        return;
+
+    int p &#x3D; __partition2(array, l, r);
+    __quickSort2(array, l, p - 1);
+    __quickSort2(array, p + 1, r);
+&#125;
+
+template&lt;typename T&gt;
+void QuickSort2(T array[], int n) &#123;
+    srand(time(NULL));
+    __quickSort2(array, 0, n - 1);
+&#125;
+
+&#x2F;&#x2F;递归三路快速排序算法
+template&lt;typename T&gt;
+void __quickSort3ways(T array[], int l, int r) &#123;
+    if (l &gt;&#x3D; r)
+        return;
+
+    swap(array[l], array[rand() % (r - l + 1) + l]);&#x2F;&#x2F;[l,r]的任意一个索引
+    T v &#x3D; array[l];
+
+    int lt &#x3D; l; &#x2F;&#x2F;array[l+1,lt]&lt;v
+    int gt &#x3D; r + 1; &#x2F;&#x2F;array[gt,r]&gt;v
+    int i &#x3D; l + 1;&#x2F;&#x2F;array[lt+1,i]&#x3D;&#x3D;v
+
+    while (i &lt; gt) &#123;
+        if (array[i] &lt; v) &#123;
+            swap(array[i], array[lt + 1]);
+            i++;
+            lt++;
+        &#125; else if (array[i] &gt; v) &#123;
+            swap(array[i], array[gt - 1]);
+            gt--;
+        &#125; else&#x2F;&#x2F;array[i]&#x3D;&#x3D;v
+        &#123;
+            i++;
+        &#125;
+    &#125;
+    swap(array[l], array[lt]);
+    __quickSort3ways(array, l, lt - 1);
+    __quickSort3ways(array, gt, r);
+&#125;
+
+template&lt;typename T&gt;
+void QuickSort3ways(T array[], int n) &#123;
+    srand(time(NULL));
+    __quickSort3ways(array, 0, n - 1);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>测试算法的性能</p>
+<p>在特定的数据集上运行的时间</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void test() &#123;
+    int n &#x3D; 10000;
+    &#x2F;&#x2F;测试1，一般测试
+    cout &lt;&lt; &quot;Test for random array ,size&#x3D; &quot; &lt;&lt; n &lt;&lt; &quot;,random range [0,&quot; &lt;&lt; n &lt;&lt; &quot;]&quot; &lt;&lt; endl;
+
+    int *array1 &#x3D; SortTestHelper::generateRandomArray(n, 0, n);
+    int *array2 &#x3D; SortTestHelper::copyArray(array1, n);
+    int *array3 &#x3D; SortTestHelper::copyArray(array1, n);
+    int *array4 &#x3D; SortTestHelper::copyArray(array1, n);
+    int *array5 &#x3D; SortTestHelper::copyArray(array1, n);
+
+    SortTestHelper::testSort(&quot;Bubble Sort&quot;, BubbleSort, array1, n);
+    SortTestHelper::testSort(&quot;Selection Sort&quot;, SelectionSort, array2, n);
+    SortTestHelper::testSort(&quot;Insertion&quot;, InsertionSort, array3, n);
+    SortTestHelper::testSort(&quot;Merge Sort&quot;, MergeSort, array4, n);
+    SortTestHelper::testSort(&quot;Quick Sort&quot;, QuickSort, array5, n);
+
+    delete[] array1;
+    delete[] array2;
+    delete[] array3;
+    delete[] array4;
+    delete[] array5;
+
+    cout &lt;&lt; endl;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="/2021/09/30/SortingAlgorithm/img.png" class>  
+
+<p>排序算法的总结</p>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+</tr>
+</thead>
+</table>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>平均时间复杂度</th>
+<th>原地排序</th>
+<th>额外空间</th>
+<th>稳定性</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>插入排序</td>
+<td>O(n^2)</td>
+<td>是</td>
+<td>O(1)</td>
+<td>是</td>
+</tr>
+<tr>
+<td>归并排序</td>
+<td>O(nlogn)</td>
+<td>不是</td>
+<td>O(n+logn)</td>
+<td>是</td>
+</tr>
+<tr>
+<td>快速排序</td>
+<td>O(nlogn)</td>
+<td>是</td>
+<td>O(logn)</td>
+<td>不是</td>
+</tr>
+<tr>
+<td>堆排序</td>
+<td>O(nlogn)</td>
+<td>不是</td>
+<td>O(1)</td>
+<td>不是</td>
+</tr>
+</tbody></table>
+<p>排序算法的稳定性</p>
+<p>Stable</p>
+<p>稳定排序：相对于相等的元素，在排序后，原来靠前的元素依然靠前。相等元素的相对位置没有发生改变。</p>
+<table>
+<thead>
+<tr>
+<th>4</th>
+<th>3（1）</th>
+<th>2</th>
+<th>3（3）</th>
+<th>1</th>
+<th>5</th>
+<th>3（3）</th>
+<th>6</th>
+</tr>
+</thead>
+</table>
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th>2</th>
+<th>3（1）</th>
+<th>3（2）</th>
+<th>3(3)</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+</tr>
+</thead>
+</table>
+<p>在现实生活中的应用</p>
+<p>学生成绩表原先按姓名的字典序排序，现在在按分数高低排序后，稳定的排序算法就是可以做到，相同分数的学生按姓名的字典序排序。</p>
+<p>稳定性是和具体实现相关的，如果你实现不好，可能会将插入排序和归并排序设计为不稳定的排序</p>
+<p>可以通过自定义比较函数，让排序算法不存在稳定性的问题</p>
+<p>是否存在神秘的排序算法符合所有的最低标准</p>
+
                 
             </div>
             <hr/>
