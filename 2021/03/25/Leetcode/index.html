@@ -409,7 +409,7 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p>坚持 练习 谨慎<span id="more"></span> </p>
-<h3 id="1"><a href="#1" class="headerlink" title="1"></a>1</h3><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">class Solution &#123;
+<h2 id="梦想开始的地方"><a href="#梦想开始的地方" class="headerlink" title="梦想开始的地方"></a>梦想开始的地方</h2><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">class Solution &#123;
 public:
     vector&lt;int&gt; twoSum(vector&lt;int&gt;&amp; nums, int target) &#123;
         vector&lt;int&gt;twos;
@@ -426,6 +426,233 @@ public:
 &#125;;
     
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="1-树"><a href="#1-树" class="headerlink" title="1.树"></a>1.树</h2><p>遍历：安照某种次序吧所有结点都访问一遍</p>
+<p>二叉树的遍历</p>
+<p>二叉树的递归特性</p>
+<p>先序遍历（先根遍历）根左右</p>
+<p>中序遍历（中根遍历）左根右</p>
+<p>后序遍历（后根遍历）左右根</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;**
+ * Definition for a binary tree node.
+ * struct TreeNode &#123;
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) &#123;&#125;
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) &#123;&#125;
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) &#123;&#125;
+ * &#125;;
+ *&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h3 id="94-二叉树的中序遍历（递归）"><a href="#94-二叉树的中序遍历（递归）" class="headerlink" title="94.二叉树的中序遍历（递归）"></a>94.<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/binary-tree-inorder-traversal/">二叉树的中序遍历</a>（递归）</h3><p>给你二叉树的根节点 <code>root</code> ，返回它节点值的 <strong>中序</strong> 遍历。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">
+class Solution &#123;
+public:
+    void inorder(TreeNode* root ,vector&lt;int&gt;&amp; res)&#123;
+        if(!root)&#123;
+            return;
+        &#125;
+        inorder(root-&gt;left,res);
+        res.push_back(root-&gt;val);
+        inorder(root-&gt;right,res);
+    &#125;
+    vector&lt;int&gt; inorderTraversal(TreeNode* root) &#123;
+        vector&lt;int&gt; res;
+        inorder(root,res);
+        return res;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="144-二叉树的前序遍历（递归）"><a href="#144-二叉树的前序遍历（递归）" class="headerlink" title="144.二叉树的前序遍历（递归）"></a>144.<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/binary-tree-preorder-traversal/">二叉树的前序遍历</a>（递归）</h3><p>给你二叉树的根节点 <code>root</code> ，返回它节点值的 <strong>前序</strong> 遍历。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">
+class Solution &#123;
+public:
+    void preorder(TreeNode* root ,vector&lt;int&gt;&amp; res)&#123;
+        if(!root)&#123;
+            return;
+        &#125;
+        res.push_back(root-&gt;val);
+        preorder(root-&gt;left,res);
+        preorder(root-&gt;right,res);
+    &#125;
+    vector&lt;int&gt; preorderTraversal(TreeNode* root) &#123;
+        vector&lt;int&gt; res;
+        preorder(root,res);
+        return res;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="145-二叉树的后序遍历（递归）"><a href="#145-二叉树的后序遍历（递归）" class="headerlink" title="145. 二叉树的后序遍历（递归）"></a>145. <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/binary-tree-postorder-traversal/">二叉树的后序遍历</a>（递归）</h3><p>给你一棵二叉树的根节点 <code>root</code> ，返回其节点值的 <strong>后序遍历</strong> 。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">
+class Solution &#123;
+public:
+    void postorder(TreeNode* root,vector&lt;int&gt;&amp; res)&#123;
+        if(!root)&#123;
+            return;
+        &#125;
+        postorder(root-&gt;left,res);
+        postorder(root-&gt;right,res);
+        res.push_back(root-&gt;val);
+    &#125;
+    vector&lt;int&gt; postorderTraversal(TreeNode* root) &#123;
+        vector&lt;int&gt; res;
+        postorder(root,res);
+        return res;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="110-平衡二叉树"><a href="#110-平衡二叉树" class="headerlink" title="110.平衡二叉树"></a>110.<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/balanced-binary-tree/">平衡二叉树</a></h3><p>给定一个二叉树，判断它是否是高度平衡的二叉树。</p>
+<p>本题中，一棵高度平衡二叉树定义为：</p>
+<blockquote>
+<p>一个二叉树<em>每个节点</em> 的左右两个子树的高度差的绝对值不超过 1 。</p>
+</blockquote>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">
+class Solution &#123;
+   
+public:
+    int height(TreeNode* root)&#123;
+        if(root&#x3D;&#x3D;nullptr)&#123;
+            return 0;
+        &#125;
+        else &#123;
+            return max(height(root-&gt;left),height(root-&gt;right))+1;
+        &#125;
+    &#125;
+    bool isBalanced(TreeNode* root) &#123;
+        if(root&#x3D;&#x3D;nullptr)&#123;
+            return true;
+        &#125;
+        else&#123;
+            return abs(height(root-&gt;left)-height(root-&gt;right))&lt;&#x3D;1&amp;&amp;
+            isBalanced(root-&gt;left)&amp;&amp;isBalanced(root-&gt;right);
+        &#125;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="111-二叉树的最小深度"><a href="#111-二叉树的最小深度" class="headerlink" title="111. 二叉树的最小深度"></a>111.<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/minimum-depth-of-binary-tree/"> 二叉树的最小深度</a></h3><p>深度优先搜索</p>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">
+class Solution &#123;
+public:
+    int minDepth(TreeNode* root) &#123;
+
+    if(root&#x3D;&#x3D;nullptr)&#123;
+            return 0;
+        &#125;
+        if(root-&gt;left&#x3D;&#x3D;nullptr&amp;&amp;root-&gt;right&#x3D;&#x3D;nullptr)&#123;
+            return 1;
+        &#125;
+        int min_depth &#x3D; INT_MAX;
+        if(root-&gt;left!&#x3D;nullptr)&#123;
+            min_depth &#x3D; min(min_depth,minDepth(root-&gt;left));
+        &#125;
+        if(root-&gt;right!&#x3D;nullptr)&#123;
+            min_depth &#x3D; min(min_depth,minDepth(root-&gt;right));
+        &#125;
+        return min_depth+1;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>关键：叶子节点的定义是没有子节点的节点，即左孩子和右孩子都为nullptr时叫做叶子节点，如果只有一个孩子节点为空节点的节点不是叶子节点。</p>
+<p>当root节点左右孩子都为空时，返回1</p>
+<p>当root节点左右孩子有一个为空，一个不为空时，返回不为空的孩子节点的深度</p>
+<p>当root节点左右孩子都不为空时，返回左右孩子较小深度的节点值</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+public:
+    int minDepth(TreeNode* root) &#123;
+        if(root&#x3D;&#x3D;nullptr)
+            return 0;
+        if(root-&gt;left&#x3D;&#x3D;nullptr&amp;&amp;root-&gt;right&#x3D;&#x3D;nullptr)
+            return 1;
+        
+     int ld&#x3D;minDepth(root-&gt;left);
+     int rd&#x3D;minDepth(root-&gt;right);
+
+     if(root-&gt;left&#x3D;&#x3D;nullptr||root-&gt;right&#x3D;&#x3D;nullptr) 
+            return ld+rd+1;
+     return min(ld,rd)+1;
+
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="501-二叉搜索树中的众数"><a href="#501-二叉搜索树中的众数" class="headerlink" title="501. 二叉搜索树中的众数"></a>501.<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/find-mode-in-binary-search-tree/"> 二叉搜索树中的众数</a></h3><p>暴力解法</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">
+class Solution &#123;
+public:
+    void inorder(TreeNode* root ,vector&lt;int&gt;&amp; res)&#123;
+        if(!root)&#123;
+            return;
+        &#125;
+        inorder(root-&gt;left,res);
+        res.push_back(root-&gt;val);
+        inorder(root-&gt;right,res);
+    &#125;
+    bool static cmp(const pair&lt;int, int&gt;&amp; a, const pair&lt;int, int&gt;&amp; b)&#123;
+        return a.second&gt;b.second;
+    &#125;
+    vector&lt;int&gt; findMode(TreeNode* root) &#123;
+        vector&lt;int&gt;res;
+        inorder(root,res);
+        unordered_map &lt;int,int&gt; map;
+        for(int e:res)&#123;
+            map[e]++;
+        &#125;
+        vector&lt;int&gt; result;
+        if (root &#x3D;&#x3D; nullptr) return result;
+        vector&lt;pair&lt;int, int&gt;&gt; vec(map.begin(), map.end());
+        sort(vec.begin(), vec.end(), cmp); 
+        result.push_back(vec[0].first);
+        for (int i &#x3D; 1; i &lt; vec.size(); i++) &#123;
+            if (vec[i].second &#x3D;&#x3D; vec[0].second) result.push_back(vec[i].first);
+            else break;
+        &#125;
+        return result;   
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>利用二叉搜索树的性质</p>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">
+class Solution &#123;
+public:
+    int count;
+    int maxcount;
+    int base;
+    void update(int e,vector&lt;int&gt;&amp; re)&#123;
+        if(e&#x3D;&#x3D;base)&#123;
+            count++;
+        &#125;
+        else&#123;
+            count &#x3D; 1;
+            base &#x3D; e;
+        &#125;
+        if(count&gt;maxcount)&#123;
+            maxcount&#x3D;count;
+            re.clear();
+            re.push_back(e);
+        &#125;
+        else if(count &#x3D;&#x3D; maxcount)&#123;
+            re.push_back(e);
+        &#125;
+    &#125;
+    void inorder(TreeNode* root ,vector&lt;int&gt;&amp; re)&#123;
+        if(!root)&#123;
+            return;
+        &#125;
+        inorder(root-&gt;left,re);
+        &#x2F;&#x2F; res.push_back(root-&gt;val);
+        update(root-&gt;val,re);
+        inorder(root-&gt;right,re);
+    &#125;
+   
+    vector&lt;int&gt; findMode(TreeNode* root) &#123;
+        vector&lt;int&gt; re;
+        if(root&#x3D;&#x3D;nullptr) return re ;
+        inorder(root,re);
+        return re;       
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
                 
@@ -753,7 +980,7 @@ public:
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2021</span>
+                <span id="year">2021-2022</span>
             
             <span id="year">2021</span>
             <a href="/about" target="_blank">moseairius</a>
