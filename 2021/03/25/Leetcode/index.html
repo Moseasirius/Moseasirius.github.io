@@ -409,7 +409,8 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p>坚持 练习 谨慎<span id="more"></span> </p>
-<h2 id="梦想开始的地方"><a href="#梦想开始的地方" class="headerlink" title="梦想开始的地方"></a>梦想开始的地方</h2><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">class Solution &#123;
+<h2 id="梦想开始的地方"><a href="#梦想开始的地方" class="headerlink" title="梦想开始的地方"></a>梦想开始的地方</h2><p>题解来源<a target="_blank" rel="noopener" href="https://leetcode-cn.com/">https://leetcode-cn.com</a> <a target="_blank" rel="noopener" href="https://leetcode.com算法书籍以及自己的思考和/">https://leetcode.com算法书籍以及自己的思考和</a></p>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">class Solution &#123;
 public:
     vector&lt;int&gt; twoSum(vector&lt;int&gt;&amp; nums, int target) &#123;
         vector&lt;int&gt;twos;
@@ -447,7 +448,7 @@ public:
 
 
 
-<h3 id="94-二叉树的中序遍历（递归）"><a href="#94-二叉树的中序遍历（递归）" class="headerlink" title="94.二叉树的中序遍历（递归）"></a>94.<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/binary-tree-inorder-traversal/">二叉树的中序遍历</a>（递归）</h3><p>给你二叉树的根节点 <code>root</code> ，返回它节点值的 <strong>中序</strong> 遍历。</p>
+<h3 id="94-二叉树的中序遍历"><a href="#94-二叉树的中序遍历" class="headerlink" title="94.二叉树的中序遍历"></a>94.<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/binary-tree-inorder-traversal/">二叉树的中序遍历</a></h3><h4 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h4><p>给你二叉树的根节点 <code>root</code> ，返回它节点值的 <strong>中序</strong> 遍历。</p>
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">
 class Solution &#123;
 public:
@@ -466,7 +467,33 @@ public:
     &#125;
 &#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="144-二叉树的前序遍历（递归）"><a href="#144-二叉树的前序遍历（递归）" class="headerlink" title="144.二叉树的前序遍历（递归）"></a>144.<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/binary-tree-preorder-traversal/">二叉树的前序遍历</a>（递归）</h3><p>给你二叉树的根节点 <code>root</code> ，返回它节点值的 <strong>前序</strong> 遍历。</p>
+<h4 id="非递归"><a href="#非递归" class="headerlink" title="非递归"></a>非递归</h4><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+public:
+    vector&lt;int&gt; inorderTraversal(TreeNode* root) &#123;
+        &#x2F;&#x2F;非递归写法
+        vector&lt;int&gt; res;
+        stack&lt;TreeNode*&gt; s;
+        TreeNode* p &#x3D; root;
+        while(p||!s.empty())&#123;
+            if(p)&#123;
+                s.push(p);
+                p&#x3D;p-&gt;left;
+            &#125;
+            else&#123;
+                TreeNode* t &#x3D; s.top();
+                s.pop();
+                res.push_back(t-&gt;val);
+                p&#x3D;t-&gt;right;
+            &#125;
+        &#125;
+        return res;
+
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h3 id="144-二叉树的前序遍历"><a href="#144-二叉树的前序遍历" class="headerlink" title="144.二叉树的前序遍历"></a>144.<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/binary-tree-preorder-traversal/">二叉树的前序遍历</a></h3><h4 id="递归-1"><a href="#递归-1" class="headerlink" title="递归"></a>递归</h4><p>给你二叉树的根节点 <code>root</code> ，返回它节点值的 <strong>前序</strong> 遍历。</p>
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">
 class Solution &#123;
 public:
@@ -485,7 +512,32 @@ public:
     &#125;
 &#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="145-二叉树的后序遍历（递归）"><a href="#145-二叉树的后序遍历（递归）" class="headerlink" title="145. 二叉树的后序遍历（递归）"></a>145. <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/binary-tree-postorder-traversal/">二叉树的后序遍历</a>（递归）</h3><p>给你一棵二叉树的根节点 <code>root</code> ，返回其节点值的 <strong>后序遍历</strong> 。</p>
+<h4 id="非递归-1"><a href="#非递归-1" class="headerlink" title="非递归"></a>非递归</h4><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">class Solution &#123;
+public:
+    vector&lt;int&gt; preorderTraversal(TreeNode* root) &#123;
+
+        stack&lt;TreeNode*&gt; s;
+        vector&lt;int&gt; res;
+        TreeNode* p &#x3D; root;
+        while(p||!s.empty())&#123;
+            if(p)&#123;
+                res.push_back(p-&gt;val);
+                s.push(p);
+                p &#x3D; p-&gt;left;
+            &#125;
+            else&#123;
+                TreeNode* t &#x3D;s.top();
+                s.pop();
+                p&#x3D;t-&gt;right;
+            &#125;
+        &#125;
+        return res;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h3 id="145-二叉树的后序遍历"><a href="#145-二叉树的后序遍历" class="headerlink" title="145. 二叉树的后序遍历"></a>145. <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/binary-tree-postorder-traversal/">二叉树的后序遍历</a></h3><h4 id="递归-2"><a href="#递归-2" class="headerlink" title="递归"></a>递归</h4><p>给你一棵二叉树的根节点 <code>root</code> ，返回其节点值的 <strong>后序遍历</strong> 。</p>
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">
 class Solution &#123;
 public:
@@ -504,7 +556,85 @@ public:
     &#125;
 &#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="110-平衡二叉树"><a href="#110-平衡二叉树" class="headerlink" title="110.平衡二叉树"></a>110.<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/balanced-binary-tree/">平衡二叉树</a></h3><p>给定一个二叉树，判断它是否是高度平衡的二叉树。</p>
+<h4 id="非递归-2"><a href="#非递归-2" class="headerlink" title="非递归"></a>非递归</h4><p>算法思想：</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">     A
+   &#x2F;   \
+  B      C
+ &#x2F; \
+D   E
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>后序非递归遍历二叉树是先访问左子树，再访问右子树,最后访问根节点</p>
+<p>结合上图分析</p>
+<p>①沿着根的左孩子，依次入栈，直到左孩子为空。</p>
+<p>此时栈内元素依次为ABD。</p>
+<p>②读栈顶元素：若其右孩子不为空且未被访问过，将右子树子树转执行①；否则，栈顶元素出栈并访问。</p>
+<p>栈顶D的右孩子为空，出栈并访问，它是后序序列的第一个结点；栈顶B的右孩子不为空且未被访问过，E入栈，栈顶E的左右孩子均为空，出栈并访问；栈顶B的右孩子不为空单以被访问，B出栈并访问；栈顶A的右孩子不为空且未被访问过，C入栈，栈顶C的左右孩子均为空，出栈并访问；栈顶A的右孩子不为空但已被访问，A出栈并访问。由此得到后序序列</p>
+<p>DEBCA</p>
+<p>在第②步中，必须分清楚返回时是从左子树返回还是右子树返回的，因此可以设定一个辅助指针r,指向最近访问过的结点。也可以在结点中增加一个标识域，记录是否已经被访问。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;非递归
+class Solution &#123;
+public:
+    vector&lt;int&gt; postorderTraversal(TreeNode* root) &#123;
+
+        stack&lt;TreeNode*&gt; s;
+        TreeNode* p &#x3D; root;
+        TreeNode* r &#x3D; nullptr;
+        vector&lt;int&gt; res;
+        while(p||!s.empty())&#123;
+            if(p)&#123;&#x2F;&#x2F;走到最左边
+                s.push(p);
+                p&#x3D;p-&gt;left;
+            &#125;
+            else&#123;&#x2F;&#x2F;向右
+                &#x2F;&#x2F;读栈顶元素（非出栈）
+                TreeNode* t1 &#x3D; s.top();
+                &#x2F;&#x2F;若右子树存在，且未被访问过
+                if(t1-&gt;right&amp;&amp;t1-&gt;right!&#x3D;r)
+                    p &#x3D; t1-&gt;right;&#x2F;&#x2F;转向右
+                else&#123;
+                    TreeNode* t2 &#x3D; s.top();
+                    s.pop();
+                    res.push_back(t2-&gt;val);
+                    r&#x3D;t2;&#x2F;&#x2F;记录最近访问过的结点
+                    p &#x3D; nullptr;&#x2F;&#x2F;结点访问完后，重置指针p
+                &#125;
+            &#125;
+        &#125;
+        return res;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h3 id="102-二叉树的层序遍历"><a href="#102-二叉树的层序遍历" class="headerlink" title="102. 二叉树的层序遍历"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/binary-tree-level-order-traversal/">102. 二叉树的层序遍历</a></h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+private:
+    vector&lt;vector&lt;int&gt;&gt; res;
+public:
+    vector&lt;vector&lt;int&gt;&gt; levelOrder(TreeNode* root) &#123;
+
+        queue&lt;TreeNode*&gt; q;
+        if(root!&#x3D;nullptr) q.push(root);
+
+        while(!q.empty())&#123;
+            int n &#x3D; q.size();&#x2F;&#x2F;循环次数
+            vector&lt;int&gt; leval;
+            for(int i&#x3D;0;i&lt;n;i++)&#123;
+                TreeNode *cur &#x3D; q.front();
+                q.pop();
+                leval.push_back(cur-&gt;val);
+                if(cur-&gt;left!&#x3D;nullptr) q.push(cur-&gt;left);
+                if(cur-&gt;right!&#x3D;nullptr) q.push(cur-&gt;right);
+            &#125;
+            res.push_back(leval);
+        &#125;
+        return res;
+        
+
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id><a href="#" class="headerlink" title></a></h3><h3 id="110-平衡二叉树"><a href="#110-平衡二叉树" class="headerlink" title="110.平衡二叉树"></a>110.<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/balanced-binary-tree/">平衡二叉树</a></h3><p>给定一个二叉树，判断它是否是高度平衡的二叉树。</p>
 <p>本题中，一棵高度平衡二叉树定义为：</p>
 <blockquote>
 <p>一个二叉树<em>每个节点</em> 的左右两个子树的高度差的绝对值不超过 1 。</p>
@@ -531,6 +661,59 @@ public:
         &#125;
     &#125;
 &#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="100-相同的树"><a href="#100-相同的树" class="headerlink" title="100. 相同的树"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/same-tree/">100. 相同的树</a></h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">
+class Solution &#123;
+private:
+    
+public:
+    bool isSameTree(TreeNode* p, TreeNode* q) &#123;
+    if(p&#x3D;&#x3D;nullptr&amp;&amp;q&#x3D;&#x3D;nullptr)&#123;
+        return true;
+    &#125;
+    else if((p!&#x3D;nullptr&amp;&amp;q&#x3D;&#x3D;nullptr)||(p&#x3D;&#x3D;nullptr&amp;&amp;q!&#x3D;nullptr))&#123;
+        return false;
+    &#125;
+    else if(p-&gt;val!&#x3D;q-&gt;val)&#123;
+        return false;
+    &#125;
+    else&#123;
+        return isSameTree(p-&gt;left,q-&gt;left)&amp;&amp;isSameTree(p-&gt;right,q-&gt;right);
+    &#125;
+        
+
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="101-对称二叉树"><a href="#101-对称二叉树" class="headerlink" title="101. 对称二叉树"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/symmetric-tree/">101. 对称二叉树</a></h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+private:
+    bool ismirro(TreeNode*Rroot,TreeNode*Lroot)&#123;
+        if(Rroot&#x3D;&#x3D;nullptr&amp;&amp;Lroot&#x3D;&#x3D;nullptr)
+          return true;
+        if(Rroot&#x3D;&#x3D;nullptr||Lroot&#x3D;&#x3D;nullptr)
+          return false;
+        return Rroot-&gt;val &#x3D;&#x3D;Lroot-&gt;val &amp;&amp;ismirro(Rroot-&gt;left,Lroot-&gt;right) 
+        &amp;&amp;ismirro(Rroot-&gt;right,Lroot-&gt;left);
+    &#125;
+public:
+    bool isSymmetric(TreeNode* root) &#123;
+        return ismirro(root,root);
+        
+
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="104-二叉树的最大深度"><a href="#104-二叉树的最大深度" class="headerlink" title="104. 二叉树的最大深度"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/">104. 二叉树的最大深度</a></h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+public:
+    int maxDepth(TreeNode* root) &#123;
+        if(root&#x3D;&#x3D;nullptr)
+          return 0;
+        return max(maxDepth(root-&gt;left),maxDepth(root-&gt;right))+1;
+
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
 
 <h3 id="111-二叉树的最小深度"><a href="#111-二叉树的最小深度" class="headerlink" title="111. 二叉树的最小深度"></a>111.<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/minimum-depth-of-binary-tree/"> 二叉树的最小深度</a></h3><p>深度优先搜索</p>
 <pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">
@@ -653,6 +836,511 @@ public:
         return re;       
     &#125;
 &#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="530-二叉搜索树的最小绝对差"><a href="#530-二叉搜索树的最小绝对差" class="headerlink" title="530. 二叉搜索树的最小绝对差"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/minimum-absolute-difference-in-bst/">530. 二叉搜索树的最小绝对差</a></h3><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">class Solution &#123;
+public:
+    void dfs(TreeNode* root,int&amp; pre,int&amp; ans)&#123;
+        if(root&#x3D;&#x3D;nullptr)&#123;
+            return;
+        &#125;
+        dfs(root-&gt;left,pre,ans);
+        if(pre&#x3D;&#x3D;-1)&#123;
+            pre&#x3D;root-&gt;val;
+        &#125;
+        else&#123;
+            ans &#x3D; min(ans,root-&gt;val-pre);
+            pre&#x3D;root-&gt;val;
+        &#125;
+        dfs(root-&gt;right,pre,ans);
+    &#125;
+    int getMinimumDifference(TreeNode* root) &#123;
+        int ans &#x3D; INT_MAX;
+        int pre&#x3D;-1;
+        dfs(root,pre,ans);
+        return ans;
+
+    &#125;
+&#125;;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="572-另一棵树的子树"><a href="#572-另一棵树的子树" class="headerlink" title="572. 另一棵树的子树"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/subtree-of-another-tree/">572. 另一棵树的子树</a></h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+public:
+    bool check(TreeNode* rt,TreeNode* sub)&#123;
+        if(rt&#x3D;&#x3D;nullptr&amp;&amp;sub&#x3D;&#x3D;nullptr) return true;
+        if((rt&#x3D;&#x3D;nullptr&amp;&amp;sub!&#x3D;nullptr)||(rt!&#x3D;nullptr&amp;&amp;sub&#x3D;&#x3D;nullptr)||rt-&gt;val!&#x3D;sub-&gt;val)&#123;
+            return false;
+        &#125;
+        return check(rt-&gt;left,sub-&gt;left)&amp;&amp;check(rt-&gt;right,sub-&gt;right);
+    &#125;
+    bool dfs(TreeNode* rt,TreeNode* sub)&#123;
+        if(rt&#x3D;&#x3D;nullptr)&#123;
+            return false;
+        &#125;
+        return check(rt,sub)||dfs(rt-&gt;left,sub)||dfs(rt-&gt;right,sub);
+    &#125;
+    bool isSubtree(TreeNode* root, TreeNode* subRoot) &#123;
+        return dfs(root,subRoot);
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="606-根据二叉树创建字符串"><a href="#606-根据二叉树创建字符串" class="headerlink" title="606. 根据二叉树创建字符串"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/construct-string-from-binary-tree/">606. 根据二叉树创建字符串</a></h3><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">class Solution &#123;
+public:
+    string tree2str(TreeNode* root) &#123;
+        &#x2F;&#x2F;递归终止条件
+        if(root&#x3D;&#x3D;nullptr)
+            return &quot;&quot;;
+        &#x2F;&#x2F;左子树和右子树都为空
+        if(root-&gt;left&#x3D;&#x3D;nullptr&amp;&amp;root-&gt;right&#x3D;&#x3D;nullptr)
+            return to_string(root-&gt;val)+&quot;&quot;;
+        &#x2F;&#x2F;只有左子树，右子树为空
+        if(root-&gt;right&#x3D;&#x3D;nullptr)&#123;
+            return  to_string(root-&gt;val)+&quot;(&quot;+tree2str(root-&gt;left)+&quot;)&quot;;
+        &#125;
+        &#x2F;&#x2F;左子树为空，只有右子树
+        &#x2F;&#x2F;左右子树都有
+        return to_string(root-&gt;val)+
+        &quot;(&quot;+tree2str(root-&gt;left)+&quot;)(&quot;+tree2str(root-&gt;right)
+        +&quot;)&quot;;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="108-将有序数组转换为二叉搜索树"><a href="#108-将有序数组转换为二叉搜索树" class="headerlink" title="108. 将有序数组转换为二叉搜索树"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/convert-sorted-array-to-binary-search-tree/">108. 将有序数组转换为二叉搜索树</a></h3><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">class Solution &#123;
+private:
+    TreeNode* helper(vector&lt;int&gt;&amp;nums,int left,int right)&#123;
+        if(left&gt;right)
+            return nullptr;
+        int mid &#x3D; (left+right+1)&#x2F;2;
+        TreeNode* root &#x3D; new TreeNode(nums[mid]);
+        root-&gt;left &#x3D; helper(nums,left,mid-1);
+        root-&gt;right &#x3D; helper(nums,mid+1,right);
+        return root;
+    &#125;
+public:
+    TreeNode* sortedArrayToBST(vector&lt;int&gt;&amp; nums) &#123;
+        return helper(nums,0,nums.size()-1);
+
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="112-路径总和"><a href="#112-路径总和" class="headerlink" title="112. 路径总和"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/path-sum/">112. 路径总和</a></h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+public:
+    bool hasPathSum(TreeNode* root, int targetSum) &#123;
+
+        if(root&#x3D;&#x3D;nullptr)
+           return false;
+        if(root-&gt;left&#x3D;&#x3D;nullptr&amp;&amp;root-&gt;right&#x3D;&#x3D;nullptr)
+           return targetSum&#x3D;&#x3D;root-&gt;val;
+        return hasPathSum(root-&gt;left,targetSum-root-&gt;val)||
+        hasPathSum(root-&gt;right,targetSum-root-&gt;val);
+           
+    &#125;
+&#125;;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="226-翻转二叉树"><a href="#226-翻转二叉树" class="headerlink" title="226. 翻转二叉树"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/invert-binary-tree/">226. 翻转二叉树</a></h3><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">class Solution &#123;
+public:
+    TreeNode* invertTree(TreeNode* root) &#123;
+
+        if(root&#x3D;&#x3D;nullptr)
+            return nullptr;
+        
+        TreeNode* left &#x3D; invertTree(root-&gt;left);
+        TreeNode* right &#x3D; invertTree(root-&gt;right);
+        root-&gt;left &#x3D; right;
+        root-&gt;right &#x3D; left;
+
+        return root;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="235-二叉搜索树的最近公共祖先"><a href="#235-二叉搜索树的最近公共祖先" class="headerlink" title="235. 二叉搜索树的最近公共祖先"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-search-tree/">235. 二叉搜索树的最近公共祖先</a></h3><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">class Solution &#123;
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) &#123;
+        assert(p!&#x3D;NULL&amp;&amp;q!&#x3D;NULL);
+        if(root&#x3D;&#x3D;NULL)
+           return NULL;
+        if(p-&gt;val&lt;root-&gt;val&amp;&amp;q-&gt;val&lt;root-&gt;val)
+           return lowestCommonAncestor(root-&gt;left,p,q);
+        if(p-&gt;val&gt;root-&gt;val&amp;&amp;q-&gt;val&gt;root-&gt;val)
+           return lowestCommonAncestor(root-&gt;right,p,q);
+        
+
+        return root;
+
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h3 id="257-二叉树的所有路径"><a href="#257-二叉树的所有路径" class="headerlink" title="257. 二叉树的所有路径"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/binary-tree-paths/">257. 二叉树的所有路径</a></h3><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">class Solution &#123;
+public:
+    vector&lt;string&gt; binaryTreePaths(TreeNode* root) &#123;
+
+        vector&lt;string&gt; res;
+
+        if(root &#x3D;&#x3D; nullptr)
+           return res;
+        
+        if(root-&gt;left &#x3D;&#x3D; nullptr &amp;&amp;root-&gt;right &#x3D;&#x3D; nullptr)&#123;
+            res.push_back(to_string(root-&gt;val));
+            return res;
+        &#125;
+
+        vector&lt;string&gt; leftS &#x3D; binaryTreePaths(root-&gt;left);
+
+        for(int i&#x3D;0;i&lt;leftS.size();i++)
+            res.push_back(to_string(root-&gt;val)+&quot;-&gt;&quot;+leftS[i]);
+        
+
+        vector&lt;string&gt; rightS &#x3D; binaryTreePaths(root-&gt;right);
+
+        for(int i&#x3D;0;i&lt;rightS.size();i++)
+            res.push_back(to_string(root-&gt;val)+&quot;-&gt;&quot;+rightS[i]);
+            
+        return res;
+
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+
+
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">class Solution &#123;
+
+    int leftLeavesSum&#x3D;0;
+
+    void leftLeaves(TreeNode* root)&#123;
+        if(root&#x3D;&#x3D;nullptr)
+           return ;
+        &#x2F;&#x2F;判断是否是左叶子
+        if(root-&gt;left!&#x3D;nullptr)&#123;
+            if((root-&gt;left)-&gt;left&#x3D;&#x3D;nullptr&amp;&amp;(root-&gt;left)-&gt;right&#x3D;&#x3D;nullptr)&#123;
+                leftLeavesSum+&#x3D;(root-&gt;left)-&gt;val;
+            &#125;
+        &#125;
+        leftLeaves(root-&gt;left);
+        leftLeaves(root-&gt;right);
+    &#125;
+public:
+    int sumOfLeftLeaves(TreeNode* root) &#123;
+
+        leftLeaves(root);
+        return leftLeavesSum;
+
+    &#125;
+&#125;;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h3 id="543-二叉树的直径"><a href="#543-二叉树的直径" class="headerlink" title="543. 二叉树的直径"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/diameter-of-binary-tree/">543. 二叉树的直径</a></h3><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">class Solution &#123;
+private:
+    int ans;
+
+    int deepth(TreeNode* rt)&#123;
+
+        if(rt&#x3D;&#x3D;nullptr)
+           return 0;
+           
+
+        int ldeepth &#x3D; deepth(rt-&gt;left);
+        int rdeepth &#x3D; deepth(rt-&gt;right);
+
+        ans &#x3D; max(ans,ldeepth+rdeepth+1);
+        return max(ldeepth,rdeepth)+1;
+    &#125;
+    
+public:
+    int diameterOfBinaryTree(TreeNode* root) &#123;
+    ans &#x3D;1;
+    deepth(root);
+    return ans-1;
+
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="617-合并二叉树"><a href="#617-合并二叉树" class="headerlink" title="617. 合并二叉树"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/merge-two-binary-trees/">617. 合并二叉树</a></h3><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">class Solution &#123;
+private:
+    TreeNode* merge(TreeNode* root1, TreeNode* root2) &#123;
+        if(root1&#x3D;&#x3D;nullptr) return root2;
+        if(root2&#x3D;&#x3D;nullptr) return root1;
+        TreeNode* newmerge &#x3D; new TreeNode(root1-&gt;val+root2-&gt;val);
+        newmerge-&gt;left &#x3D; merge(root1-&gt;left,root2-&gt;left);
+        newmerge-&gt;right &#x3D; merge(root1-&gt;right,root2-&gt;right);
+
+        return newmerge;
+    &#125;
+
+    
+public:
+    TreeNode* mergeTrees(TreeNode* root1, TreeNode* root2) &#123;
+        return merge(root1,root2);
+
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="700-二叉搜索树中的搜索"><a href="#700-二叉搜索树中的搜索" class="headerlink" title="700. 二叉搜索树中的搜索"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/search-in-a-binary-search-tree/">700. 二叉搜索树中的搜索</a></h3><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">class Solution &#123;
+public:
+    TreeNode *searchBST(TreeNode *root, int val) &#123;
+        if (root &#x3D;&#x3D; nullptr) &#123;
+            return nullptr;
+        &#125;
+        if (val &#x3D;&#x3D; root-&gt;val) &#123;
+            return root;
+        &#125;
+        return searchBST(val &lt; root-&gt;val ? root-&gt;left : root-&gt;right, val);
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h3 id="637-二叉树的层平均值"><a href="#637-二叉树的层平均值" class="headerlink" title="637. 二叉树的层平均值"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/average-of-levels-in-binary-tree/">637. 二叉树的层平均值</a></h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+public:
+    vector&lt;double&gt; averageOfLevels(TreeNode* root) &#123;
+        vector&lt;double&gt; res;
+
+        queue&lt;TreeNode*&gt; q;
+        if(root!&#x3D;nullptr) q.push(root);
+        while(!q.empty())&#123;
+            int n&#x3D;q.size();&#x2F;&#x2F;循环次数
+            double levelSum &#x3D; 0;
+            for(int i&#x3D;0;i&lt;n;i++)&#123;
+                TreeNode* cur &#x3D; q.front();
+                q.pop();
+                levelSum+&#x3D;cur-&gt;val;
+                if(cur-&gt;left!&#x3D;nullptr) q.push(cur-&gt;left);
+                if(cur-&gt;right!&#x3D;nullptr) q.push(cur-&gt;right);
+            &#125;
+            res.push_back((double)levelSum&#x2F;n);
+        &#125;
+        return res;
+
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h3 id="653-两数之和-IV-输入-BST"><a href="#653-两数之和-IV-输入-BST" class="headerlink" title="653. 两数之和 IV - 输入 BST"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/two-sum-iv-input-is-a-bst/">653. 两数之和 IV - 输入 BST</a></h3><p>给定一个二叉搜索树 <code>root</code> 和一个目标结果 <code>k</code>，如果 BST 中存在两个元素且它们的和等于给定的目标结果，则返回 <code>true</code>。</p>
+<p>中序遍历</p>
+<p>双指针</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+public:
+    void preorder(TreeNode* root,vector&lt;int&gt;&amp; res)&#123;
+        if(!root)
+            return;
+        preorder(root-&gt;left,res);
+        res.push_back(root-&gt;val);
+        preorder(root-&gt;right,res);
+    &#125;
+    bool findTarget(TreeNode* root, int k) &#123;
+
+        vector&lt;int&gt; res;
+        preorder(root,res);
+
+        int left&#x3D;0;
+        int right&#x3D;res.size()-1;
+        while(left&lt;right)&#123;
+            if((res[left]+res[right])&#x3D;&#x3D;k)&#123;
+                return true;
+            &#125;
+            if((res[left]+res[right])&gt;k)&#123;
+                right--;
+            &#125;
+            else&#123;
+                left++;
+            &#125;
+        &#125;
+        return false;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="2-动态规划"><a href="#2-动态规划" class="headerlink" title="2.动态规划"></a>2.动态规划</h2><h3 id="53-最大子数组和"><a href="#53-最大子数组和" class="headerlink" title="53. 最大子数组和"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/maximum-subarray/">53. 最大子数组和</a></h3><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">class Solution &#123;
+public:
+    int maxSubArray(vector&lt;int&gt;&amp; nums) &#123;
+
+        int n&#x3D; nums.size();
+     
+        int maxn&#x3D;nums[0],pre&#x3D;0;
+        for(int i&#x3D;0;i&lt;n;i++)&#123;
+              pre &#x3D; max(pre+nums[i],nums[i]);
+              maxn&#x3D;max(maxn,pre);
+        &#125;
+        return maxn;
+
+
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h3 id="70-爬楼梯"><a href="#70-爬楼梯" class="headerlink" title="70. 爬楼梯"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/climbing-stairs/">70. 爬楼梯</a></h3><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">class Solution &#123;
+public:
+    int climbStairs(int n) &#123;
+         int one&#x3D;1;
+         int two&#x3D;2;
+         int resSum&#x3D;0;
+         if(n&#x3D;&#x3D;1) return one;
+         if(n&#x3D;&#x3D;2) return two;
+   
+         for(int i&#x3D;3;i&lt;&#x3D;n;i++)&#123;
+            resSum &#x3D; one+two;
+            one &#x3D; two;
+            two &#x3D; resSum; 
+         &#125;
+          
+        return resSum;
+
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="118-杨辉三角"><a href="#118-杨辉三角" class="headerlink" title="118. 杨辉三角"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/pascals-triangle/">118. 杨辉三角</a></h3><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">class Solution &#123;
+public:
+    vector&lt;vector&lt;int&gt;&gt; generate(int numRows) &#123;
+        vector&lt;vector&lt;int&gt;&gt; res;
+        if(numRows&#x3D;&#x3D;1) return &#123;&#123;1&#125;&#125;;
+        if(numRows&#x3D;&#x3D;2) return &#123;&#123;1&#125;,&#123;1,1&#125;&#125;;
+        res.push_back(vector&lt;int&gt;&#123;1&#125;);
+        vector&lt;int&gt;s;
+        s.push_back(1);
+        s.push_back(1);
+        res.push_back(s);
+        for(int i&#x3D;3;i&lt;&#x3D;numRows;i++)&#123;
+            vector&lt;int&gt; t;
+            t.push_back(1);
+            vector&lt;int&gt; rt&#x3D;res.back();
+            for(int j&#x3D;0;j&lt;rt.size()-1;j++)&#123;
+                t.push_back(rt[j]+rt[j+1]);
+            &#125;
+            t.push_back(1);
+            res.push_back(t);
+        &#125;
+        return res;
+
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+public:
+    vector&lt;vector&lt;int&gt;&gt; generate(int numRows) &#123;
+        
+        vector&lt;vector&lt;int&gt;&gt;res(numRows);
+        for(int i&#x3D;0;i&lt;numRows;i++)&#123;
+            res[i].resize(i+1);
+            res[i][0]&#x3D;res[i][i]&#x3D;1;
+            for(int j&#x3D;1;j&lt;i;j++)&#123;
+                res[i][j]&#x3D;res[i-1][j]+res[i-1][j-1];
+            &#125;
+        &#125;
+        return res;
+
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h3 id="119-杨辉三角-II"><a href="#119-杨辉三角-II" class="headerlink" title="119. 杨辉三角 II"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/pascals-triangle-ii/">119. 杨辉三角 II</a></h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+public:
+    vector&lt;int&gt; getRow(int rowIndex) &#123;
+        vector&lt;vector&lt;int&gt;&gt; res;
+        if(rowIndex&#x3D;&#x3D;0) return &#123;1&#125;;
+        if(rowIndex&#x3D;&#x3D;1) return &#123;1,1&#125;;
+        res.push_back(vector&lt;int&gt;&#123;1&#125;);
+        vector&lt;int&gt;s;
+        s.push_back(1);
+        s.push_back(1);
+        res.push_back(s);
+        for(int i&#x3D;3;i&lt;&#x3D;rowIndex+1;i++)&#123;
+            vector&lt;int&gt; t;
+            t.push_back(1);
+            vector&lt;int&gt; rt&#x3D;res.back();
+            for(int j&#x3D;0;j&lt;rt.size()-1;j++)&#123;
+                t.push_back(rt[j]+rt[j+1]);
+            &#125;
+            t.push_back(1);
+            res.push_back(t);
+        &#125;
+        return res[rowIndex];
+
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+public:
+    vector&lt;int&gt; getRow(int rowIndex) &#123;
+        vector&lt;int&gt; res(rowIndex+1);
+        res[0]&#x3D;1;
+        for(int i&#x3D;1;i&lt;&#x3D;rowIndex;i++)&#123;
+            for(int j&#x3D;i;j&gt;0;j--)&#123;
+                res[j]+&#x3D;res[j-1];
+            &#125;
+        &#125;
+        return res;
+       
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h3 id="121-买卖股票的最佳时机"><a href="#121-买卖股票的最佳时机" class="headerlink" title="121. 买卖股票的最佳时机"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/">121. 买卖股票的最佳时机</a></h3><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">class Solution &#123;
+public:
+    int maxProfit(vector&lt;int&gt;&amp; prices) &#123;
+
+        int minprices &#x3D; prices[0];
+        int maxprofit &#x3D; 0;
+       
+        for(int i&#x3D;1;i&lt;prices.size();i++)&#123;
+            minprices&#x3D;min(minprices,prices[i]);
+            maxprofit &#x3D; max(maxprofit,prices[i]-minprices);
+        &#125;
+        return maxprofit;
+
+
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="338-比特位计数"><a href="#338-比特位计数" class="headerlink" title="338. 比特位计数"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/counting-bits/">338. 比特位计数</a></h3><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">class Solution &#123;
+
+private:
+     int countOnes(int x)&#123;
+         int count&#x3D;0;
+         while(x!&#x3D;0)&#123;
+             x&amp;&#x3D;(x-1);
+             count++;
+         &#125;
+         return count;
+     &#125;
+
+public:
+    vector&lt;int&gt; countBits(int n) &#123;
+        vector&lt;int&gt; record(n+1);
+        for(int i&#x3D;0;i&lt;&#x3D;n;i++)&#123;
+            record[i]&#x3D;countOnes(i);
+        &#125;
+        return record;
+
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="392-判断子序列"><a href="#392-判断子序列" class="headerlink" title="392. 判断子序列"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/is-subsequence/">392. 判断子序列</a></h3><p>万物皆可DP</p>
+<p>双指针更加快，而且容易理解</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution &#123;
+public:
+    bool isSubsequence(string s, string t) &#123;
+
+        int sl &#x3D; s.size();
+        int tl &#x3D; t.size();
+        int i&#x3D;0,j&#x3D;0;
+        while(i&lt;sl&amp;&amp;j&lt;tl)&#123;
+            if(s[i]&#x3D;&#x3D;t[j])&#123;
+                i++;
+            &#125;
+            j++;
+        &#125;
+        return i&#x3D;&#x3D;sl;
+
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
                 
