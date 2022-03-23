@@ -1,0 +1,1798 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Dijkstra, moblog">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Dijkstra | moblog</title>
+    <link rel="icon" type="image/jpeg" href="/favicon.jpg">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.jpg" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">moblog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.jpg" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">moblog</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Dijkstra</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E7%AE%97%E6%B3%95/">
+                                <span class="chip bg-color">最短路径算法</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-03-23
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>最短路径算法</p>
+<span id="more"></span> 
+
+<p>无权图的最短路径</p>
+<p>带权图的最短路径</p>
+<p>Dijkstra单源最短路径算法</p>
+<p>前提：图中不能有负权边</p>
+<p>图1</p>
+<p>testG1.txt</p>
+<pre class="line-numbers language-none"><code class="language-none">5 8
+0 1 5
+0 2 2
+0 3 6
+1 4 1
+2 1 1
+2 4 5
+2 3 3
+3 4 2
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>读图的类</p>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">&#x2F;&#x2F;
+&#x2F;&#x2F; Created by mozhenhai on 2021&#x2F;8&#x2F;4.
+&#x2F;&#x2F;
+
+#ifndef SHORTESTPATH_READGRAPH_H
+#define SHORTESTPATH_READGRAPH_H
+
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;fstream&gt;
+#include &lt;sstream&gt;
+#include &lt;cassert&gt;
+
+using namespace std;
+
+template&lt;typename Graph, typename Weight&gt;
+
+
+&#x2F;&#x2F; 读取图算法
+class ReadGraph &#123;
+
+public:
+    &#x2F;&#x2F; 从文件filename中读取图的信息, 存储进图graph中
+    ReadGraph(Graph &amp;graph, const string &amp;filename) &#123;
+        ifstream file(filename);
+        string line;
+        int V, E;
+
+        assert(file.is_open());
+
+        &#x2F;&#x2F; 第一行读取图中的节点个数和边的个数
+        assert(getline(file, line));
+
+
+        stringstream ss(line);
+        ss &gt;&gt; V &gt;&gt; E;
+
+        &#x2F;&#x2F; 读取每一条边的信息
+        for (int i &#x3D; 0; i &lt; E; i++) &#123;
+            assert(getline(file, line));
+            stringstream ss(line);
+            int a, b;
+            Weight w;
+            ss &gt;&gt; a &gt;&gt; b &gt;&gt; w;
+            assert(a &gt;&#x3D; 0 &amp;&amp; a &lt; V);
+            assert(b &gt;&#x3D; 0 &amp;&amp; b &lt; V);
+            graph.addEdge(a, b, w);
+        &#125;
+
+    &#125;
+&#125;;
+
+#endif &#x2F;&#x2F;SHORTESTPATH_READGRAPH_H
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>边类</p>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">&#x2F;&#x2F;
+&#x2F;&#x2F; Created by mozhenhai on 2021&#x2F;8&#x2F;4.
+&#x2F;&#x2F;
+
+#ifndef SHORTESTPATH_EDGE_H
+#define SHORTESTPATH_EDGE_H
+
+#include &lt;iostream&gt;
+#include &lt;cassert&gt;
+
+using namespace std;
+
+template&lt;typename Weight&gt;
+
+class Edge &#123;
+
+private:
+    int a, b;      &#x2F;&#x2F;边的两个端点
+    Weight weight;&#x2F;&#x2F;边的权值
+
+public:
+    Edge(int a, int b, Weight weight) &#123;
+        this-&gt;a &#x3D; a;
+        this-&gt;b &#x3D; b;
+        this-&gt;weight &#x3D; weight;
+    &#125;
+
+    Edge() &#123;&#125;
+
+    ~Edge() &#123;&#125;
+
+    int v() &#123;
+        return a;
+    &#125;
+
+    int w() &#123;
+        return b;
+    &#125;
+
+    Weight wt() &#123;
+        return weight;
+    &#125;
+
+    int other(int x) &#123;
+        assert(x &#x3D;&#x3D; a || x &#x3D;&#x3D; b);
+        return x &#x3D;&#x3D; a ? b : a;
+    &#125;
+
+    &#x2F;&#x2F;重载
+    friend ostream &amp;operator&lt;&lt;(ostream &amp;os, const Edge &amp;e) &#123;
+        os &lt;&lt; e.a &lt;&lt; &quot;-&quot; &lt;&lt; e.b &lt;&lt; &quot;: &quot; &lt;&lt; e.weight;
+        return os;
+    &#125;
+
+    &#x2F;&#x2F;比较运算符重载
+    bool operator&lt;(Edge&lt;Weight&gt; &amp;e) &#123;
+        return weight &lt; e.wt();
+    &#125;
+
+    bool operator&lt;&#x3D;(Edge&lt;Weight&gt; &amp;e) &#123;
+        return weight &lt;&#x3D; e.wt();
+    &#125;
+
+    bool operator&gt;(Edge&lt;Weight&gt; &amp;e) &#123;
+        return weight &gt; e.wt();
+    &#125;
+
+    bool operator&gt;&#x3D;(Edge&lt;Weight&gt; &amp;e) &#123;
+        return weight &gt;&#x3D; e.wt();
+    &#125;
+
+    bool operator&#x3D;&#x3D;(Edge&lt;Weight&gt; &amp;e) &#123;
+        return weight &#x3D;&#x3D; e.wt();
+    &#125;
+&#125;;
+
+#endif &#x2F;&#x2F;SHORTESTPATH_EDGE_H
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>稀疏图类</p>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">&#x2F;&#x2F;
+&#x2F;&#x2F; Created by mozhenhai on 2021&#x2F;8&#x2F;4.
+&#x2F;&#x2F;
+
+#ifndef SHORTESTPATH_SPARSEGRAPH_H
+#define SHORTESTPATH_SPARSEGRAPH_H
+
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;cassert&gt;
+#include &quot;Edge.h&quot;
+
+
+&#x2F;&#x2F; 稀疏图 - 邻接表
+template&lt;typename Weight&gt;
+class SparseGraph &#123;
+
+private:
+    int n;&#x2F;&#x2F;点的个数
+    int m;&#x2F;&#x2F;边的个数
+    bool directed; &#x2F;&#x2F;是否为有向图
+
+    vector&lt;vector&lt;Edge&lt;Weight&gt; *&gt;&gt; g; &#x2F;&#x2F; 图的具体数据
+
+
+
+public:
+    &#x2F;&#x2F;构造函数
+    SparseGraph(int n, bool directed) &#123;
+        assert(n &gt;&#x3D; 0);
+        this-&gt;n &#x3D; n;
+        this-&gt;m &#x3D; 0;
+        this-&gt;directed &#x3D; directed;&#x2F;&#x2F; 初始化没有任何边
+        &#x2F;&#x2F; g初始化为n个空的vector, 表示每一个g[i]都为空, 即没有任和边
+        g &#x3D; vector&lt;vector&lt;Edge&lt;Weight&gt; *&gt;&gt;(n, vector&lt;Edge&lt;Weight&gt; *&gt;());
+    &#125;
+
+    &#x2F;&#x2F;析构函数
+    ~SparseGraph() &#123;
+        for (int i &#x3D; 0; i &lt; n; i++)
+            for (int j &#x3D; 0; j &lt; g[i].size(); j++)
+                double g[i][j];
+
+    &#125;
+
+    int V() &#123;
+        return n;&#x2F;&#x2F;返回点的个数
+    &#125;
+
+    int E() &#123;
+        return m;&#x2F;&#x2F;返回边的个数
+    &#125;
+
+    &#x2F;&#x2F;向图中添加一个边
+    void addEdge(int v, int w, Weight weight) &#123;
+        assert(v &gt;&#x3D; 0 &amp;&amp; v &lt; n);
+        assert(w &gt;&#x3D; 0 &amp;&amp; w &lt; n);
+&#x2F;&#x2F;
+&#x2F;&#x2F;        if(hasEdge(v,w))
+&#x2F;&#x2F;            return;
+
+        g[v].push_back(new Edge&lt;Weight&gt;(v, w, weight));
+        if (v !&#x3D; w &amp;&amp; !directed)
+            g[w].push_back(new Edge&lt;Weight&gt;(w, v, weight));
+        m++;
+
+    &#125;
+
+    &#x2F;&#x2F;验证图中是否有从v到w的边
+    bool hasEdge(int v, int w) &#123;
+        assert(v &gt;&#x3D; 0 &amp;&amp; v &lt; n);
+        assert(w &gt;&#x3D; 0 &amp;&amp; w &lt; n);
+        for (int i &#x3D; 0; i &lt; g[v].size(); i++) &#123;
+            if (g[v][i]-&gt;other(v) &#x3D;&#x3D; w)
+                return true;
+        &#125;
+        return false;
+    &#125;
+
+    void show() &#123;
+        for (int i &#x3D; 0; i &lt; n; i++) &#123;
+            cout &lt;&lt; &quot;vertex &quot; &lt;&lt; i &lt;&lt; &quot;:\t&quot;;
+            for (int j &#x3D; 0; j &lt; g[i].size(); j++) &#123;
+                cout &lt;&lt; &quot;(to:&quot; &lt;&lt; g[i][j]-&gt;w() &lt;&lt; &quot;,wt:&quot; &lt;&lt; g[i][j]-&gt;wt() &lt;&lt; &quot;)\t&quot;;
+            &#125;
+            cout &lt;&lt; endl;
+        &#125;
+    &#125;
+
+    &#x2F;&#x2F; 邻边迭代器, 传入一个图和一个顶点,
+    &#x2F;&#x2F; 迭代在这个图中和这个顶点向连的所有顶点
+    class adjIterator &#123;
+
+    private:
+        SparseGraph &amp;G; &#x2F;&#x2F; 图G的引用
+        int v;
+        int index;
+    public:
+        &#x2F;&#x2F;构造函数
+        adjIterator(SparseGraph &amp;graph, int v) : G(graph) &#123;
+            this-&gt;v &#x3D; v;
+            this-&gt;index &#x3D; 0;
+        &#125;
+
+        &#x2F;&#x2F;析构函数
+        ~adjIterator() &#123;&#125;
+
+        &#x2F;&#x2F; 返回图G中与顶点v相连接的第一个顶点
+        &#x2F;&#x2F; 若没有顶点和v相连接, 则返回-1
+        Edge&lt;Weight&gt; *begin() &#123;
+            index &#x3D; 0;
+            if (G.g[v].size())
+                return G.g[v][index];
+            return NULL;
+        &#125;
+
+        &#x2F;&#x2F; 返回图G中与顶点v相连接的下一个顶点
+        Edge&lt;Weight&gt; *next() &#123;
+            index++;
+            if (index &lt; G.g[v].size())
+                return G.g[v][index];
+            &#x2F;&#x2F; 若没有顶点和v相连接, 则返回-1
+            return NULL;
+        &#125;
+
+        &#x2F;&#x2F; 查看是否已经迭代完了图G中与顶点v相连接的所有顶点
+        bool end() &#123;
+            return index &gt;&#x3D; G.g[v].size();
+        &#125;
+
+
+    &#125;;
+&#125;;
+
+#endif &#x2F;&#x2F;SHORTESTPATH_SPARSEGRAPH_H
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p>稠密图类</p>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">&#x2F;&#x2F;
+&#x2F;&#x2F; Created by mozhenhai on 2021&#x2F;8&#x2F;4.
+&#x2F;&#x2F;
+
+#ifndef SHORTESTPATH_DENSEGRAPH_H
+#define SHORTESTPATH_DENSEGRAPH_H
+
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;cassert&gt;
+#include &quot;Edge.h&quot;
+
+using namespace std;
+
+&#x2F;&#x2F; 稠密图 - 邻接矩阵
+template&lt;typename Weight&gt;
+
+class DenseGraph &#123;
+private:
+    int n, m;&#x2F;&#x2F;n顶点 m 边
+    bool directed;&#x2F;&#x2F; 是否为有向图
+    vector&lt;vector&lt;Edge&lt;Weight&gt; *&gt;&gt; g;&#x2F;&#x2F; 图的具体数据 为什么存指针，为了方便表达空这个概念
+public:
+    &#x2F;&#x2F;构造函数
+    DenseGraph(int n, bool directed) &#123;
+        assert(n &gt;&#x3D; 0);
+        this-&gt;n &#x3D; n;
+        this-&gt;m &#x3D; 0;&#x2F;&#x2F; 初始化没有任何边
+        this-&gt;directed &#x3D; directed;
+        &#x2F;&#x2F; g初始化为n*n的矩阵, 每一个g[i][j]指向一个边的信息, 初始化为NULL
+
+        g &#x3D; vector&lt;vector&lt;Edge&lt;Weight&gt; *&gt;&gt;(n, vector&lt;Edge&lt;Weight&gt; *&gt;(n, NULL));
+    &#125;
+
+    &#x2F;&#x2F;析构函数
+    ~DenseGraph() &#123;
+        for (int i &#x3D; 0; i &lt; n; i++)
+            for (int j &#x3D; 0; j &lt; n; j++)
+                if (g[i][j] !&#x3D; NULL)
+                    delete g[i][j];
+
+
+    &#125;
+
+    int V() &#123;
+        return n;&#x2F;&#x2F;返回节点个数
+    &#125;
+
+    int E() &#123;
+        return m;&#x2F;&#x2F;返回边的个数
+    &#125;
+
+    &#x2F;&#x2F;向图中添加一个边
+    void addEdge(int v, int w, Weight weight) &#123;
+        assert(v &gt;&#x3D; 0 &amp;&amp; v &lt; n);
+        assert(w &gt;&#x3D; 0 &amp;&amp; w &lt; n);
+
+        &#x2F;&#x2F;覆盖 如果从v到w已经有边, 删除这条边
+        if (hasEdge(v, w)) &#123;
+            delete g[v][w];
+            if (!directed)
+                delete g[w][v];
+            m--;
+        &#125;
+
+        g[v][w] &#x3D; new Edge&lt;Weight&gt;(v, w, weight);
+        if (!directed)
+            g[w][v] &#x3D; new Edge&lt;Weight&gt;(w, v, weight);
+        m++;
+    &#125;
+
+    &#x2F;&#x2F;验证图中是否有从v到w的边
+    bool hasEdge(int v, int w) &#123;
+        assert(v &gt;&#x3D; 0 &amp;&amp; v &lt; n);
+        assert(w &gt;&#x3D; 0 &amp;&amp; w &lt; n);
+        return g[v][w] !&#x3D; NULL;
+    &#125;
+
+    void show() &#123;
+        for (int i &#x3D; 0; i &lt; n; i++) &#123;
+            for (int j &#x3D; 0; j &lt; n; j++)
+                if (g[i][j])
+                    cout &lt;&lt; g[i][j]-&gt;wt() &lt;&lt; &quot;\t&quot;;
+                else
+                    cout &lt;&lt; &quot;NULL\t&quot;;
+            cout &lt;&lt; endl;
+        &#125;
+    &#125;
+
+    &#x2F;&#x2F; 邻边迭代器, 传入一个图和一个顶点,
+    &#x2F;&#x2F; 迭代在这个图中和这个顶点向连的所有顶点
+    class adjIterator &#123;
+    private:
+        DenseGraph &amp;G;  &#x2F;&#x2F; 图G的引用
+        int v;
+        int index;
+
+    public:
+        &#x2F;&#x2F; 构造函数
+        adjIterator(DenseGraph &amp;graph, int v) : G(graph) &#123;
+            assert(v &gt;&#x3D; 0 &amp;&amp; v &lt; G.n);
+            this-&gt;v &#x3D; v;
+            this-&gt;index &#x3D; -1;   &#x2F;&#x2F; 索引从-1开始, 因为每次遍历都需要调用一次next()
+        &#125;
+
+        ~adjIterator() &#123;&#125;
+
+        &#x2F;&#x2F; 返回图G中与顶点v相连接的第一个顶点
+        Edge&lt;Weight&gt; *begin() &#123;
+
+            &#x2F;&#x2F; 索引从-1开始, 因为每次遍历都需要调用一次next()
+            index &#x3D; -1;
+            return next();
+        &#125;
+
+        &#x2F;&#x2F; 返回图G中与顶点v相连接的下一个顶点
+        Edge&lt;Weight&gt; *next() &#123;
+
+            &#x2F;&#x2F; 从当前index开始向后搜索, 直到找到一个g[v][index]为true
+            for (index +&#x3D; 1; index &lt; G.V(); index++)
+                if (G.g[v][index])
+                    return index;
+            &#x2F;&#x2F; 若没有顶点和v相连接, 则返回-1
+            return NULL;
+        &#125;
+
+        &#x2F;&#x2F; 查看是否已经迭代完了图G中与顶点v相连接的所有顶点
+        bool end() &#123;
+            return index &gt;&#x3D; G.V();
+        &#125;
+    &#125;;
+&#125;;
+
+#endif &#x2F;&#x2F;SHORTESTPATH_DENSEGRAPH_H
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>最小索引堆</p>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">&#x2F;&#x2F;
+&#x2F;&#x2F; Created by mozhenhai on 2021&#x2F;8&#x2F;4.
+&#x2F;&#x2F;
+
+#ifndef SHORTESTPATH_INDEXMINHEAP_H
+#define SHORTESTPATH_INDEXMINHEAP_H
+
+#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+#include &lt;cassert&gt;
+
+using namespace std;
+
+template&lt;typename Item&gt;
+&#x2F;&#x2F; 最小索引堆
+
+class IndexMinHeap &#123;
+
+private:
+
+    Item *data; &#x2F;&#x2F; 最小索引堆中的数据
+    int *indexes;  &#x2F;&#x2F; 最小索引堆中的索引, indexes[x] &#x3D; i 表示索引i在x的位置
+    int *reverse;   &#x2F;&#x2F; 最小索引堆中的反向索引, reverse[i] &#x3D; x 表示索引i在x的位置
+
+    int count;
+    int capacity;
+
+    &#x2F;&#x2F; 索引堆中, 数据之间的比较根据data的大小进行比较, 但实际操作的是索引
+    void shiftUp(int k) &#123;
+
+        while (k &gt; 1 &amp;&amp; data[indexes[k &#x2F; 2]] &gt; data[indexes[k]]) &#123;
+            swap(indexes[k &#x2F; 2], indexes[k]);
+            reverse[indexes[k &#x2F; 2]] &#x3D; k &#x2F; 2;
+            reverse[indexes[k]] &#x3D; k;
+            k &#x3D; k &#x2F; 2;
+        &#125;
+    &#125;
+
+    void shiftDown(int k) &#123;
+
+        while (2 * k &lt;&#x3D; count) &#123;
+            int j &#x3D; 2 * k;
+            if (j + 1 &lt;&#x3D; count &amp;&amp; data[indexes[j]] &gt; data[indexes[j + 1]]) j++;
+
+            if (data[indexes[k]] &lt;&#x3D; data[indexes[j]]) break;
+
+            swap(indexes[k], indexes[j]);
+            reverse[indexes[k]] &#x3D; k;
+            reverse[indexes[j]] &#x3D; j;
+            k &#x3D; j;
+        &#125;
+    &#125;
+
+public:
+    &#x2F;&#x2F; 构造函数, 构造一个空的索引堆, 可容纳capacity个元素
+    IndexMinHeap(int capacity) &#123;
+
+        data &#x3D; new Item[capacity + 1];
+        indexes &#x3D; new int[capacity + 1];
+        reverse &#x3D; new int[capacity + 1];
+
+        for (int i &#x3D; 0; i &lt;&#x3D; capacity; i++)
+            reverse[i] &#x3D; 0;
+
+        count &#x3D; 0;
+        this-&gt;capacity &#x3D; capacity;
+    &#125;
+
+    ~IndexMinHeap() &#123;
+        delete[] data;
+        delete[] indexes;
+        delete[] reverse;
+    &#125;
+
+    &#x2F;&#x2F; 返回索引堆中的元素个数
+    int size() &#123;
+        return count;
+    &#125;
+    &#x2F;&#x2F; 返回一个布尔值, 表示索引堆中是否为空
+
+    bool isEmpty() &#123;
+        return count &#x3D;&#x3D; 0;
+    &#125;
+
+    &#x2F;&#x2F; 向最小索引堆中插入一个新的元素, 新元素的索引为i, 元素为item
+    &#x2F;&#x2F; 传入的i对用户而言,是从0索引的
+    void insert(int index, Item item) &#123;
+        assert(count + 1 &lt;&#x3D; capacity);
+        assert(index + 1 &gt;&#x3D; 1 &amp;&amp; index + 1 &lt;&#x3D; capacity);
+
+        index +&#x3D; 1;
+        data[index] &#x3D; item;
+        indexes[count + 1] &#x3D; index;
+        reverse[index] &#x3D; count + 1;
+        count++;
+        shiftUp(count);
+    &#125;
+
+    &#x2F;&#x2F; 从最小索引堆中取出堆顶元素, 即索引堆中所存储的最小数据
+    Item extractMin() &#123;
+        assert(count &gt; 0);
+
+        Item ret &#x3D; data[indexes[1]];
+        swap(indexes[1], indexes[count]);
+        reverse[indexes[count]] &#x3D; 0;
+        reverse[indexes[1]] &#x3D; 1;
+        count--;
+        shiftDown(1);
+        return ret;
+    &#125;
+
+    &#x2F;&#x2F; 从最小索引堆中取出堆顶元素的索引
+    int extractMinIndex() &#123;
+        assert(count &gt; 0);
+        int ret &#x3D; indexes[1] - 1;
+        swap(indexes[1], indexes[count]);
+        reverse[indexes[count]] &#x3D; 0;
+        reverse[indexes[1]] &#x3D; 1;
+        count--;
+        shiftDown(1);
+        return ret;
+    &#125;
+
+    &#x2F;&#x2F; 获取最小索引堆中的堆顶元素
+    Item getMin() &#123;
+        assert(count &gt; 0);
+        return data[indexes[1]];
+    &#125;
+
+    &#x2F;&#x2F; 获取最小索引堆中的堆顶元素的索引
+    int getMinIndex() &#123;
+        assert(count &gt; 0);
+        return indexes[1] - 1;
+    &#125;
+
+    &#x2F;&#x2F; 看索引i所在的位置是否存在元素
+    bool contain(int index) &#123;
+
+        return reverse[index + 1] !&#x3D; 0;
+    &#125;
+
+    &#x2F;&#x2F; 获取最小索引堆中索引为i的元素
+    Item getItem(int index) &#123;
+        assert(contain(index));
+        return data[index + 1];
+    &#125;
+
+    &#x2F;&#x2F; 将最小索引堆中索引为i的元素修改为newItem
+    void change(int index, Item newItem) &#123;
+
+        assert(contain(index));
+        index +&#x3D; 1;
+        data[index] &#x3D; newItem;
+
+        shiftUp(reverse[index]);
+        shiftDown(reverse[index]);
+    &#125;
+&#125;;
+
+#endif &#x2F;&#x2F;SHORTESTPATH_INDEXMINHEAP_H<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>DIJKSTRA算法实现</p>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">&#x2F;&#x2F;
+&#x2F;&#x2F; Created by mozhenhai on 2021&#x2F;8&#x2F;4.
+&#x2F;&#x2F;
+
+#ifndef SHORTESTPATH_DIJKSTRA_H
+#define SHORTESTPATH_DIJKSTRA_H
+
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;stack&gt;
+#include &lt;cassert&gt;
+#include &quot;Edge.h&quot;
+#include &quot;IndexMinHeap.h&quot;
+
+using namespace std;
+
+template&lt;typename Graph, typename Weight&gt;
+class Dijkstra &#123;
+
+private:
+    Graph &amp;G;   &#x2F;&#x2F; 图的引用
+    int s;   &#x2F;&#x2F; 起始点
+
+    Weight *distTo; &#x2F;&#x2F; distTo[i]存储从起始点s到i的最短路径长度
+    bool *marked;  &#x2F;&#x2F; 标记数组, 在算法运行过程中标记节点i是否被访问
+
+    vector&lt;Edge&lt;Weight&gt; *&gt; from;&#x2F;&#x2F; from[i]记录最短路径中, 到达i点的边是哪一条
+    &#x2F;&#x2F; 可以用来恢复整个最短路径
+
+public:
+    &#x2F;&#x2F; 构造函数, 使用Dijkstra算法求最短路径
+    Dijkstra(Graph &amp;graph, int s) : G(graph) &#123;
+        &#x2F;&#x2F; 算法初始化
+        assert(s &gt;&#x3D; 0 &amp;&amp; s &lt; G.V());
+        this-&gt;s &#x3D; s;
+        distTo &#x3D; new Weight[G.V()];
+        marked &#x3D; new bool[G.V()];
+        for (int i &#x3D; 0; i &lt; G.V(); i++) &#123;
+            distTo[i] &#x3D; Weight();
+            marked[i] &#x3D; false;
+            from.push_back(NULL);
+        &#125;
+
+        &#x2F;&#x2F; 使用索引堆记录当前找到的到达每个顶点的最短距离
+        IndexMinHeap&lt;Weight&gt; ipq(G.V());
+        &#x2F;&#x2F;Dijkstra
+
+        &#x2F;&#x2F; 对于其实点s进行初始化
+        distTo[s] &#x3D; Weight();
+        from[s] &#x3D; new Edge&lt;Weight&gt;(s, s, Weight());
+        marked[s] &#x3D; true;
+        ipq.insert(s, distTo[s]);
+        while (!ipq.isEmpty()) &#123;
+
+
+            &#x2F;&#x2F; distTo[v]就是s到v的最短距离
+            int v &#x3D; ipq.extractMinIndex();
+
+            marked[v] &#x3D; true;
+
+            &#x2F;&#x2F; 对v的所有相邻节点进行更新
+            typename Graph::adjIterator adj(G, v);
+            for (Edge&lt;Weight&gt; *e &#x3D; adj.begin(); !adj.end(); e &#x3D; adj.next()) &#123;
+                int w &#x3D; e-&gt;other(v);
+                &#x2F;&#x2F; 如果从s点到w点的最短路径还没有找到
+                if (!marked[w]) &#123;
+                    &#x2F;&#x2F; 如果w点以前没有访问过,
+                    &#x2F;&#x2F; 或者访问过, 但是通过当前的v点到w点距离更短, 则进行更新
+                    if (from[w] &#x3D;&#x3D; NULL || distTo[v] + e-&gt;wt() &lt; distTo[w]) &#123;
+                        distTo[w] &#x3D; distTo[v] + e-&gt;wt();
+                        from[w] &#x3D; e;
+                        if (ipq.contain(w))
+                            ipq.change(w, distTo[w]);
+                        else
+                            ipq.insert(w, distTo[w]);
+                    &#125;
+                &#125;
+            &#125;
+
+
+        &#125;
+
+    &#125;
+
+    ~Dijkstra() &#123;
+        delete[] distTo;
+        delete[] marked;
+    &#125;
+
+    &#x2F;&#x2F; 返回从s点到w点的最短路径长度
+    Weight shortestPathTo(int w) &#123;
+        assert(w &gt;&#x3D; 0 &amp;&amp; w &lt; G.V());
+        assert(hasPathTo(w));
+        return distTo[w];
+    &#125;
+
+    &#x2F;&#x2F; 判断从s点到w点是否联通
+    bool hasPathTo(int w) &#123;
+        assert(w &gt;&#x3D; 0 &amp;&amp; w &lt; G.V());
+
+        return marked[w];
+    &#125;
+
+    &#x2F;&#x2F; 寻找从s到w的最短路径, 将整个路径经过的边存放在vec中
+    void shortestPath(int w, vector&lt;Edge&lt;Weight&gt;&gt; &amp;vec) &#123;
+
+
+        assert(w &gt;&#x3D; 0 &amp;&amp; w &lt; G.V());
+        assert(hasPathTo(w));
+
+        &#x2F;&#x2F; 通过from数组逆向查找到从s到w的路径, 存放到栈中
+        stack&lt;Edge&lt;Weight&gt; *&gt; s;
+        Edge&lt;Weight&gt; *e &#x3D; from[w];
+        while (e-&gt;v() !&#x3D; this-&gt;s) &#123;
+            s.push(e);
+            e &#x3D; from[e-&gt;v()];
+        &#125;
+        s.push(e);
+
+        &#x2F;&#x2F; 从栈中依次取出元素, 获得顺序的从s到w的路径
+        while (!s.empty()) &#123;
+            e &#x3D; s.top();
+            vec.push_back(*e);
+            s.pop();
+        &#125;
+    &#125;
+
+    &#x2F;&#x2F; 打印出从s点到w点的路径
+    void showPath(int w) &#123;
+
+        assert(w &gt;&#x3D; 0 &amp;&amp; w &lt; G.V());
+        assert(hasPathTo(w));
+
+        vector&lt;Edge&lt;Weight&gt;&gt; vec;
+        shortestPath(w, vec);
+        for (int i &#x3D; 0; i &lt; vec.size(); i++) &#123;
+            cout &lt;&lt; vec[i].v() &lt;&lt; &quot; -&gt; &quot;;
+            if (i &#x3D;&#x3D; vec.size() - 1)
+                cout &lt;&lt; vec[i].w() &lt;&lt; endl;
+        &#125;
+    &#125;
+&#125;;
+
+#endif &#x2F;&#x2F;SHORTESTPATH_DIJKSTRA_H
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p>测试</p>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">&#x2F;&#x2F;
+&#x2F;&#x2F; Created by mozhenhai on 2021&#x2F;8&#x2F;4.
+&#x2F;&#x2F;
+
+#ifndef SHORTESTPATH_TEST_H
+#define SHORTESTPATH_TEST_H
+
+#include &quot;DenseGraph.h&quot;
+#include &quot;SparseGraph.h&quot;
+#include &quot;ReadGraph.h&quot;
+#include &quot;Dijkstra.h&quot;
+#include &quot;BellmanFord.h&quot;
+
+
+&#x2F;&#x2F; 测试我们的Dijkstra最短路径算法
+void testDijkstra() &#123;
+    string filename &#x3D; &quot;testG1.txt&quot;;
+    int V &#x3D; 5;
+
+    SparseGraph&lt;int&gt; g &#x3D; SparseGraph&lt;int&gt;(V, true);
+    &#x2F;&#x2F; Dijkstra最短路径算法同样适用于有向图
+    &#x2F;&#x2F;SparseGraph&lt;int&gt; g &#x3D; SparseGraph&lt;int&gt;(V, false);
+    ReadGraph&lt;SparseGraph&lt;int&gt;, int&gt; readGraph(g, filename);
+
+    cout &lt;&lt; &quot;Test Dijkstra:&quot; &lt;&lt; endl &lt;&lt; endl;
+    Dijkstra&lt;SparseGraph&lt;int&gt;, int&gt; dij(g, 0);
+    for (int i &#x3D; 1; i &lt; V; i++) &#123;
+        if (dij.hasPathTo(i)) &#123;
+            cout &lt;&lt; &quot;Shortest Path to &quot; &lt;&lt; i &lt;&lt; &quot; : &quot; &lt;&lt; dij.shortestPathTo(i) &lt;&lt; endl;
+            dij.showPath(i);
+        &#125; else
+            cout &lt;&lt; &quot;No Path to &quot; &lt;&lt; i &lt;&lt; endl;
+
+        cout &lt;&lt; &quot;----------&quot; &lt;&lt; endl;
+    &#125;
+&#125;
+
+
+#endif &#x2F;&#x2F;SHORTESTPATH_TEST_H
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>主函数</p>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">#include &lt;iostream&gt;
+#include &quot;test.h&quot;
+
+int main() &#123;
+    std::cout &lt;&lt; &quot;Hello, World!&quot; &lt;&lt; std::endl;
+    testDijkstra();
+   
+    return 0;
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">Test Dijkstra:
+
+Shortest Path to 1 : 3
+0 -&gt; 2 -&gt; 1
+----------
+Shortest Path to 2 : 2
+0 -&gt; 2
+----------
+Shortest Path to 3 : 5
+0 -&gt; 2 -&gt; 3
+----------
+Shortest Path to 4 : 4
+0 -&gt; 2 -&gt; 1 -&gt; 4
+----------
+
+Process finished with exit code 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+                
+            </div>
+            <hr/>
+
+            
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E7%AE%97%E6%B3%95/">
+                                    <span class="chip bg-color">最短路径算法</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2022/03/23/Dijkstra/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="Dijkstra">
+                        
+                        <span class="card-title">Dijkstra</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            最短路径算法
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-23
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            moseairius
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E7%AE%97%E6%B3%95/">
+                        <span class="chip bg-color">最短路径算法</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2022/03/23/Cpulsplus/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="Cpulsplus">
+                        
+                        <span class="card-title">Cpulsplus</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            C++
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-23
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            moseairius
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Cpulsplus/">
+                        <span class="chip bg-color">Cpulsplus</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2021-2022</span>
+            
+            <span id="year">2021</span>
+            <a href="/about" target="_blank">moseairius</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            <br>
+            
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2021";
+                    var startMonth = "3";
+                    var startDate = "14";
+                    var startHour = "0";
+                    var startMinute = "0";
+                    var startSecond = "0";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
+            <br>
+            
+            <span id="icp"><img src="/medias/icp.png" style="vertical-align: text-bottom;" />
+                <a href="/null" target="_blank">桂ICP备2021002249号-1</a>
+            </span>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link ">
+    <a href="https://github.com/Moseasirius" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:zhenhaimo@foxmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+    
+    
+
+    
+
+    
+
+	
+    
+
+    
+    
+    <script type="text/javascript" size="150" alpha='0.6'
+        zIndex="-1" src="/libs/background/ribbon-refresh.min.js" async="async"></script>
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
