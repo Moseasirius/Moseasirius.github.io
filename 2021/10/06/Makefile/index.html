@@ -446,7 +446,7 @@ g++ hello.cpp -o hellocpp
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">"stdio.h"</span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">"max.h"</span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">"min.h"</span></span>
-using namespace std
+using namespace std<span class="token punctuation">;</span>
 <span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
     <span class="token keyword">int</span> array<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">9</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">6</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
     <span class="token keyword">int</span> n <span class="token operator">=</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>array<span class="token punctuation">)</span><span class="token operator">/</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -474,13 +474,11 @@ using namespace std
 
 
 
-<h3 id="Makefile"><a href="#Makefile" class="headerlink" title="Makefile"></a>Makefile</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">
-
-main: main.c max.o
+<h3 id="Makefile"><a href="#Makefile" class="headerlink" title="Makefile"></a>Makefile</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">main: main.c max.o
 	gcc main.c max.o -o main
 max.o
 	gcc max.c 
-	<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+	<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h3 id="运行两个包含头文件的程序"><a href="#运行两个包含头文件的程序" class="headerlink" title="运行两个包含头文件的程序"></a>运行两个包含头文件的程序</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">//main.c program</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">"stdio.h"</span></span>
@@ -531,18 +529,14 @@ using namespace std
 
 
 
-<h3 id="Makefile-1"><a href="#Makefile-1" class="headerlink" title="Makefile"></a>Makefile</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">
-
-main: main.c max.o
+<h3 id="Makefile-1"><a href="#Makefile-1" class="headerlink" title="Makefile"></a>Makefile</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">main: main.c max.o
 	gcc main.c max.o min.o -o main
 max.o:
 	gcc max.c 
 min.o:
-	gcc min.c<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+	gcc min.c<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="运行完程序后删除可执行文件"><a href="#运行完程序后删除可执行文件" class="headerlink" title="运行完程序后删除可执行文件"></a>运行完程序后删除可执行文件</h3><h3 id="Makefile-2"><a href="#Makefile-2" class="headerlink" title="Makefile"></a>Makefile</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">
-
-main: main.c max.o min.o
+<h3 id="运行完程序后删除可执行文件"><a href="#运行完程序后删除可执行文件" class="headerlink" title="运行完程序后删除可执行文件"></a>运行完程序后删除可执行文件</h3><h3 id="Makefile-2"><a href="#Makefile-2" class="headerlink" title="Makefile"></a>Makefile</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">main: main.c max.o min.o
 	gcc main.c max.o min.o -o main
 max.o:
 	gcc max.c 
@@ -550,17 +544,17 @@ min.o:
 	gcc min.c
 clean:
 	rm *.o main
-	<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+	<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h3 id="Makefile-3"><a href="#Makefile-3" class="headerlink" title="Makefile"></a>Makefile</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">CC &#x3D; gcc
 
 main: main.c max.o min.o
 	$(cc) main.c max.o min.o -o main
-max.o
+max.o:
 	$(cc) max.c 
-min.o
+min.o:
 	$(cc) min.c
-clean
+clean:
 	rm *.o main<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h3 id="编译多个含有main函数的程序文件"><a href="#编译多个含有main函数的程序文件" class="headerlink" title="编译多个含有main函数的程序文件"></a>编译多个含有main函数的程序文件</h3><h3 id="Makefile-4"><a href="#Makefile-4" class="headerlink" title="Makefile"></a>Makefile</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">

@@ -411,6 +411,46 @@
                 <p>数据库（Database）</p>
 <span id="more"></span> 
 
+<h1 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h1><p>在理解事物的概念之前，接触数据系统的其他高级特性还言之过早。事务就是一组原子性的SQL查询，或者说一个独立的工作单元。如果数据库引擎能够成功地对数据库应用该组查询的全部语句，那么久执行该组查询，如果其中有任务一条语句因为崩溃或其他原因无法执行，那么所以的语句都不会执行。也就是说，事务内的语句，要么全部执行。</p>
+<p>银行应用是解释事务必要性的一个经典例子。假设一个银行的数据库有两张表，支票（checking)表和储蓄(savings)表。</p>
+<p>现在要从用户mo的支票账户转移200美元到他的储蓄用户，那么至少三个步骤：</p>
+<p>1.检查支票账户的余额高于200美元。</p>
+<p>2.从支票账户余额中减去200美元。</p>
+<p>3.在储蓄账户余额中增加200美元。</p>
+<p>上述三个步骤的操作必须打包在一个事务中，任何一个步骤失败，则必须回滚所有的步骤。</p>
+<p>可以用 START TRANSACTION 语句开始一个事务，然后要么使用COMMIT提交事务将修改的数据持久保留，要么使用</p>
+<p>ROLLBACK撤销所有的修改。事务SQL的样本如下：</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">START</span> <span class="token keyword">TRANSACTION</span><span class="token punctuation">;</span>
+<span class="token keyword">SELECT</span> balance <span class="token keyword">FROM</span> checking <span class="token keyword">WHERE</span> customer_id <span class="token operator">=</span> <span class="token number">10233276</span><span class="token punctuation">;</span>
+<span class="token keyword">UPDATE</span> checking <span class="token keyword">SET</span> balance <span class="token operator">=</span> balance <span class="token operator">-</span> <span class="token number">200.00</span> <span class="token keyword">WHERE</span> customer_id <span class="token operator">=</span> <span class="token number">10233276</span><span class="token punctuation">;</span>
+<span class="token keyword">UPDATE</span> savings <span class="token keyword">SET</span> balance <span class="token operator">=</span> balance <span class="token operator">+</span> <span class="token number">200.00</span> <span class="token keyword">WHERE</span> customer_id <span class="token operator">=</span> <span class="token number">10233276</span><span class="token punctuation">;</span>
+<span class="token keyword">COMMIT</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>单纯的事务概念并不是故事的全部。试想一下，如果执行到第四条语句时服务器崩溃了，会发生什么？天知道，用户可能会损失200美元。再假如，在执行第三条语句和第四条语句之间时，另外一个进程要删除支票账户的所余额，那么结果可能就是银行在不知道这个逻辑的情况下白白给了mo200美元。</p>
+<p>除非系统通过严格的ACID测试，否则空谈事务的概念是不够的。</p>
+<p>ACID表示原子性(atomicity)、一致性(consistency)、隔离性(isolation)、持久性(durability).</p>
+<p>一个运行良好的事务处理系统，必须具备这些标准特征。</p>
+<p><strong>原子性(atomicity)</strong></p>
+<p>一个事务必须被视为一个不可分割的最小工作单元，整个事务中的所有操作要么全部提交成功，要么全部失败回滚，对于一个事务来说，不可能只执行其中的一部分操作，这就是事务的原子性。</p>
+<p><strong>一致性(consistency)</strong></p>
+<p>数据库总是从一个一致性的状态转换到另一个一致性的状态。在前面的例子中，一致性确保了，即使在执行第三、四条</p>
+<p>之间时系统崩溃，支票账户中也不会损失200美元，因为事务最终没有提交，所以事务中所做的修改也不会保存到数据库中。</p>
+<p><strong>隔离性(isolation)</strong></p>
+<p>通常来说，一个事务所做的修改在最终提交以前，对其他事务是不可见的。在前面的例子中，当执行完第三条语句，第四条语句还未开始时，此时有另外一个账户中程序开始运行，则其看到的支票账户的余额并没有被减去200美元。讨论隔离级别(Isolation level)的时候，会发现为什么要说通常来说是不可见。</p>
+<p><strong>持久性(durability)</strong></p>
+<p>一旦事务提交，则其所做的修改就会永久保存到数据库中。此时即使系统崩溃，修改的数据也不会丢失。持久性是个有点模糊的概念，因为实际上持久性也分很多不同级别。有些持久性策略能够提供非常强的安全保障，而有些则未必。而且不可能做到100%的持久性保证策略(如果数据库本身就能做到真正的持久性,那么备份又怎么能增加持久性呢？)</p>
+<h1 id="隔离级别"><a href="#隔离级别" class="headerlink" title="隔离级别"></a>隔离级别</h1><p>隔离性其实比想象的要复杂。在MySQL标准中定义了四种隔离级别，每一种级别都规定了一个事务中所做的修改，哪些在事物内核事物外是可见的，哪些是不可见的。较低级别的隔离通常可以执行更高的并发，系统的开销也更低。</p>
+<p><strong>READ UNCOMMITTED(未提交读)</strong></p>
+<p>在 READ UNCOMMITTED 级别，事务中的修改，即使没有提交，对其他事务也都是可见的。事务可以读取未提交的数据，这也被成为读脏(Dirty Read).这个级别会导致很多问题，从性能上来说，READ UNCOMMITTED不会比其他的级别好太多，但却缺乏其他级别的很多好处，除非真的有非常必要的理由，在实际应用中一般很少使用。</p>
+<p><strong>READ COMMITTED(提交读)</strong></p>
+<p>大多数数据库系统的默认隔离级别都是READ COMMITTED (但MySQL不是)。READ COMMITTED满足前面提到的隔离性的简单定义：一个事务开始时，只能看见已经提交的事务所做的修改。换句话说，一个事务从开始知道提交之前，所做的任何修改对其他事务都是不可见的。这个级别有时候也叫做不可重复读(nonrepeatable read),因为两次执行同样的查询，可能会得到不一样的结果。</p>
+<p><strong>REPEATABLE READ(可重复读)</strong></p>
+<p>REPEATABLE READ(可重复读)解决了读脏的问题，该级别保证了再同一个事务中多次读取同样记录的结果是一致的。但是理论上，可重复读隔离级别还是无法解决另外一个幻读(Phantom Read)的问题。所谓幻读，指的是党某个事务在读取某个范围内的记录时，另外一个事务又在该范围内插入了新的记录，当之前的事务再次读取该范围的记录时，会产生幻行(Phantom Row)。InnoDB和XtraDB存储引擎通过多版本并发控制(MVCC,Multiversion Concurrency Control)解决了幻读的问题。</p>
+<p>可重复读是MySQL的默认事务隔离级别。</p>
+<p>SERIALIZABLE(可串行化)</p>
+<p>SERIALIZABLE是最高的隔离级别。它通过强制事务串行执行，避免了前面说的幻读的问题。简单来说，SERIALIZABLE会在读取的每一行数据上都加锁，所以可能导致大量的超时和锁争用的问题。实际应用中也很少用到这个隔离级别，只有在非常需要确保数据的一致性而且可以接受没有并发的情况下，才考虑采用该级别。</p>
+<p><strong>命令都不区分大小写       名字Windows不区分大小写 Linux区分大小写</strong></p>
 <p>每个数据库都有一个或多个不同的 API 用于创建，访问，管理，搜索和复制所保存的数据。</p>
 <p>我们也可以将数据存储在文件中，但是在文件中读写数据速度相对较慢。</p>
 <p>所以，现在我们使用关系型数据库管理系统（RDBMS）来存储和管理大数据量。所谓的关系型数据库，是建立在关系模型基础上的数据库，借助于集合代数等数学概念和方法来处理数据库中的数据。</p>
@@ -422,6 +462,1332 @@
 <li>4.许多的行和列组成一张表单</li>
 <li>5.若干的表单组成database</li>
 </ul>
+<h2 id="RDBMS-术语"><a href="#RDBMS-术语" class="headerlink" title="RDBMS 术语"></a>RDBMS 术语</h2><p>在我们开始学习MySQL 数据库前，让我们先了解下RDBMS的一些术语：</p>
+<ul>
+<li><strong>数据库:</strong> 数据库是一些关联表的集合。</li>
+<li><strong>数据表:</strong> 表是数据的矩阵。在一个数据库中的表看起来像一个简单的电子表格。</li>
+<li><strong>列:</strong> 一列(数据元素) 包含了相同类型的数据, 例如邮政编码的数据。</li>
+<li><strong>行：</strong>一行（=元组，或记录）是一组相关的数据，例如一条用户订阅的数据。</li>
+<li><strong>冗余</strong>：存储两倍数据，冗余降低了性能，但提高了数据的安全性。</li>
+<li><strong>主键</strong>：主键是唯一的。一个数据表中只能包含一个主键。你可以使用主键来查询数据。</li>
+<li><strong>外键：</strong>外键用于关联两个表。</li>
+<li><strong>复合键</strong>：复合键（组合键）将多个列作为一个索引键，一般用于复合索引。</li>
+<li><strong>索引：</strong>使用索引可快速访问数据库表中的特定信息。索引是对数据库表中一列或多列的值进行排序的一种结构。类似于书籍的目录。</li>
+<li><strong>参照完整性:</strong> 参照的完整性要求关系中不允许引用不存在的实体。与实体完整性是关系模型必须满足的完整性约束条件，目的是保证数据的一致性。</li>
+</ul>
+<p>MySQL 为关系型数据库(Relational Database Management System), 这种所谓的”关系型”可以理解为”表格”的概念, 一个关系型数据库由一个或数个表格组成, 如图所示的一个表格:</p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>course</th>
+<th>score</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<ul>
+<li>表头(header): 每一列的名称;</li>
+<li>列(col): 具有相同数据类型的数据的集合;</li>
+<li>行(row): 每一行用来描述某条记录的具体信息;</li>
+<li>值(value): 行的具体信息, 每个值必须与该列的数据类型相同;</li>
+<li><strong>键(key)</strong>: 键的值在当前列中具有唯一性。</li>
+</ul>
+<h2 id="MySQL数据库"><a href="#MySQL数据库" class="headerlink" title="MySQL数据库"></a>MySQL数据库</h2><p>MySQL 是一个关系型数据库管理系统，由瑞典 MySQL AB 公司开发，目前属于 Oracle 公司。MySQL 是一种关联数据库管理系统，关联数据库将数据保存在不同的表中，而不是将所有数据放在一个大仓库内，这样就增加了速度并提高了灵活性。</p>
+<ul>
+<li>MySQL 是开源的，目前隶属于 Oracle 旗下产品。</li>
+<li>MySQL 支持大型的数据库。可以处理拥有上千万条记录的大型数据库。</li>
+<li>MySQL 使用标准的 SQL 数据语言形式。</li>
+<li>MySQL 可以运行于多个系统上，并且支持多种语言。这些编程语言包括 C、C++、Python、Java、Perl、PHP、Eiffel、Ruby 和 Tcl 等。</li>
+<li>MySQL 对PHP有很好的支持，PHP 是目前最流行的 Web 开发语言。</li>
+<li>MySQL 支持大型数据库，支持 5000 万条记录的数据仓库，32 位系统表文件最大可支持 4GB，64 位系统支持最大的表文件为8TB。</li>
+<li>MySQL 是可以定制的，采用了 GPL 协议，你可以修改源码来开发自己的 MySQL 系统。</li>
+</ul>
+<h1 id="MySQL-创建数据库"><a href="#MySQL-创建数据库" class="headerlink" title="MySQL 创建数据库"></a>MySQL 创建数据库</h1><pre class="line-numbers language-none"><code class="language-none">CREATE DATABASE 数据库名;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h1 id="MySQL-删除数据库"><a href="#MySQL-删除数据库" class="headerlink" title="MySQL 删除数据库"></a>MySQL 删除数据库</h1><hr>
+<p>使用普通用户登陆 MySQL 服务器，你可能需要特定的权限来创建或者删除 MySQL 数据库，所以我们这边使用 root 用户登录，root 用户拥有最高权限。</p>
+<p>在删除数据库过程中，务必要十分谨慎，因为在执行删除命令后，所有数据将会消失。</p>
+<h2 id="drop-命令删除数据库"><a href="#drop-命令删除数据库" class="headerlink" title="drop 命令删除数据库"></a>drop 命令删除数据库</h2><p>drop 命令格式：</p>
+<pre class="line-numbers language-none"><code class="language-none">drop database &lt;数据库名&gt;;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>例如删除名为 mo1 的数据库：</p>
+<pre class="line-numbers language-none"><code class="language-none">mysql&gt; drop database mo1;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">mysql&gt; create database mo1;
+Query OK, 1 row affected (0.01 sec)
+
+mysql&gt; show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mo                 |
+| mo1                |
+| mydb               |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+7 rows in set (0.00 sec)
+
+mysql&gt; drop database mo1;
+Query OK, 0 rows affected (0.15 sec)
+
+mysql&gt; show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mo                 |
+| mydb               |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+6 rows in set (0.00 sec)
+
+mysql&gt; 
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h1 id="MySQL-选择数据库"><a href="#MySQL-选择数据库" class="headerlink" title="MySQL 选择数据库"></a>MySQL 选择数据库</h1><p>在你连接到 MySQL 数据库后，可能有多个可以操作的数据库，所以你需要选择你要操作的数据库。</p>
+<hr>
+<h2 id="从命令提示窗口中选择MySQL数据库"><a href="#从命令提示窗口中选择MySQL数据库" class="headerlink" title="从命令提示窗口中选择MySQL数据库"></a>从命令提示窗口中选择MySQL数据库</h2><p>在 mysql&gt; 提示窗口中可以很简单的选择特定的数据库。你可以使用SQL命令来选择指定的数据库。</p>
+<p>以下实例选取了数据库 mo:</p>
+<pre class="line-numbers language-none"><code class="language-none">mysql&gt; use mo;
+Database changed
+mysql&gt; <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="MySQL-数据类型"><a href="#MySQL-数据类型" class="headerlink" title="MySQL 数据类型"></a>MySQL 数据类型</h1><p>MySQL 中定义数据字段的类型对你数据库的优化是非常重要的。</p>
+<p>MySQL 支持多种类型，大致可以分为三类：数值、日期/时间和字符串(字符)类型。</p>
+<h2 id="数值类型"><a href="#数值类型" class="headerlink" title="数值类型"></a>数值类型</h2><p>MySQL 支持所有标准 SQL 数值数据类型。</p>
+<p>这些类型包括严格数值数据类型(INTEGER、SMALLINT、DECIMAL 和 NUMERIC)，以及近似数值数据类型(FLOAT、REAL 和 DOUBLE PRECISION)。</p>
+<p>关键字INT是INTEGER的同义词，关键字DEC是DECIMAL的同义词。</p>
+<p>BIT数据类型保存位字段值，并且支持 MyISAM、MEMORY、InnoDB 和 BDB表。</p>
+<p>作为 SQL 标准的扩展，MySQL 也支持整数类型 TINYINT、MEDIUMINT 和 BIGINT。下面的表显示了需要的每个整数类型的存储和范围。</p>
+<table>
+<thead>
+<tr>
+<th align="left">类型</th>
+<th align="left">大小</th>
+<th align="left">范围（有符号）</th>
+<th align="left">范围（无符号）</th>
+<th align="left">用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">TINYINT</td>
+<td align="left">1 Bytes</td>
+<td align="left">(-128，127)</td>
+<td align="left">(0，255)</td>
+<td align="left">小整数值</td>
+</tr>
+<tr>
+<td align="left">SMALLINT</td>
+<td align="left">2 Bytes</td>
+<td align="left">(-32 768，32 767)</td>
+<td align="left">(0，65 535)</td>
+<td align="left">大整数值</td>
+</tr>
+<tr>
+<td align="left">MEDIUMINT</td>
+<td align="left">3 Bytes</td>
+<td align="left">(-8 388 608，8 388 607)</td>
+<td align="left">(0，16 777 215)</td>
+<td align="left">大整数值</td>
+</tr>
+<tr>
+<td align="left">INT或INTEGER</td>
+<td align="left">4 Bytes</td>
+<td align="left">(-2 147 483 648，2 147 483 647)</td>
+<td align="left">(0，4 294 967 295)</td>
+<td align="left">大整数值</td>
+</tr>
+<tr>
+<td align="left">BIGINT</td>
+<td align="left">8 Bytes</td>
+<td align="left">(-9,223,372,036,854,775,808，9 223 372 036 854 775 807)</td>
+<td align="left">(0，18 446 744 073 709 551 615)</td>
+<td align="left">极大整数值</td>
+</tr>
+<tr>
+<td align="left">FLOAT</td>
+<td align="left">4 Bytes</td>
+<td align="left">(-3.402 823 466 E+38，-1.175 494 351 E-38)，0，(1.175 494 351 E-38，3.402 823 466 351 E+38)</td>
+<td align="left">0，(1.175 494 351 E-38，3.402 823 466 E+38)</td>
+<td align="left">单精度 浮点数值</td>
+</tr>
+<tr>
+<td align="left">DOUBLE</td>
+<td align="left">8 Bytes</td>
+<td align="left">(-1.797 693 134 862 315 7 E+308，-2.225 073 858 507 201 4 E-308)，0，(2.225 073 858 507 201 4 E-308，1.797 693 134 862 315 7 E+308)</td>
+<td align="left">0，(2.225 073 858 507 201 4 E-308，1.797 693 134 862 315 7 E+308)</td>
+<td align="left">双精度 浮点数值</td>
+</tr>
+<tr>
+<td align="left">DECIMAL</td>
+<td align="left">对DECIMAL(M,D) ，如果M&gt;D，为M+2否则为D+2</td>
+<td align="left">依赖于M和D的值</td>
+<td align="left">依赖于M和D的值</td>
+<td align="left">小数值</td>
+</tr>
+</tbody></table>
+<h2 id="日期和时间类型"><a href="#日期和时间类型" class="headerlink" title="日期和时间类型"></a>日期和时间类型</h2><p>表示时间值的日期和时间类型为DATETIME、DATE、TIMESTAMP、TIME和YEAR。</p>
+<p>每个时间类型有一个有效值范围和一个”零”值，当指定不合法的MySQL不能表示的值时使用”零”值。</p>
+<p>TIMESTAMP类型有专有的自动更新特性，将在后面描述。</p>
+<table>
+<thead>
+<tr>
+<th align="left">类型</th>
+<th align="left">大小 ( bytes)</th>
+<th align="left">范围</th>
+<th align="left">格式</th>
+<th align="left">用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">DATE</td>
+<td align="left">3</td>
+<td align="left">1000-01-01/9999-12-31</td>
+<td align="left">YYYY-MM-DD</td>
+<td align="left">日期值</td>
+</tr>
+<tr>
+<td align="left">TIME</td>
+<td align="left">3</td>
+<td align="left">‘-838:59:59’/‘838:59:59’</td>
+<td align="left">HH:MM:SS</td>
+<td align="left">时间值或持续时间</td>
+</tr>
+<tr>
+<td align="left">YEAR</td>
+<td align="left">1</td>
+<td align="left">1901/2155</td>
+<td align="left">YYYY</td>
+<td align="left">年份值</td>
+</tr>
+<tr>
+<td align="left">DATETIME</td>
+<td align="left">8</td>
+<td align="left">1000-01-01 00:00:00/9999-12-31 23:59:59</td>
+<td align="left">YYYY-MM-DD HH:MM:SS</td>
+<td align="left">混合日期和时间值</td>
+</tr>
+<tr>
+<td align="left">TIMESTAMP</td>
+<td align="left">4</td>
+<td align="left">1970-01-01 00:00:00/2038结束时间是第 <strong>2147483647</strong> 秒，北京时间 <strong>2038-1-19 11:14:07</strong>，格林尼治时间 2038年1月19日 凌晨 03:14:07</td>
+<td align="left">YYYYMMDD HHMMSS</td>
+<td align="left">混合日期和时间值，时间戳</td>
+</tr>
+</tbody></table>
+<h2 id="字符串类型"><a href="#字符串类型" class="headerlink" title="字符串类型"></a>字符串类型</h2><p>字符串类型指CHAR、VARCHAR、BINARY、VARBINARY、BLOB、TEXT、ENUM和SET。该节描述了这些类型如何工作以及如何在查询中使用这些类型。</p>
+<table>
+<thead>
+<tr>
+<th align="left">类型</th>
+<th align="left">大小</th>
+<th align="left">用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">CHAR</td>
+<td align="left">0-255 bytes</td>
+<td align="left">定长字符串</td>
+</tr>
+<tr>
+<td align="left">VARCHAR</td>
+<td align="left">0-65535 bytes</td>
+<td align="left">变长字符串</td>
+</tr>
+<tr>
+<td align="left">TINYBLOB</td>
+<td align="left">0-255 bytes</td>
+<td align="left">不超过 255 个字符的二进制字符串</td>
+</tr>
+<tr>
+<td align="left">TINYTEXT</td>
+<td align="left">0-255 bytes</td>
+<td align="left">短文本字符串</td>
+</tr>
+<tr>
+<td align="left">BLOB</td>
+<td align="left">0-65 535 bytes</td>
+<td align="left">二进制形式的长文本数据</td>
+</tr>
+<tr>
+<td align="left">TEXT</td>
+<td align="left">0-65 535 bytes</td>
+<td align="left">长文本数据</td>
+</tr>
+<tr>
+<td align="left">MEDIUMBLOB</td>
+<td align="left">0-16 777 215 bytes</td>
+<td align="left">二进制形式的中等长度文本数据</td>
+</tr>
+<tr>
+<td align="left">MEDIUMTEXT</td>
+<td align="left">0-16 777 215 bytes</td>
+<td align="left">中等长度文本数据</td>
+</tr>
+<tr>
+<td align="left">LONGBLOB</td>
+<td align="left">0-4 294 967 295 bytes</td>
+<td align="left">二进制形式的极大文本数据</td>
+</tr>
+<tr>
+<td align="left">LONGTEXT</td>
+<td align="left">0-4 294 967 295 bytes</td>
+<td align="left">极大文本数据</td>
+</tr>
+</tbody></table>
+<p><strong>注意</strong>：char(n) 和 varchar(n) 中括号中 n 代表字符的个数，并不代表字节个数，比如 CHAR(30) 就可以存储 30 个字符。</p>
+<p>CHAR 和 VARCHAR 类型类似，但它们保存和检索的方式不同。它们的最大长度和是否尾部空格被保留等方面也不同。在存储或检索过程中不进行大小写转换。</p>
+<p>BINARY 和 VARBINARY 类似于 CHAR 和 VARCHAR，不同的是它们包含二进制字符串而不要非二进制字符串。也就是说，它们包含字节字符串而不是字符字符串。这说明它们没有字符集，并且排序和比较基于列值字节的数值值。</p>
+<p>BLOB 是一个二进制大对象，可以容纳可变数量的数据。有 4 种 BLOB 类型：TINYBLOB、BLOB、MEDIUMBLOB 和 LONGBLOB。它们区别在于可容纳存储范围不同。</p>
+<p>有 4 种 TEXT 类型：TINYTEXT、TEXT、MEDIUMTEXT 和 LONGTEXT。对应的这 4 种 BLOB 类型，可存储的最大长度不同，可根据实际情况选择。</p>
+<h1 id="MySQL-创建数据表"><a href="#MySQL-创建数据表" class="headerlink" title="MySQL 创建数据表"></a>MySQL 创建数据表</h1><p>创建MySQL数据表需要以下信息：</p>
+<ul>
+<li>表名</li>
+<li>表字段名</li>
+<li>定义每个表字段</li>
+</ul>
+<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><p>以下为创建MySQL数据表的SQL通用语法：</p>
+<pre class="line-numbers language-none"><code class="language-none">CREATE TABLE table_name (column_name column_type);<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>以下例子中我们将在 RUNOOB 数据库中创建数据表runoob_tbl：</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token keyword">IF</span> <span class="token operator">NOT</span> <span class="token keyword">EXISTS</span> <span class="token punctuation">`</span>tb1<span class="token punctuation">`</span><span class="token punctuation">(</span>
+   <span class="token punctuation">`</span>id<span class="token punctuation">`</span> <span class="token keyword">INT</span> <span class="token keyword">UNSIGNED</span> <span class="token keyword">AUTO_INCREMENT</span><span class="token punctuation">,</span>
+   <span class="token punctuation">`</span>title<span class="token punctuation">`</span> <span class="token keyword">VARCHAR</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+   <span class="token punctuation">`</span>author<span class="token punctuation">`</span> <span class="token keyword">VARCHAR</span><span class="token punctuation">(</span><span class="token number">40</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+   <span class="token punctuation">`</span><span class="token keyword">date</span><span class="token punctuation">`</span> <span class="token keyword">DATE</span><span class="token punctuation">,</span>
+   <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span> <span class="token punctuation">(</span> <span class="token punctuation">`</span>id<span class="token punctuation">`</span> <span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token keyword">ENGINE</span><span class="token operator">=</span><span class="token keyword">InnoDB</span> <span class="token keyword">DEFAULT</span> <span class="token keyword">CHARSET</span><span class="token operator">=</span>utf8<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>注意：</strong>MySQL命令终止符为分号 <strong>;</strong> 。</p>
+<p><strong>注意：</strong> <strong>-&gt;</strong> 是换行符标识，不要复制。</p>
+<h1 id="MySQL-删除数据表"><a href="#MySQL-删除数据表" class="headerlink" title="MySQL 删除数据表"></a>MySQL 删除数据表</h1><p>MySQL中删除数据表是非常容易操作的，但是你在进行删除表操作时要非常小心，因为执行删除命令后所有数据都会消失。</p>
+<h3 id="语法-1"><a href="#语法-1" class="headerlink" title="语法"></a>语法</h3><p>以下为删除MySQL数据表的通用语法：</p>
+<pre class="line-numbers language-none"><code class="language-none">DROP TABLE table_name ;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h1 id="MySQL-插入数据"><a href="#MySQL-插入数据" class="headerlink" title="MySQL 插入数据"></a>MySQL 插入数据</h1><p>MySQL 表中使用 <strong>INSERT INTO</strong> SQL语句来插入数据。</p>
+<p>你可以通过 mysql&gt; 命令提示窗口中向数据表中插入数据，或者通过PHP脚本来插入数据。</p>
+<h3 id="语法-2"><a href="#语法-2" class="headerlink" title="语法"></a>语法</h3><p>以下为向MySQL数据表插入数据通用的 <strong>INSERT INTO</strong> SQL语法：</p>
+<pre class="line-numbers language-none"><code class="language-none">INSERT INTO table_name ( field1, field2,...fieldN )
+                       VALUES
+                       ( value1, value2,...valueN );<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="通过命令提示窗口插入数据"><a href="#通过命令提示窗口插入数据" class="headerlink" title="通过命令提示窗口插入数据"></a>通过命令提示窗口插入数据</h3><p>以下我们将使用 SQL <strong>INSERT INTO</strong> 语句向 MySQL 数据表 runoob_tbl 插入数据</p>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p>以下实例中我们将向 tbl 表插入三条数据:</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> tb1  <span class="token punctuation">(</span>title<span class="token punctuation">,</span> author<span class="token punctuation">,</span> <span class="token keyword">date</span><span class="token punctuation">)</span> <span class="token keyword">VALUES</span> <span class="token punctuation">(</span><span class="token string">"学习 C++"</span><span class="token punctuation">,</span> <span class="token string">"mo1"</span><span class="token punctuation">,</span> <span class="token function">NOW</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
+
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">
+<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> tb1<span class="token punctuation">(</span>title<span class="token punctuation">,</span> author<span class="token punctuation">,</span> <span class="token keyword">date</span><span class="token punctuation">)</span> <span class="token keyword">VALUES</span> <span class="token punctuation">(</span><span class="token string">"学习 MySQL"</span><span class="token punctuation">,</span> <span class="token string">"mo2"</span><span class="token punctuation">,</span><span class="token function">NOW</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-SQL" data-language="SQL"><code class="language-SQL">INSERT INTO tb1(title, author, date)VALUES (&quot;JAVA 教程&quot;, &quot;mo3&quot;, &#39;2022-01-06&#39;);<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><strong>注意：</strong> 使用箭头标记 <strong>-&gt;</strong> 不是 SQL 语句的一部分，它仅仅表示一个新行，如果一条SQL语句太长，我们可以通过回车键来创建一个新行来编写 SQL 语句，SQL 语句的命令结束符为分号 **;**。</p>
+<p>在以上实例中，我们并没有提供 runoob_id 的数据，因为该字段我们在创建表的时候已经设置它为 AUTO_INCREMENT(自动增加) 属性。 所以，该字段会自动递增而不需要我们去设置。实例中 NOW() 是一个 MySQL 函数，该函数返回日期和时间。</p>
+<p>接下来我们可以通过以下语句查看数据表数据：</p>
+<h2 id="读取数据表："><a href="#读取数据表：" class="headerlink" title="读取数据表："></a>读取数据表：</h2><p>select * from tb1;</p>
+<h1 id="MySQL-查询数据"><a href="#MySQL-查询数据" class="headerlink" title="MySQL 查询数据"></a>MySQL 查询数据</h1><p>MySQL 数据库使用SQL SELECT语句来查询数据。</p>
+<p>你可以通过 mysql&gt; 命令提示窗口中在数据库中查询数据，或者通过PHP脚本来查询数据。</p>
+<h3 id="语法-3"><a href="#语法-3" class="headerlink" title="语法"></a>语法</h3><p>以下为在MySQL数据库中查询数据通用的 SELECT 语法：</p>
+<pre class="line-numbers language-none"><code class="language-none">SELECT column_name,column_name
+FROM table_name
+[WHERE Clause]
+[LIMIT N][ OFFSET M]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li>查询语句中你可以使用一个或者多个表，表之间使用逗号(,)分割，并使用WHERE语句来设定查询条件。</li>
+<li>SELECT 命令可以读取一条或者多条记录。</li>
+<li>你可以使用星号（*）来代替其他字段，SELECT语句会返回表的所有字段数据</li>
+<li>你可以使用 WHERE 语句来包含任何条件。</li>
+<li>你可以使用 LIMIT 属性来设定返回的记录数。</li>
+<li>你可以通过OFFSET指定SELECT语句开始查询的数据偏移量。默认情况下偏移量为0。</li>
+</ul>
+<hr>
+<h3 id="通过命令提示符获取数据"><a href="#通过命令提示符获取数据" class="headerlink" title="通过命令提示符获取数据"></a>通过命令提示符获取数据</h3><p>以下实例我们将通过 SQL SELECT 命令来获取 MySQL 数据表 runoob_tbl 的数据：</p>
+<h3 id="实例-1"><a href="#实例-1" class="headerlink" title="实例"></a>实例</h3><p>以下实例将返回数据表 tb1的所有记录:</p>
+<h2 id="读取数据表：-1"><a href="#读取数据表：-1" class="headerlink" title="读取数据表："></a>读取数据表：</h2><p>select * from tb1;</p>
+<pre class="line-numbers language-none"><code class="language-none">mysql&gt; select * from tb1;
++----+--------------+--------+------------+
+| id | title        | author | date       |
++----+--------------+--------+------------+
+|  1 | 学习 C++     | mo1    | 2022-03-15 |
+|  2 | 学习 MySQL   | mo2    | 2022-03-15 |
+|  3 | JAVA 教程    | mo3    | 2022-01-06 |
++----+--------------+--------+------------+
+3 rows in set (0.00 sec)
+
+mysql&gt; select author from tb1 where id&#x3D;1;
++--------+
+| author |
++--------+
+| mo1    |
++--------+
+1 row in set (0.00 sec)
+
+mysql&gt; 
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="MySQL-WHERE-子句"><a href="#MySQL-WHERE-子句" class="headerlink" title="MySQL WHERE 子句"></a>MySQL WHERE 子句</h1><p>我们知道从 MySQL 表中使用 SQL SELECT 语句来读取数据。</p>
+<p>如需有条件地从表中选取数据，可将 WHERE 子句添加到 SELECT 语句中。</p>
+<h3 id="语法-4"><a href="#语法-4" class="headerlink" title="语法"></a>语法</h3><p>以下是 SQL SELECT 语句使用 WHERE 子句从数据表中读取数据的通用语法：</p>
+<pre class="line-numbers language-none"><code class="language-none">SELECT field1, field2,...fieldN FROM table_name1, table_name2...
+[WHERE condition1 [AND [OR]] condition2.....<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<ul>
+<li>查询语句中你可以使用一个或者多个表，表之间使用逗号**,** 分割，并使用WHERE语句来设定查询条件。</li>
+<li>你可以在 WHERE 子句中指定任何条件。</li>
+<li>你可以使用 AND 或者 OR 指定一个或多个条件。</li>
+<li>WHERE 子句也可以运用于 SQL 的 DELETE 或者 UPDATE 命令。</li>
+<li>WHERE 子句类似于程序语言中的 if 条件，根据 MySQL 表中的字段值来读取指定的数据。</li>
+</ul>
+<p>以下为操作符列表，可用于 WHERE 子句中。</p>
+<p>下表中实例假定 A 为 10, B 为 20</p>
+<table>
+<thead>
+<tr>
+<th align="left">操作符</th>
+<th align="left">描述</th>
+<th align="left">实例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">=</td>
+<td align="left">等号，检测两个值是否相等，如果相等返回true</td>
+<td align="left">(A = B) 返回false。</td>
+</tr>
+<tr>
+<td align="left">&lt;&gt;, !=</td>
+<td align="left">不等于，检测两个值是否相等，如果不相等返回true</td>
+<td align="left">(A != B) 返回 true。</td>
+</tr>
+<tr>
+<td align="left">&gt;</td>
+<td align="left">大于号，检测左边的值是否大于右边的值, 如果左边的值大于右边的值返回true</td>
+<td align="left">(A &gt; B) 返回false。</td>
+</tr>
+<tr>
+<td align="left">&lt;</td>
+<td align="left">小于号，检测左边的值是否小于右边的值, 如果左边的值小于右边的值返回true</td>
+<td align="left">(A &lt; B) 返回 true。</td>
+</tr>
+<tr>
+<td align="left">&gt;=</td>
+<td align="left">大于等于号，检测左边的值是否大于或等于右边的值, 如果左边的值大于或等于右边的值返回true</td>
+<td align="left">(A &gt;= B) 返回false。</td>
+</tr>
+<tr>
+<td align="left">&lt;=</td>
+<td align="left">小于等于号，检测左边的值是否小于或等于右边的值, 如果左边的值小于或等于右边的值返回true</td>
+<td align="left">(A &lt;= B) 返回 true。</td>
+</tr>
+</tbody></table>
+<p>如果我们想在 MySQL 数据表中读取指定的数据，WHERE 子句是非常有用的。</p>
+<p>使用主键来作为 WHERE 子句的条件查询是非常快速的。</p>
+<p>如果给定的条件在表中没有任何匹配的记录，那么查询不会返回任何数据。</p>
+<hr>
+<h3 id="从命令提示符中读取数据"><a href="#从命令提示符中读取数据" class="headerlink" title="从命令提示符中读取数据"></a>从命令提示符中读取数据</h3><p>我们将在SQL SELECT语句使用WHERE子句来读取MySQL数据表 tb1中的数据：</p>
+<h3 id="实例-2"><a href="#实例-2" class="headerlink" title="实例"></a>实例</h3><p>以下实例将读取tb1表中date字段值为’2022-03-15’ 的所有记录：</p>
+<h3 id="SQL-SELECT-WHERE-子句"><a href="#SQL-SELECT-WHERE-子句" class="headerlink" title="SQL SELECT WHERE 子句"></a>SQL SELECT WHERE 子句</h3><pre class="line-numbers language-none"><code class="language-none">SELECT * from tb1 WHERE date&#x3D;&#39;2022-03-15&#39;;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">mysql&gt; SELECT * from tb1 WHERE date&#x3D;&#39;2022-03-15&#39;;
++----+--------------+--------+------------+
+| id | title        | author | date       |
++----+--------------+--------+------------+
+|  1 | 学习 C++     | mo1    | 2022-03-15 |
+|  2 | 学习 MySQL   | mo2    | 2022-03-15 |
++----+--------------+--------+------------+
+2 rows in set (0.00 sec)
+
+mysql&gt; 
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="MySQL-UPDATE-更新"><a href="#MySQL-UPDATE-更新" class="headerlink" title="MySQL UPDATE 更新"></a>MySQL UPDATE 更新</h1><p>如果我们需要修改或更新 MySQL 中的数据，我们可以使用 SQL UPDATE 命令来操作。</p>
+<h3 id="语法-5"><a href="#语法-5" class="headerlink" title="语法"></a>语法</h3><p>以下是 UPDATE 命令修改 MySQL 数据表数据的通用 SQL 语法：</p>
+<pre class="line-numbers language-none"><code class="language-none">UPDATE table_name SET field1&#x3D;new-value1, field2&#x3D;new-value2
+[WHERE Clause]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<ul>
+<li>你可以同时更新一个或多个字段。</li>
+<li>你可以在 WHERE 子句中指定任何条件。</li>
+<li>你可以在一个单独表中同时更新数据。</li>
+</ul>
+<p>当你需要更新数据表中指定行的数据时 WHERE 子句是非常有用的。</p>
+<hr>
+<p>通过命令提示符更新数据</p>
+<p>以下我们将在 SQL UPDATE 命令使用 WHERE 子句来更新 tb1 表中指定的数据：</p>
+<h3 id="实例-3"><a href="#实例-3" class="headerlink" title="实例"></a>实例</h3><p>以下实例将更新数据表中 d 为 3 的 title 字段值：</p>
+<h3 id="SQL-UPDATE-语句："><a href="#SQL-UPDATE-语句：" class="headerlink" title="SQL UPDATE 语句："></a>SQL UPDATE 语句：</h3><pre class="line-numbers language-none"><code class="language-none">UPDATE tb1 SET title&#x3D;&quot;学习 Python&quot;WHERE id&#x3D;3;
+SELECT * from tb1 WHERE id&#x3D;3;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">mysql&gt; select * from tb1 where id &#x3D; 3;
++----+---------------+--------+------------+
+| id | title         | author | date       |
++----+---------------+--------+------------+
+|  3 | 学习 Python   | mo3    | 2022-01-06 |
++----+---------------+--------+------------+
+1 row in set (0.00 sec)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<pre class="line-numbers language-none"><code class="language-none">mysql&gt; select * from tb1;
++----+---------------+--------+------------+
+| id | title         | author | date       |
++----+---------------+--------+------------+
+|  1 | 学习 C++      | mo1    | 2022-03-15 |
+|  2 | 学习 MySQL    | mo2    | 2022-03-15 |
+|  3 | 学习 Python   | mo3    | 2022-01-06 |
++----+---------------+--------+------------+
+3 rows in set (0.00 sec)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>从结果上看，id 为 3 的 title 已被修改</p>
+<h1 id="MySQL-DELETE-语句"><a href="#MySQL-DELETE-语句" class="headerlink" title="MySQL DELETE 语句"></a>MySQL DELETE 语句</h1><p>你可以使用 SQL 的 DELETE FROM 命令来删除 MySQL 数据表中的记录。</p>
+<h3 id="语法-6"><a href="#语法-6" class="headerlink" title="语法"></a>语法</h3><p>以下是 SQL DELETE 语句从 MySQL 数据表中删除数据的通用语法：</p>
+<pre class="line-numbers language-none"><code class="language-none">DELETE FROM table_name [WHERE Clause]<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ul>
+<li>如果没有指定 WHERE 子句，MySQL 表中的所有记录将被删除。</li>
+<li>你可以在 WHERE 子句中指定任何条件</li>
+<li>您可以在单个表中一次性删除记录。</li>
+</ul>
+<p>当你想删除数据表中指定的记录时 WHERE 子句是非常有用的。</p>
+<hr>
+<h3 id="从命令行中删除数据"><a href="#从命令行中删除数据" class="headerlink" title="从命令行中删除数据"></a>从命令行中删除数据</h3><p>这里我们将在 SQL DELETE 命令中使用 WHERE 子句来删除 MySQL 数据表 tb1所选的数据。</p>
+<h3 id="实例-4"><a href="#实例-4" class="headerlink" title="实例"></a>实例</h3><p>以下实例将删除tb1表中 runoob_id 为3 的记录：</p>
+<pre class="line-numbers language-none"><code class="language-none">
+DELETE FROM tb1 WHERE id&#x3D;3;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">mysql&gt; select *from tb1;
++----+--------------+--------+------------+
+| id | title        | author | date       |
++----+--------------+--------+------------+
+|  1 | 学习 C++     | mo1    | 2022-03-15 |
+|  2 | 学习 MySQL   | mo2    | 2022-03-15 |
++----+--------------+--------+------------+
+2 rows in set (0.00 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="MySQL-LIKE-子句"><a href="#MySQL-LIKE-子句" class="headerlink" title="MySQL LIKE 子句"></a>MySQL LIKE 子句</h1><p>我们知道在 MySQL 中使用 SQL SELECT 命令来读取数据， 同时我们可以在 SELECT 语句中使用 WHERE 子句来获取指定的记录。</p>
+<p>WHERE 子句中可以使用等号 <strong>=</strong> 来设定获取数据的条件，如 “author = ‘mo1’”。</p>
+<p>但是有时候我们需要获取 author 字段含有 “mo” 字符的所有记录，这时我们就需要在 WHERE 子句中使用 SQL LIKE 子句。</p>
+<p>SQL LIKE 子句中使用百分号 **%**字符来表示任意字符，类似于UNIX或正则表达式中的星号 *****。</p>
+<p>如果没有使用百分号 <strong>%</strong>, LIKE 子句与等号 <strong>=</strong> 的效果是一样的。</p>
+<h3 id="语法-7"><a href="#语法-7" class="headerlink" title="语法"></a>语法</h3><p>以下是 SQL SELECT 语句使用 LIKE 子句从数据表中读取数据的通用语法：</p>
+<pre class="line-numbers language-none"><code class="language-none">SELECT field1, field2,...fieldN 
+FROM table_name
+WHERE field1 LIKE condition1 [AND [OR]] filed2 &#x3D; &#39;somevalue&#39;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li>你可以在 WHERE 子句中指定任何条件。</li>
+<li>你可以在 WHERE 子句中使用LIKE子句。</li>
+<li>你可以使用LIKE子句代替等号 **=**。</li>
+<li>LIKE 通常与 <strong>%</strong> 一同使用，类似于一个元字符的搜索。</li>
+<li>你可以使用 AND 或者 OR 指定一个或多个条件。</li>
+<li>你可以在 DELETE 或 UPDATE 命令中使用 WHERE…LIKE 子句来指定条件。</li>
+</ul>
+<hr>
+<h3 id="在命令提示符中使用-LIKE-子句"><a href="#在命令提示符中使用-LIKE-子句" class="headerlink" title="在命令提示符中使用 LIKE 子句"></a>在命令提示符中使用 LIKE 子句</h3><p>以下我们将在 SQL SELECT 命令中使用 WHERE…LIKE 子句来从MySQL数据表 tb1中读取数据。</p>
+<h3 id="实例-5"><a href="#实例-5" class="headerlink" title="实例"></a>实例</h3><p>以下是我们将 tb1表中获取 author 字段中以 1 为结尾的的所有记录：</p>
+<pre class="line-numbers language-none"><code class="language-none">SELECT * from tb1  WHERE author LIKE &#39;%1&#39;;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">mysql&gt; select *from tb1;
++----+--------------+--------+------------+
+| id | title        | author | date       |
++----+--------------+--------+------------+
+|  1 | 学习 C++     | mo1    | 2022-03-15 |
+|  2 | 学习 MySQL   | mo2    | 2022-03-15 |
+|  4 | 学习古诗     | zhen1  | 2022-03-15 |
+|  5 | 学习数学     | zhen2  | 2022-03-15 |
++----+--------------+--------+------------+
+4 rows in set (0.00 sec)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">mysql&gt; SELECT * from tb1  WHERE author LIKE &#39;%1&#39;;
++----+--------------+--------+------------+
+| id | title        | author | date       |
++----+--------------+--------+------------+
+|  1 | 学习 C++     | mo1    | 2022-03-15 |
+|  4 | 学习古诗     | zhen1  | 2022-03-15 |
++----+--------------+--------+------------+
+2 rows in set (0.00 sec)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="MySQL-UNION-操作符"><a href="#MySQL-UNION-操作符" class="headerlink" title="MySQL UNION 操作符"></a>MySQL UNION 操作符</h1><p>本教程为大家介绍 MySQL UNION 操作符的语法和实例。</p>
+<h3 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h3><p>MySQL UNION 操作符用于连接两个以上的 SELECT 语句的结果组合到一个结果集合中。多个 SELECT 语句会删除重复的数据。</p>
+<h3 id="语法-8"><a href="#语法-8" class="headerlink" title="语法"></a>语法</h3><p>MySQL UNION 操作符语法格式：</p>
+<pre class="line-numbers language-none"><code class="language-none">SELECT expression1, expression2, ... expression_n
+FROM tables
+[WHERE conditions]
+UNION [ALL | DISTINCT]
+SELECT expression1, expression2, ... expression_n
+FROM tables
+[WHERE conditions];<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><ul>
+<li><strong>expression1, expression2, … expression_n</strong>: 要检索的列。</li>
+<li><strong>tables:</strong> 要检索的数据表。</li>
+<li><strong>WHERE conditions:</strong> 可选， 检索条件。</li>
+<li><strong>DISTINCT:</strong> 可选，删除结果集中重复的数据。默认情况下 UNION 操作符已经删除了重复数据，所以 DISTINCT 修饰符对结果没啥影响。</li>
+<li><strong>ALL:</strong> 可选，返回所有结果集，包含重复数据</li>
+</ul>
+<h3 id="演示数据库"><a href="#演示数据库" class="headerlink" title="演示数据库"></a>演示数据库</h3><p> “websites” </p>
+<pre class="line-numbers language-none"><code class="language-none">CREATE TABLE IF NOT EXISTS &#96;websites&#96;(
+   &#96;id&#96; INT UNSIGNED AUTO_INCREMENT,
+   &#96;name&#96; VARCHAR(100) NOT NULL,
+   &#96;url&#96; VARCHAR(50) NOT NULL,
+   &#96;alexa&#96; INT UNSIGNED NOT NULL,
+   &#96;country&#96; VARCHAR(100) NOT NULL,
+   PRIMARY KEY ( &#96;id&#96; )
+)ENGINE&#x3D;InnoDB DEFAULT CHARSET&#x3D;utf8;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">insert into websites (name,url,alexa,country) values(&quot;Google&quot;,&quot;https:&#x2F;&#x2F;www.google.cm&#x2F;&quot;,1,&quot;USA&quot;);
+insert into websites (name,url,alexa,country) values(&quot;淘宝&quot;,&quot; https:&#x2F;&#x2F;www.taobao.com&#x2F; &quot;,13,&quot;CN&quot;);
+insert into websites (name,url,alexa,country) values(&quot;Facebook&quot;,&quot;https:&#x2F;&#x2F;www.facebook.com&#x2F;&quot;,3,&quot;USA&quot;);
+insert into websites (name,url,alexa,country) values(&quot;stackoverflow&quot;,&quot;http:&#x2F;&#x2F;stackoverflow.com&#x2F;&quot;,2,&quot;IND&quot;);
+insert into websites (name,url,alexa,country) values(&quot;Baidu&quot;,&quot;https:&#x2F;&#x2F;www.baidu.com&#x2F;&quot;,11,&quot;CN&quot;);
+insert into websites (name,url,alexa,country) values(&quot;mo&quot;,&quot;https:&#x2F;&#x2F;www.mosirius.cn&#x2F;&quot;,0,&quot;CN&quot;);
+insert into websites (name,url,alexa,country) values(&quot;mo&quot;,&quot;https:&#x2F;&#x2F;www.mosirius.cn&#x2F;&quot;,0,&quot;UK&quot;);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>“apps”</p>
+<pre class="line-numbers language-none"><code class="language-none">CREATE TABLE IF NOT EXISTS &#96;apps&#96;(
+   &#96;id&#96; INT UNSIGNED AUTO_INCREMENT,
+   &#96;name&#96; VARCHAR(100) NOT NULL,
+   &#96;url&#96; VARCHAR(50) NOT NULL,
+   &#96;country&#96; VARCHAR(100) NOT NULL,
+   PRIMARY KEY ( &#96;id&#96; )
+)ENGINE&#x3D;InnoDB DEFAULT CHARSET&#x3D;utf8;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">insert into apps (name,url,country) values(&quot;QQAPP&quot;,&quot; http:&#x2F;&#x2F;qq.com&#x2F; &quot;,&quot;CN&quot;);
+insert into apps (name,url,country) values(&quot;WechatAPP&quot;,&quot; http:&#x2F;&#x2F;wechat.com&#x2F; &quot;,&quot;CN&quot;);
+insert into apps (name,url,country) values(&quot;淘宝&quot;,&quot; http:&#x2F;&#x2F;www.taobao.com&#x2F; &quot;,&quot;CN&quot;);
+insert into apps (name,url,country) values(&quot;Shopee&quot;,&quot; http:&#x2F;&#x2F;www.shopee.com&#x2F; &quot;,&quot;SG&quot;);
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p> “websites” </p>
+<pre class="line-numbers language-none"><code class="language-none">mysql&gt; select *from websites;
++----+---------------+---------------------------+-------+---------+
+| id | name          | url                       | alexa | country |
++----+---------------+---------------------------+-------+---------+
+|  1 | Google        | https:&#x2F;&#x2F;www.google.cm&#x2F;    |     1 | USA     |
+|  2 | 淘宝          |  https:&#x2F;&#x2F;www.taobao.com&#x2F;  |    13 | CN      |
+|  3 | Facebook      | https:&#x2F;&#x2F;www.facebook.com&#x2F; |     3 | USA     |
+|  4 | stackoverflow | http:&#x2F;&#x2F;stackoverflow.com&#x2F; |     2 | IND     |
+|  5 | stackoverflow | http:&#x2F;&#x2F;stackoverflow.com&#x2F; |     2 | IND     |
+|  6 | Baidu         | https:&#x2F;&#x2F;www.baidu.com&#x2F;    |    11 | CN      |
+|  7 | mo            | https:&#x2F;&#x2F;www.mosirius.cn&#x2F;  |     0 | CN      |
+|  8 | mo            | https:&#x2F;&#x2F;www.mosirius.cn&#x2F;  |     0 | UK      |
++----+---------------+---------------------------+-------+---------+
+8 rows in set (0.00 sec)
+
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p> “apps” </p>
+<pre class="line-numbers language-none"><code class="language-none">mysql&gt; select *from apps;
++----+-----------+--------------------------+---------+
+| id | name      | url                      | country |
++----+-----------+--------------------------+---------+
+|  1 | QQAPP     |  http:&#x2F;&#x2F;qq.com&#x2F;          | CN      |
+|  2 | WechatAPP |  http:&#x2F;&#x2F;wechat.com&#x2F;      | CN      |
+|  3 | 淘宝      |  http:&#x2F;&#x2F;www.taobao.com&#x2F;  | CN      |
+|  4 | Shopee    |  http:&#x2F;&#x2F;www.shopee.com&#x2F;  | SG      |
++----+-----------+--------------------------+---------+
+4 rows in set (0.00 sec)
+
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h3 id="SQL-UNION-实例"><a href="#SQL-UNION-实例" class="headerlink" title="SQL UNION 实例"></a>SQL UNION 实例</h3><p>下面的 SQL 语句从 “websites” 和 “apps” 表中选取所有<strong>不同的</strong>country（只有不同的值）：</p>
+<pre class="line-numbers language-none"><code class="language-none">mysql&gt; SELECT country FROM websites UNION SELECT country FROM apps ORDER BY country;
++---------+
+| country |
++---------+
+| CN      |
+| IND     |
+| SG      |
+| UK      |
+| USA     |
++---------+
+5 rows in set (0.00 sec)
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>注释：</strong>UNION 不能用于列出两个表中所有的country。如果一些网站和APP来自同一个国家，每个国家只会列出一次。UNION 只会选取不同的值。请使用 UNION ALL 来选取重复的值！</p>
+<p>SQL UNION ALL 实例</p>
+<p>下面的 SQL 语句使用 UNION ALL 从 “websites” 和 “apps” 表中选取<strong>所有的</strong>country（也有重复的值）：</p>
+<pre class="line-numbers language-none"><code class="language-none">mysql&gt; SELECT country FROM websites UNION ALL SELECT country FROM apps ORDER BY country;
++---------+
+| country |
++---------+
+| CN      |
+| CN      |
+| CN      |
+| CN      |
+| CN      |
+| CN      |
+| IND     |
+| IND     |
+| SG      |
+| UK      |
+| USA     |
+| USA     |
++---------+
+12 rows in set (0.00 sec)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="带有-WHERE-的-SQL-UNION-ALL"><a href="#带有-WHERE-的-SQL-UNION-ALL" class="headerlink" title="带有 WHERE 的 SQL UNION ALL"></a>带有 WHERE 的 SQL UNION ALL</h3><p>下面的 SQL 语句使用 UNION ALL 从 “Websites” 和 “apps” 表中选取<strong>所有的</strong>中国(CN)的数据（也有重复的值）：</p>
+<h3 id="实例-6"><a href="#实例-6" class="headerlink" title="实例"></a>实例</h3><pre class="line-numbers language-none"><code class="language-none">SELECT country, name FROM websites
+WHERE country&#x3D;&#39;CN&#39;
+UNION ALL
+SELECT country, app_name FROM apps
+WHERE country&#x3D;&#39;CN&#39;
+ORDER BY country;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">mysql&gt; SELECT country, name FROM websites WHERE country&#x3D;&#39;CN&#39; UNION ALL SELECT country, name FROM apps WHERE country&#x3D;&#39;CN&#39; ORDER BY country;
++---------+-----------+
+| country | name      |
++---------+-----------+
+| CN      | 淘宝      |
+| CN      | Baidu     |
+| CN      | mo        |
+| CN      | QQAPP     |
+| CN      | WechatAPP |
+| CN      | 淘宝APP   |
++---------+-----------+
+6 rows in set (0.00 sec)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="MySQL-排序"><a href="#MySQL-排序" class="headerlink" title="MySQL 排序"></a>MySQL 排序</h1><p>从 MySQL 表中使用 SQL SELECT 语句来读取数据。</p>
+<p>如果我们需要对读取的数据进行排序，可以使用 MySQL 的 <strong>ORDER BY</strong> 子句来设定你想按哪个字段哪种方式来进行排序，再返回搜索结果。</p>
+<h3 id="语法-9"><a href="#语法-9" class="headerlink" title="语法"></a>语法</h3><p>以下是 SQL SELECT 语句使用 ORDER BY 子句将查询数据排序后再返回数据：</p>
+<pre class="line-numbers language-none"><code class="language-none">SELECT field1, field2,...fieldN FROM table_name1, table_name2...
+ORDER BY field1 [ASC [DESC][默认 ASC]], [field2...] [ASC [DESC][默认 ASC]]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<ul>
+<li>你可以使用任何字段来作为排序的条件，从而返回排序后的查询结果。</li>
+<li>你可以设定多个字段来排序。</li>
+<li>你可以使用 ASC 或 DESC 关键字来设置查询结果是按升序或降序排列。 默认情况下，它是按升序排列。</li>
+<li>你可以添加 WHERE…LIKE 子句来设置条件。</li>
+</ul>
+<h3 id="在命令提示符中使用-ORDER-BY-子句"><a href="#在命令提示符中使用-ORDER-BY-子句" class="headerlink" title="在命令提示符中使用 ORDER BY 子句"></a>在命令提示符中使用 ORDER BY 子句</h3><p>以下将在 SQL SELECT 语句中使用 ORDER BY 子句来读取MySQL 数据表tb1中的数据：</p>
+<h3 id="实例-7"><a href="#实例-7" class="headerlink" title="实例"></a>实例</h3><p>尝试以下实例，结果将按升序及降序排列。</p>
+<pre class="line-numbers language-SQL" data-language="SQL"><code class="language-SQL">SELECT * from tb1 ORDER BY date ASC;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">mysql&gt; select *from tb1;
++----+--------------+--------+------------+
+| id | title        | author | date       |
++----+--------------+--------+------------+
+|  1 | 学习 C++     | mo1    | 2022-03-15 |
+|  2 | 学习 MySQL   | mo2    | 2022-03-15 |
+|  4 | 学习古诗     | zhen1  | 2022-03-15 |
+|  5 | 学习数学     | zhen2  | 2022-03-15 |
+|  6 | 学习英语     | mo3    | 2022-01-01 |
++----+--------------+--------+------------+
+5 rows in set (0.00 sec)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">mysql&gt; select * from tb1 order by date asc;
++----+--------------+--------+------------+
+| id | title        | author | date       |
++----+--------------+--------+------------+
+|  6 | 学习英语     | mo3    | 2022-01-01 |
+|  1 | 学习 C++     | mo1    | 2022-03-15 |
+|  2 | 学习 MySQL   | mo2    | 2022-03-15 |
+|  4 | 学习古诗     | zhen1  | 2022-03-15 |
+|  5 | 学习数学     | zhen2  | 2022-03-15 |
++----+--------------+--------+------------+
+5 rows in set (0.00 sec)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">mysql&gt; select * from tb1 order by date desc;
++----+--------------+--------+------------+
+| id | title        | author | date       |
++----+--------------+--------+------------+
+|  1 | 学习 C++     | mo1    | 2022-03-15 |
+|  2 | 学习 MySQL   | mo2    | 2022-03-15 |
+|  4 | 学习古诗     | zhen1  | 2022-03-15 |
+|  5 | 学习数学     | zhen2  | 2022-03-15 |
+|  6 | 学习英语     | mo3    | 2022-01-01 |
++----+--------------+--------+------------+
+5 rows in set (0.00 sec)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">mysql&gt; select * from websites order by alexa desc;
++----+---------------+---------------------------+-------+---------+
+| id | name          | url                       | alexa | country |
++----+---------------+---------------------------+-------+---------+
+|  2 | 淘宝          |  https:&#x2F;&#x2F;www.taobao.com&#x2F;  |    13 | CN      |
+|  6 | Baidu         | https:&#x2F;&#x2F;www.baidu.com&#x2F;    |    11 | CN      |
+|  3 | Facebook      | https:&#x2F;&#x2F;www.facebook.com&#x2F; |     3 | USA     |
+|  4 | stackoverflow | http:&#x2F;&#x2F;stackoverflow.com&#x2F; |     2 | IND     |
+|  5 | stackoverflow | http:&#x2F;&#x2F;stackoverflow.com&#x2F; |     2 | IND     |
+|  1 | Google        | https:&#x2F;&#x2F;www.google.cm&#x2F;    |     1 | USA     |
+|  7 | mo            | https:&#x2F;&#x2F;www.mosirius.cn&#x2F;  |     0 | CN      |
+|  8 | mo            | https:&#x2F;&#x2F;www.mosirius.cn&#x2F;  |     0 | UK      |
++----+---------------+---------------------------+-------+---------+
+8 rows in set (0.00 sec)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="MySQL-GROUP-BY-语句"><a href="#MySQL-GROUP-BY-语句" class="headerlink" title="MySQL GROUP BY 语句"></a>MySQL GROUP BY 语句</h1><p>GROUP BY 语句根据一个或多个列对结果集进行分组。</p>
+<p>在分组的列上我们可以使用 COUNT, SUM, AVG,等函数。</p>
+<h3 id="GROUP-BY-语法"><a href="#GROUP-BY-语法" class="headerlink" title="GROUP BY 语法"></a>GROUP BY 语法</h3><pre class="line-numbers language-none"><code class="language-none">SELECT column_name, function(column_name)
+FROM table_name
+WHERE column_name operator value
+GROUP BY column_name;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h3 id="实例演示"><a href="#实例演示" class="headerlink" title="实例演示"></a>实例演示</h3><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token punctuation">`</span>employee_tb<span class="token punctuation">`</span> <span class="token punctuation">(</span>
+  <span class="token punctuation">`</span>id<span class="token punctuation">`</span> <span class="token keyword">int</span><span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+  <span class="token punctuation">`</span>name<span class="token punctuation">`</span> <span class="token keyword">char</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span> <span class="token keyword">DEFAULT</span> <span class="token string">''</span><span class="token punctuation">,</span>
+  <span class="token punctuation">`</span><span class="token keyword">date</span><span class="token punctuation">`</span> <span class="token keyword">datetime</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>
+  <span class="token punctuation">`</span>signin<span class="token punctuation">`</span> <span class="token keyword">tinyint</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span> <span class="token keyword">DEFAULT</span> <span class="token string">'0'</span> <span class="token keyword">COMMENT</span> <span class="token string">'登录次数'</span><span class="token punctuation">,</span>
+  <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span> <span class="token punctuation">(</span><span class="token punctuation">`</span>id<span class="token punctuation">`</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span> <span class="token keyword">ENGINE</span><span class="token operator">=</span><span class="token keyword">InnoDB</span> <span class="token keyword">DEFAULT</span> <span class="token keyword">CHARSET</span><span class="token operator">=</span>utf8<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<pre class="line-numbers language-SQL" data-language="SQL"><code class="language-SQL">mysql&gt;
+INSERT INTO &#96;employee_tb&#96; VALUES (&#39;1&#39;, &#39;小明&#39;, &#39;2016-04-22 15:25:33&#39;, &#39;1&#39;), (&#39;2&#39;, &#39;小王&#39;, &#39;2016-04-20 15:25:47&#39;, &#39;3&#39;), (&#39;3&#39;, &#39;小丽&#39;, &#39;2016-04-19 15:26:02&#39;, &#39;2&#39;), (&#39;4&#39;, &#39;小王&#39;, &#39;2016-04-07 15:26:14&#39;, &#39;4&#39;), (&#39;5&#39;, &#39;小明&#39;, &#39;2016-04-11 15:26:40&#39;, &#39;4&#39;), (&#39;6&#39;, &#39;小明&#39;, &#39;2016-04-04 15:26:54&#39;, &#39;2&#39;);
+Query OK, 6 rows affected (0.01 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<pre class="line-numbers language-SQL" data-language="SQL"><code class="language-SQL">mysql&gt; select *from  employee_tb;
++----+--------+---------------------+--------+
+| id | name   | date                | signin |
++----+--------+---------------------+--------+
+|  1 | 小明   | 2016-04-22 15:25:33 |      1 |
+|  2 | 小王   | 2016-04-20 15:25:47 |      3 |
+|  3 | 小丽   | 2016-04-19 15:26:02 |      2 |
+|  4 | 小王   | 2016-04-07 15:26:14 |      4 |
+|  5 | 小明   | 2016-04-11 15:26:40 |      4 |
+|  6 | 小明   | 2016-04-04 15:26:54 |      2 |
++----+--------+---------------------+--------+
+6 rows in set (0.00 sec)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>接下来我们使用 GROUP BY 语句 将数据表按名字进行分组，并统计每个人有多少条记录：</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SELECT</span> name<span class="token punctuation">,</span> <span class="token function">COUNT</span><span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">)</span> <span class="token keyword">FROM</span>   employee_tbl <span class="token keyword">GROUP</span> <span class="token keyword">BY</span> name<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">mysql&gt; SELECT name, COUNT(*) FROM   employee_tb GROUP BY name;
++--------+----------+
+| name   | COUNT(*) |
++--------+----------+
+| 小明   |        3 |
+| 小王   |        2 |
+| 小丽   |        1 |
++--------+----------+
+3 rows in set (0.00 sec)
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="使用-WITH-ROLLUP"><a href="#使用-WITH-ROLLUP" class="headerlink" title="使用 WITH ROLLUP"></a>使用 WITH ROLLUP</h3><p>WITH ROLLUP 可以实现在分组统计数据基础上再进行相同的统计（SUM,AVG,COUNT…）。</p>
+<p>例如我们将以上的数据表按名字进行分组，再统计每个人登录的次数：</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SELECT</span> name<span class="token punctuation">,</span> <span class="token function">SUM</span><span class="token punctuation">(</span>signin<span class="token punctuation">)</span> <span class="token keyword">as</span> signin_count <span class="token keyword">FROM</span>  employee_tb <span class="token keyword">GROUP</span> <span class="token keyword">BY</span> name <span class="token keyword">WITH ROLLUP</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">mysql&gt;  SELECT name, SUM(signin) as signin_count FROM  employee_tb GROUP BY name WITH ROLLUP;
++--------+--------------+
+| name   | signin_count |
++--------+--------------+
+| 小丽   |            2 |
+| 小明   |            7 |
+| 小王   |            7 |
+| NULL   |           16 |
++--------+--------------+
+4 rows in set (0.00 sec)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>其中记录 NULL 表示所有人的登录次数。</p>
+<p>我们可以使用 coalesce 来设置一个可以取代 NUll 的名称，coalesce 语法：</p>
+<pre class="line-numbers language-SQL" data-language="SQL"><code class="language-SQL">select coalesce(a,b,c);<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>参数说明：如果a==null,则选择b；如果b==null,则选择c；如果a!=null,则选择a；如果a b c 都为null ，则返回为null（没意义）。</p>
+<p>以下实例中如果名字为空我们使用总数代替：</p>
+<pre class="line-numbers language-none"><code class="language-none">SELECT coalesce(name, &#39;总数&#39;), SUM(signin) as signin_count FROM  employee_tb GROUP BY name WITH ROLLUP;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-SQL" data-language="SQL"><code class="language-SQL">mysql&gt; SELECT coalesce(name, &#39;总数&#39;), SUM(signin) as signin_count FROM  employee_tb GROUP BY name WITH ROLLUP;
++--------------------------+--------------+
+| coalesce(name, &#39;总数&#39;)   | signin_count |
++--------------------------+--------------+
+| 小丽                     |            2 |
+| 小明                     |            7 |
+| 小王                     |            7 |
+| 总数                     |           16 |
++--------------------------+--------------+
+4 rows in set (0.00 sec)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h1 id="MySQL-连接的使用"><a href="#MySQL-连接的使用" class="headerlink" title="MySQL 连接的使用"></a>MySQL 连接的使用</h1><p>在前几章节中，我们已经学会了如何在一张表中读取数据，这是相对简单的，但是在真正的应用中经常需要从多个数据表中读取数据。</p>
+<p>本章节我们将向大家介绍如何使用 MySQL 的 JOIN 在两个或多个表中查询数据。</p>
+<p>你可以在 SELECT, UPDATE 和 DELETE 语句中使用 Mysql 的 JOIN 来联合多表查询。</p>
+<p>JOIN 按照功能大致分为如下三类：</p>
+<ul>
+<li><strong>INNER JOIN（内连接,或等值连接）</strong>：获取两个表中字段匹配关系的记录。</li>
+<li><strong>LEFT JOIN（左连接）：</strong>获取左表所有记录，即使右表没有对应匹配的记录。</li>
+<li><strong>RIGHT JOIN（右连接）：</strong> 与 LEFT JOIN 相反，用于获取右表所有记录，即使左表没有对应匹配的记录。</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">CREATE TABLE IF NOT EXISTS &#96;tb1_count&#96;(
+   &#96;author&#96; VARCHAR(40) NOT NULL,
+   &#96;count&#96; INT UNSIGNED NOT NULL,
+   PRIMARY KEY ( &#96;author&#96; )
+)ENGINE&#x3D;InnoDB DEFAULT CHARSET&#x3D;utf8;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<pre class="line-numbers language-none"><code class="language-none">mysql&gt; insert into tb1_count (author,count) values (&#39;mo1&#39;,10),(&#39;mo2&#39;,20),(&#39;mo3&#39;,22);
+Query OK, 3 rows affected (0.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql&gt; select *from tb1_count;
++--------+-------+
+| author | count |
++--------+-------+
+| mo1    |    10 |
+| mo2    |    20 |
+| mo3    |    22 |
++--------+-------+
+3 rows in set (0.00 sec)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">mysql&gt; insert into tb1 (title,author,date) values (&#39;学习Java&#39;,&#39;mo1&#39;,&#39;2022-01-02&#39;),(&#39;学习MySQL&#39;,&#39;mo2&#39;,&#39;2022-01-03&#39;),(&#39;学习Python&#39;,&#39;mo3&#39;,&#39;2022-01-04&#39;);
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql&gt; select *from tb1;
++----+--------------+--------+------------+
+| id | title        | author | date       |
++----+--------------+--------+------------+
+|  1 | 学习 C++     | mo1    | 2022-03-15 |
+|  2 | 学习 MySQL   | mo2    | 2022-03-15 |
+|  4 | 学习古诗     | zhen1  | 2022-03-15 |
+|  5 | 学习数学     | zhen2  | 2022-03-15 |
+|  6 | 学习英语     | mo3    | 2022-01-01 |
+|  7 | 学习Java     | mo1    | 2022-01-02 |
+|  8 | 学习MySQL    | mo2    | 2022-01-03 |
+|  9 | 学习Python   | mo3    | 2022-01-04 |
++----+--------------+--------+------------+
+8 rows in set (0.00 sec)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>接下来我们就使用MySQL的**INNER JOIN(也可以省略 INNER 使用 JOIN，效果一样)**来连接以上两张表来读取tb1表中所有author字段在tb1_count表对应的count字段值：</p>
+<pre class="line-numbers language-SQL" data-language="SQL"><code class="language-SQL">SELECT a.id, a.author, b.count FROM tb1 a INNER JOIN tb1_count b ON a.author &#x3D; b.author;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">mysql&gt;  SELECT a.id, a.author, b.count FROM tb1 a INNER JOIN tb1_count b ON a.author &#x3D; b.author;
++----+--------+-------+
+| id | author | count |
++----+--------+-------+
+|  1 | mo1    |    10 |
+|  2 | mo2    |    20 |
+|  6 | mo3    |    22 |
+|  7 | mo1    |    10 |
+|  8 | mo2    |    20 |
+|  9 | mo3    |    22 |
++----+--------+-------+
+6 rows in set (0.00 sec)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>以上 SQL 语句等价于：</p>
+<h3 id="WHERE-子句"><a href="#WHERE-子句" class="headerlink" title="WHERE 子句"></a>WHERE 子句</h3><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SELECT</span> a<span class="token punctuation">.</span>id<span class="token punctuation">,</span> a<span class="token punctuation">.</span>author<span class="token punctuation">,</span> b<span class="token punctuation">.</span>count <span class="token keyword">FROM</span> tb1 a<span class="token punctuation">,</span> tb1_count b <span class="token keyword">WHERE</span> a<span class="token punctuation">.</span>author <span class="token operator">=</span> b<span class="token punctuation">.</span>author<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">mysql&gt; SELECT a.id, a.author, b.count FROM tb1 a, tb1_count b WHERE a.author &#x3D; b.author;
++----+--------+-------+
+| id | author | count |
++----+--------+-------+
+|  1 | mo1    |    10 |
+|  2 | mo2    |    20 |
+|  6 | mo3    |    22 |
+|  7 | mo1    |    10 |
+|  8 | mo2    |    20 |
+|  9 | mo3    |    22 |
++----+--------+-------+
+6 rows in set (0.00 sec)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="MySQL-LEFT-JOIN"><a href="#MySQL-LEFT-JOIN" class="headerlink" title="MySQL LEFT JOIN"></a>MySQL LEFT JOIN</h3><p>MySQL left join 与 join 有所不同。 MySQL LEFT JOIN 会读取左边数据表的全部数据，即便右边表无对应数据。</p>
+<h3 id="实例-8"><a href="#实例-8" class="headerlink" title="实例"></a>实例</h3><p>尝试以下实例，以 <strong>tb1</strong>为左表，<strong>tb1_count</strong>为右表，理解 MySQL LEFT JOIN 的应用：</p>
+<pre class="line-numbers language-SQL" data-language="SQL"><code class="language-SQL">SELECT a.id, a.author, b.count FROM tb1 a LEFT JOIN tb1_count b ON a.author &#x3D; b.author;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-SQL" data-language="SQL"><code class="language-SQL">mysql&gt;  SELECT a.id, a.author, b.count FROM tb1 a LEFT JOIN tb1_count b ON a.author &#x3D; b.author;
++----+--------+-------+
+| id | author | count |
++----+--------+-------+
+|  1 | mo1    |    10 |
+|  2 | mo2    |    20 |
+|  4 | zhen1  |  NULL |
+|  5 | zhen2  |  NULL |
+|  6 | mo3    |    22 |
+|  7 | mo1    |    10 |
+|  8 | mo2    |    20 |
+|  9 | mo3    |    22 |
++----+--------+-------+
+8 rows in set (0.00 sec)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>以上实例中使用了 LEFT JOIN，该语句会读取左边的数据表 tb1 的所有选取的字段数据，即便在右侧表 tb1_count中 没有对应的 author 字段值。</p>
+<h3 id="MySQL-RIGHT-JOIN"><a href="#MySQL-RIGHT-JOIN" class="headerlink" title="MySQL RIGHT JOIN"></a>MySQL RIGHT JOIN</h3><p>MySQL RIGHT JOIN 会读取右边数据表的全部数据，即便左边边表无对应数据。</p>
+<h3 id="实例-9"><a href="#实例-9" class="headerlink" title="实例"></a>实例</h3><p>尝试以下实例，以 <strong>tb1</strong>为左表，<strong>tb1_count</strong>为右表，理解MySQL RIGHT JOIN的应用：</p>
+<pre class="line-numbers language-none"><code class="language-none">mysql&gt; insert into tb1_count (author,count) values (&#39;hai1&#39;,&#39;22&#39;);
+Query OK, 1 row affected (0.00 sec)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">SELECT a.id, a.author, b.count FROM tb1 a RIGHT JOIN tb1_count b ON a.author &#x3D; b.author;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">mysql&gt; SELECT a.id, a.author, b.count FROM tb1 a RIGHT JOIN tb1_count b ON a.author &#x3D; b.author;
++------+--------+-------+
+| id   | author | count |
++------+--------+-------+
+| NULL | NULL   |    22 |
+|    7 | mo1    |    10 |
+|    1 | mo1    |    10 |
+|    8 | mo2    |    20 |
+|    2 | mo2    |    20 |
+|    9 | mo3    |    22 |
+|    6 | mo3    |    22 |
++------+--------+-------+
+7 rows in set (0.00 sec)
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="MySQL-NULL-值处理"><a href="#MySQL-NULL-值处理" class="headerlink" title="MySQL NULL 值处理"></a>MySQL NULL 值处理</h1><p>我们已经知道 MySQL 使用 SQL SELECT 命令及 WHERE 子句来读取数据表中的数据,但是当提供的查询条件字段为 NULL 时，该命令可能就无法正常工作。</p>
+<p>为了处理这种情况，MySQL提供了三大运算符:</p>
+<ul>
+<li><strong>IS NULL:</strong> 当列的值是 NULL,此运算符返回 true。</li>
+<li><strong>IS NOT NULL:</strong> 当列的值不为 NULL, 运算符返回 true。</li>
+<li><strong>&lt;=&gt;:</strong> 比较操作符（不同于 = 运算符），当比较的的两个值相等或者都为 NULL 时返回 true。</li>
+</ul>
+<p>关于 NULL 的条件比较运算是比较特殊的。你不能使用 = NULL 或 != NULL 在列中查找 NULL 值 。</p>
+<p>在 MySQL 中，NULL 值与任何其它值的比较（即使是 NULL）永远返回 NULL，即 NULL = NULL 返回 NULL 。</p>
+<p>MySQL 中处理 NULL 使用 IS NULL 和 IS NOT NULL 运算符。</p>
+<p><strong>注意：</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">select * , columnName1+ifnull(columnName2,0) from tableName;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>columnName1，columnName2 为 int 型，当 columnName2 中，有值为 null 时，columnName1+columnName2=null， ifnull(columnName2,0) 把 columnName2 中 null 值转为 0。</p>
+<h3 id="在命令提示符中使用-NULL-值"><a href="#在命令提示符中使用-NULL-值" class="headerlink" title="在命令提示符中使用 NULL 值"></a>在命令提示符中使用 NULL 值</h3><p>以下实例中假设数据库 mo中的表 test_bt_count 含有两列 author 和 count, count 中设置插入NULL值。</p>
+<h3 id="实例-10"><a href="#实例-10" class="headerlink" title="实例"></a>实例</h3><pre class="line-numbers language-none"><code class="language-none">mysql&gt; create table test_tb_count(author varchar(40) NOT  NULL,count INT,primary key(author));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql&gt; insert into test_tb_count (author,count) values (&#39;mo1&#39;,2),(&#39;mo2&#39;,NULL),(&#39;mo3&#39;,NULL),(&#39;mo4&#39;,3);
+Query OK, 4 rows affected (0.00 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql&gt; select *from test_tb_count;
++--------+-------+
+| author | count |
++--------+-------+
+| mo1    |     2 |
+| mo2    |  NULL |
+| mo3    |  NULL |
+| mo4    |     3 |
++--------+-------+
+4 rows in set (0.00 sec)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>以下实例中你可以看到 = 和 != 运算符是不起作用的：</p>
+<pre class="line-numbers language-SQL" data-language="SQL"><code class="language-SQL">SELECT * FROM test_tb_count WHERE count &#x3D; NULL;
+SELECT * FROM test_tb_count WHERE count !&#x3D; NULL;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-SQL" data-language="SQL"><code class="language-SQL">mysql&gt; SELECT * FROM test_tb_count WHERE count &#x3D; NULL;
+Empty set (0.00 sec)
+
+mysql&gt; SELECT * FROM test_tb_count WHERE count !&#x3D; NULL;
+Empty set (0.00 sec)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>查找数据表中test_bt_count列是否为 NULL，必须使用 <strong>IS NULL</strong> 和 <strong>IS NOT NULL</strong>，如下实例：</p>
+<pre class="line-numbers language-SQL" data-language="SQL"><code class="language-SQL">SELECT * FROM test_tb_count WHERE count is NULL;
+SELECT * FROM test_tb_count WHERE count is not NULL;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">mysql&gt; SELECT * FROM test_tb_count WHERE count is NULL;
++--------+-------+
+| author | count |
++--------+-------+
+| mo2    |  NULL |
+| mo3    |  NULL |
++--------+-------+
+2 rows in set (0.00 sec)
+
+mysql&gt; SELECT * FROM test_tb_count WHERE count is not NULL;
++--------+-------+
+| author | count |
++--------+-------+
+| mo1    |     2 |
+| mo4    |     3 |
++--------+-------+
+2 rows in set (0.00 sec)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="MySQL-正则表达式"><a href="#MySQL-正则表达式" class="headerlink" title="MySQL 正则表达式"></a>MySQL 正则表达式</h1><p>在前面已经了解到MySQL可以通过 <strong>LIKE …%</strong> 来进行模糊匹配。</p>
+<p>MySQL 同样也支持其他正则表达式的匹配， MySQL中使用 REGEXP 操作符来进行正则表达式匹配。</p>
+<p>下表中的正则模式可应用于 REGEXP 操作符中。</p>
+<table>
+<thead>
+<tr>
+<th align="left">模式</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">^</td>
+<td align="left">匹配输入字符串的开始位置。如果设置了 RegExp 对象的 Multiline 属性，^ 也匹配 ‘\n’ 或 ‘\r’ 之后的位置。</td>
+</tr>
+<tr>
+<td align="left">$</td>
+<td align="left">匹配输入字符串的结束位置。如果设置了RegExp 对象的 Multiline 属性，$ 也匹配 ‘\n’ 或 ‘\r’ 之前的位置。</td>
+</tr>
+<tr>
+<td align="left">.</td>
+<td align="left">匹配除 “\n” 之外的任何单个字符。要匹配包括 ‘\n’ 在内的任何字符，请使用像 ‘[.\n]’ 的模式。</td>
+</tr>
+<tr>
+<td align="left">[…]</td>
+<td align="left">字符集合。匹配所包含的任意一个字符。例如， ‘[abc]’ 可以匹配 “plain” 中的 ‘a’。</td>
+</tr>
+<tr>
+<td align="left">[^…]</td>
+<td align="left">负值字符集合。匹配未包含的任意字符。例如， ‘[^abc]’ 可以匹配 “plain” 中的’p’。</td>
+</tr>
+<tr>
+<td align="left">p1|p2|p3</td>
+<td align="left">匹配 p1 或 p2 或 p3。例如，’z|food’ 能匹配 “z” 或 “food”。’(z|f)ood’ 则匹配 “zood” 或 “food”。</td>
+</tr>
+<tr>
+<td align="left">*</td>
+<td align="left">匹配前面的子表达式零次或多次。例如，zo* 能匹配 “z” 以及 “zoo”。* 等价于{0,}。</td>
+</tr>
+<tr>
+<td align="left">+</td>
+<td align="left">匹配前面的子表达式一次或多次。例如，’zo+’ 能匹配 “zo” 以及 “zoo”，但不能匹配 “z”。+ 等价于 {1,}。</td>
+</tr>
+<tr>
+<td align="left">{n}</td>
+<td align="left">n 是一个非负整数。匹配确定的 n 次。例如，’o{2}’ 不能匹配 “Bob” 中的 ‘o’，但是能匹配 “food” 中的两个 o。</td>
+</tr>
+<tr>
+<td align="left">{n,m}</td>
+<td align="left">m 和 n 均为非负整数，其中n &lt;= m。最少匹配 n 次且最多匹配 m 次。</td>
+</tr>
+</tbody></table>
+<h3 id="实例-11"><a href="#实例-11" class="headerlink" title="实例"></a>实例</h3><p>了解以上的正则需求后，我们就可以根据自己的需求来编写带有正则表达式的SQL语句。以下我们将列出几个小实例(表名：p_tb)来加深我们的理解：</p>
+<pre class="line-numbers language-none"><code class="language-none">mysql&gt; select *from p_tb;
++----+------------+
+| id | name       |
++----+------------+
+|  1 | mo1        |
+|  2 | mo2        |
+|  3 | mo3        |
+|  4 | zhen1      |
+|  5 | zhen2      |
+|  6 | zhen3      |
+|  7 | mozhenhai1 |
+|  8 | mozhenhai2 |
+|  9 | mozhenhai3 |
+| 10 | am         |
+| 11 | em         |
+| 12 | im         |
++----+------------+
+12 rows in set (0.01 sec)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>查找name字段中以’mo’为开头的所有数据：</p>
+<pre class="line-numbers language-none"><code class="language-none">SELECT name FROM p_tb WHERE name REGEXP &#39;^mo&#39;;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">mysql&gt; SELECT name FROM p_tb WHERE name REGEXP &#39;^mo&#39;;
++------------+
+| name       |
++------------+
+| mo1        |
+| mo2        |
+| mo3        |
+| mozhenhai1 |
+| mozhenhai2 |
+| mozhenhai3 |
++------------+
+6 rows in set (0.11 sec)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>查找name字段中以’2’为结尾的所有数据：</p>
+<pre class="line-numbers language-none"><code class="language-none">SELECT name FROM p_tb WHERE name REGEXP &#39;2$&#39;;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">mysql&gt; SELECT name FROM p_tb WHERE name REGEXP &#39;2$&#39;;
++------------+
+| name       |
++------------+
+| mo2        |
+| zhen2      |
+| mozhenhai2 |
++------------+
+3 rows in set (0.00 sec)
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>查找name字段中包含’znen’字符串的所有数据：</p>
+<pre class="line-numbers language-none"><code class="language-none">SELECT name FROM p_tb WHERE name REGEXP &#39;zhen&#39;;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">mysql&gt; SELECT name FROM p_tb WHERE name REGEXP &#39;zhen&#39;;
++------------+
+| name       |
++------------+
+| zhen1      |
+| zhen2      |
+| zhen3      |
+| mozhenhai1 |
+| mozhenhai2 |
+| mozhenhai3 |
++------------+
+6 rows in set (0.00 sec)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>查找name字段中以元音字符开头或以’hai’字符串结尾的所有数据：</p>
+<pre class="line-numbers language-none"><code class="language-none">SELECT name FROM p_tb WHERE name REGEXP &#39;^[aeiou]|hai1$&#39;;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">mysql&gt;  SELECT name FROM p_tb WHERE name REGEXP &#39;^[aeiou]|hai1$&#39;;
++------------+
+| name       |
++------------+
+| mozhenhai1 |
+| am         |
+| em         |
+| im         |
++------------+
+4 rows in set (0.00 sec)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="MySQL-事务"><a href="#MySQL-事务" class="headerlink" title="MySQL 事务"></a>MySQL 事务</h1><p>MySQL 事务主要用于处理操作量大，复杂度高的数据。比如说，在人员管理系统中，你删除一个人员，你既需要删除人员的基本资料，也要删除和该人员相关的信息，如信箱，文章等等，这样，这些数据库操作语句就构成一个事务！</p>
+<ul>
+<li>在 MySQL 中只有使用了 Innodb 数据库引擎的数据库或表才支持事务。</li>
+<li>事务处理可以用来维护数据库的完整性，保证成批的 SQL 语句要么全部执行，要么全部不执行。</li>
+<li>事务用来管理 insert,update,delete 语句</li>
+</ul>
+<p>一般来说，事务是必须满足4个条件（ACID）：：原子性（<strong>A</strong>tomicity，或称不可分割性）、一致性（<strong>C</strong>onsistency）、隔离性（<strong>I</strong>solation，又称独立性）、持久性（<strong>D</strong>urability）。</p>
+<ul>
+<li><strong>原子性：</strong>一个事务（transaction）中的所有操作，要么全部完成，要么全部不完成，不会结束在中间某个环节。事务在执行过程中发生错误，会被回滚（Rollback）到事务开始前的状态，就像这个事务从来没有执行过一样。</li>
+<li><strong>一致性：</strong>在事务开始之前和事务结束以后，数据库的完整性没有被破坏。这表示写入的资料必须完全符合所有的预设规则，这包含资料的精确度、串联性以及后续数据库可以自发性地完成预定的工作。</li>
+<li><strong>隔离性：</strong>数据库允许多个并发事务同时对其数据进行读写和修改的能力，隔离性可以防止多个事务并发执行时由于交叉执行而导致数据的不一致。事务隔离分为不同级别，包括读未提交（Read uncommitted）、读提交（read committed）、可重复读（repeatable read）和串行化（Serializable）。</li>
+<li><strong>持久性：</strong>事务处理结束后，对数据的修改就是永久的，即便系统故障也不会丢失。</li>
+</ul>
+<blockquote>
+<p>在 MySQL 命令行的默认设置下，事务都是自动提交的，即执行 SQL 语句后就会马上执行 COMMIT 操作。因此要显式地开启一个事务务须使用命令 BEGIN 或 START TRANSACTION，或者执行命令 SET AUTOCOMMIT=0，用来禁止使用当前会话的自动提交。</p>
+</blockquote>
+<h3 id="事务控制语句："><a href="#事务控制语句：" class="headerlink" title="事务控制语句："></a>事务控制语句：</h3><ul>
+<li>BEGIN 或 START TRANSACTION 显式地开启一个事务；</li>
+<li>COMMIT 也可以使用 COMMIT WORK，不过二者是等价的。COMMIT 会提交事务，并使已对数据库进行的所有修改成为永久性的；</li>
+<li>ROLLBACK 也可以使用 ROLLBACK WORK，不过二者是等价的。回滚会结束用户的事务，并撤销正在进行的所有未提交的修改；</li>
+<li>SAVEPOINT identifier，SAVEPOINT 允许在事务中创建一个保存点，一个事务中可以有多个 SAVEPOINT；</li>
+<li>RELEASE SAVEPOINT identifier 删除一个事务的保存点，当没有指定的保存点时，执行该语句会抛出一个异常；</li>
+<li>ROLLBACK TO identifier 把事务回滚到标记点；</li>
+<li>SET TRANSACTION 用来设置事务的隔离级别。InnoDB 存储引擎提供事务的隔离级别有READ UNCOMMITTED、READ COMMITTED、REPEATABLE READ 和 SERIALIZABLE。</li>
+</ul>
+<h3 id="MYSQL-事务处理主要有两种方法："><a href="#MYSQL-事务处理主要有两种方法：" class="headerlink" title="MYSQL 事务处理主要有两种方法："></a>MYSQL 事务处理主要有两种方法：</h3><p>1、用 BEGIN, ROLLBACK, COMMIT来实现</p>
+<ul>
+<li><strong>BEGIN</strong> 开始一个事务</li>
+<li><strong>ROLLBACK</strong> 事务回滚</li>
+<li><strong>COMMIT</strong> 事务确认</li>
+</ul>
+<p>2、直接用 SET 来改变 MySQL 的自动提交模式:</p>
+<ul>
+<li><strong>SET AUTOCOMMIT=0</strong> 禁止自动提交</li>
+<li><strong>SET AUTOCOMMIT=1</strong> 开启自动提交</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">CREATE TABLE transaction_test( id int(5)) engine&#x3D;innodb;  # 创建数据表<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">select * from transaction_test;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">begin;  # 开始事务<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">insert into transaction_test value(5);<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">insert into transaction_test value(6);<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">commit; # 提交事务<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">select * from transaction_test;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">begin;    # 开始事务<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">insert into transaction_test values(7);<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">rollback;   # 回滚<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">select * from transaction_test;   # 因为回滚所以数据没有插入<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">mysql&gt; CREATE TABLE transaction_test( id int(5)) engine&#x3D;innodb;  # 创建数据表
+Query OK, 0 rows affected, 1 warning (0.02 sec)
+
+mysql&gt; select * from transaction_test;
+Empty set (0.00 sec)
+
+mysql&gt;  begin; 
+Query OK, 0 rows affected (0.00 sec)
+
+mysql&gt;  insert into transaction_test value(5);
+Query OK, 1 row affected (0.00 sec)
+
+mysql&gt; insert into transaction_test value(6);
+Query OK, 1 row affected (0.00 sec)
+
+mysql&gt; commit;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql&gt; select * from transaction_test;
++------+
+| id   |
++------+
+|    5 |
+|    6 |
++------+
+2 rows in set (0.00 sec)
+
+mysql&gt; begin;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql&gt;  insert into transaction_test values(7);
+Query OK, 1 row affected (0.00 sec)
+
+mysql&gt; rollback;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql&gt; select * from transaction_test; 
++------+
+| id   |
++------+
+|    5 |
+|    6 |
++------+
+2 rows in set (0.00 sec)
+
+mysql&gt; 
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 
                 
             </div>
