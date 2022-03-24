@@ -41,7 +41,7 @@
             <div class="brand-logo">
                 <a href="/" class="waves-effect waves-light">
                     
-                    <img src="/medias/logo.jpg" class="logo-img" alt="LOGO">
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
                     
                     <span class="logo-span">moblog</span>
                 </a>
@@ -140,7 +140,7 @@
 
     <div class="mobile-head bg-color">
         
-        <img src="/medias/logo.jpg" class="logo-img circle responsive-img">
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
         
         <div class="logo-name">moblog</div>
         <div class="logo-desc">
@@ -435,9 +435,9 @@ using namespace std<span class="token punctuation">;</span>
 <p> 在Linux中运行c/c++程序的方式:</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">gcc filename -o filename
 gcc hello.c -o hello
-./hello
+.&#x2F;hello
 g++ hello.cpp -o hellocpp
-./hellocpp<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+.&#x2F;hellocpp<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>这是我们运行一个文件的方式。</p>
 <p>如果说我们有很多这样的程序需要运行，这样运行我们的程序，就会显得十分的繁琐。</p>
@@ -543,37 +543,37 @@ max.o:
 min.o:
 	gcc min.c
 clean:
-	<span class="token function">rm</span> *.o main
+	rm *.o main
 	<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="Makefile-3"><a href="#Makefile-3" class="headerlink" title="Makefile"></a>Makefile</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">CC <span class="token operator">=</span> gcc
+<h3 id="Makefile-3"><a href="#Makefile-3" class="headerlink" title="Makefile"></a>Makefile</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">CC &#x3D; gcc
 
 main: main.c max.o min.o
-	<span class="token variable"><span class="token variable">$(</span>cc<span class="token variable">)</span></span> main.c max.o min.o -o main
+	$(cc) main.c max.o min.o -o main
 max.o:
-	<span class="token variable"><span class="token variable">$(</span>cc<span class="token variable">)</span></span> max.c 
+	$(cc) max.c 
 min.o:
-	<span class="token variable"><span class="token variable">$(</span>cc<span class="token variable">)</span></span> min.c
+	$(cc) min.c
 clean:
-	<span class="token function">rm</span> *.o main<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+	rm *.o main<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h3 id="编译多个含有main函数的程序文件"><a href="#编译多个含有main函数的程序文件" class="headerlink" title="编译多个含有main函数的程序文件"></a>编译多个含有main函数的程序文件</h3><h3 id="Makefile-4"><a href="#Makefile-4" class="headerlink" title="Makefile"></a>Makefile</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">
-cc <span class="token operator">=</span> gcc
+cc &#x3D; gcc
 all:hellocpp hello main
 
 hellocpp: hello.cpp
         g++ hello.cpp -o hellocpp
 
 hello: hello.c
-        <span class="token variable"><span class="token variable">$(</span>cc<span class="token variable">)</span></span> hello.c -o hello
+        $(cc) hello.c -o hello
 main: main.c max.o min.o
-        <span class="token variable"><span class="token variable">$(</span>cc<span class="token variable">)</span></span> main.c max.o min.o -o main
+        $(cc) main.c max.o min.o -o main
 max.o:
-        <span class="token variable"><span class="token variable">$(</span>cc<span class="token variable">)</span></span> -c max.c 
+        $(cc) -c max.c 
 min.o: 
-        <span class="token variable"><span class="token variable">$(</span>cc<span class="token variable">)</span></span> -c min.c
+        $(cc) -c min.c
 clean:
-        <span class="token function">rm</span> *.o hellocpp hello main
+        rm *.o hellocpp hello main
 
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
