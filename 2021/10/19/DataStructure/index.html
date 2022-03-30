@@ -422,7 +422,7 @@
 <li>除了根节点外，每个子节点可以分为多个不相交的子树；</li>
 <li>树里面没有环路(cycle)</li>
 </ul>
-<h3 id="术语"><a href="#术语" class="headerlink" title="术语"></a>术语</h3><ol>
+<h2 id="术语"><a href="#术语" class="headerlink" title="术语"></a>术语</h2><ol>
 <li><strong>节点的度</strong>：一个节点含有的子树的个数称为该节点的度；</li>
 <li><strong>树的度</strong>：一棵树中，最大的节点度称为树的度；</li>
 <li><strong>叶节点</strong>或<strong>终端节点</strong>：度为零的节点；</li>
@@ -438,7 +438,7 @@
 <li><strong>子孙</strong>：以某节点为根的子树中任一节点都称为该节点的子孙。</li>
 <li><strong>森林</strong>：由m（m&gt;=0）棵互不相交的树的集合称为森林；</li>
 </ol>
-<h3 id="树的种类"><a href="#树的种类" class="headerlink" title="树的种类"></a>树的种类</h3><ul>
+<h2 id="树的种类"><a href="#树的种类" class="headerlink" title="树的种类"></a>树的种类</h2><ul>
 <li><p>无序树：树中任意节点的子节点之间没有顺序关系，这种树称为无序树，也称为自由树。</p>
 </li>
 <li><p>有序树：树中任意节点的子节点之间有顺序关系，这种树称为有序树；</p>
@@ -709,13 +709,14 @@ int main() &#123;
     return 0;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="AVL树-（对二分搜索树的改进）"><a href="#AVL树-（对二分搜索树的改进）" class="headerlink" title="AVL树 （对二分搜索树的改进）"></a>AVL树 （对二分搜索树的改进）</h3><p>维基百科</p>
+<h2 id="AVL树-（对二分搜索树的改进）"><a href="#AVL树-（对二分搜索树的改进）" class="headerlink" title="AVL树 （对二分搜索树的改进）"></a>AVL树 （对二分搜索树的改进）</h2><p>维基百科</p>
 <p>AVL树（Adelson-Velsky and Landis Tree）是计算机科学中最早被发明的自平衡二叉查找树。在AVL树中，任一节点对应的两棵子树的最大高度差为1，因此它也被称为高度平衡树。查找、插入和删除在平均和最坏情况下的时间复杂度都是（logn)。增加和删除元素的操作则可能需要借由一次或多次树旋转，以实现树的重新平衡。AVL树得名于它的发明者G. M. Adelson-Velsky和Evgenii Landis，他们在1962年的论文《An algorithm for the organization of information》中公开了这一数据结构。</p>
 <p>节点的平衡因子是它的左子树的高度减去它的右子树的高度（有时相反）。带有平衡因子1、0或 -1的节点被认为是平衡的。带有平衡因子 -2或2的节点被认为是不平衡的，并需要重新平衡这个树。平衡因子可以直接存储在每个节点中，或从可能存储在节点中的子树高度计算出来。</p>
 <p>百度百科</p>
 <p>在计算机科学中，AVL树是最先发明的自平衡二叉查找树。在AVL树中任何节点的两个子树的高度最大差别为1，所以它也被称为高度平衡树。增加和删除可能需要通过一次或多次树旋转来重新平衡这个树。AVL树得名于它的发明者G. M. Adelson-Velsky和E. M. Landis，他们在1962年的论文《An algorithm for the organization of information》中发表了它。<br>AVL树本质上还是一棵二叉搜索树，它的特点是：<br>1.本身首先是一棵二叉搜索树。<br>2.带有平衡条件：每个结点的左右子树的高度之差的绝对值（平衡因子）最多为1。<br>也就是说，AVL树，本质上是带了平衡功能的二叉查找树（二叉排序树，二叉搜索树）。</p>
 <p>总的来说，AVL树是对二叉搜索树的一种改进，是一种自平衡的二叉搜索树。在二叉树搜索树插入的时候，如果不平衡会自动进行调整，使二叉搜索树平衡（每个结点的左右子树的高度之差的绝对值最多为1）</p>
-<h4 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h4><p>AVL树的基本操作一般涉及运作同在不平衡的二叉查找树所运作的同样的算法。但是要进行预先或随后做一次或多次所谓的”AVL旋转”。</p>
+<p><strong>操作</strong></p>
+<p>AVL树的基本操作一般涉及运作同在不平衡的二叉查找树所运作的同样的算法。但是要进行预先或随后做一次或多次所谓的”AVL旋转”。</p>
 <p>以下图表以四列表示四种情况，每行表示在该种情况下要进行的操作。在左左和右右的情况下，只需要进行一次旋转操作；在左右和右左的情况下，需要进行两次旋转操作。</p>
 <h2 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h2><p>红黑树是每个节点都带有<em>颜色</em>属性的[二叉查找树]，颜色为<em>红色</em>或<em>黑色</em>。在二叉查找树强制一般要求以外，对于任何有效的红黑树我们增加了如下的额外要求：</p>
 <ol>
@@ -740,6 +741,891 @@ int main() &#123;
 <p>散列函数 H(key) = key%13</p>
 <p>处理冲突的方法</p>
 <p>拉链法 链接法 链地址法  把所有 同义词存储在一个链表中</p>
+<h2 id="并查集-Union-Find"><a href="#并查集-Union-Find" class="headerlink" title="并查集 Union Find"></a>并查集 Union Find</h2><p> <strong>连接问题</strong></p>
+<p>网络中节点间的连接状态</p>
+<p>网络是个抽象的概念：用户之间形成的网络</p>
+<p>数学中的集合类实现</p>
+<p>并查集 的并就是数学集合中的并</p>
+<p>连接问题和路径问题</p>
+<p>比路径问题要回答的问题少</p>
+<p>1.和二分查找作比较</p>
+<p>2.和select作比较</p>
+<p>3.和堆作比较</p>
+<h3 id="并查集"><a href="#并查集" class="headerlink" title="并查集"></a>并查集</h3><p>对于一组数据，主要支持两个动作</p>
+<p>union(p,q)</p>
+<p>find(p)</p>
+<p>用来回答一个问题 isConnected(p,q)  连接问题</p>
+<h3 id="并查集的一种实现思路Quick-Find"><a href="#并查集的一种实现思路Quick-Find" class="headerlink" title="并查集的一种实现思路Quick Find"></a>并查集的一种实现思路Quick Find</h3><p>并查集的基本数据表示 数组</p>
+<table>
+<thead>
+<tr>
+<th>Id（数组下标）</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Id[i]</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody></table>
+<p>比如，0到4对应的值为0,它们之间是相互连接的。5到9对应的值为1，它们是相互连接的。</p>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">&#x2F;&#x2F; 查找过程, 查找元素p所对应的集合编号
+int find(int p) &#123;
+    assert(p &gt;&#x3D; 0 &amp;&amp; p &lt;&#x3D; count);
+    return id[p];
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 查看元素p和元素q是否所属一个集合
+&#x2F;&#x2F; O(1)复杂度
+bool isConnected(int p, int q) &#123;
+    return find(p) &#x3D;&#x3D; find(q);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; 合并元素p和元素q所属的集合
+&#x2F;&#x2F; O(n) 复杂度
+void unionSet(int p, int q) &#123;
+     int pId &#x3D; find(p);
+     int qId &#x3D; find(q);
+     if (pId &#x3D;&#x3D; qId)
+          return;
+&#x2F;&#x2F; 合并过程需要遍历一遍所有元素, 将两个元素的所属集合编号合并，就是合并两个集合
+      for (int i &#x3D; 0; i &lt; count; i++) &#123;
+          if (id[i] &#x3D;&#x3D; pId)
+               id[i] &#x3D; qId;
+           &#125;
+    &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="并查集的另外一种实现思路Quick-Union"><a href="#并查集的另外一种实现思路Quick-Union" class="headerlink" title="并查集的另外一种实现思路Quick Union"></a>并查集的另外一种实现思路Quick Union</h3><p>将每一个元素，看做是一个节点</p>
+<img src="/2021/10/19/DataStructure/UnionFind1.png" class>
+
+<p>连接的时候，使用一个根指向另有一个根</p>
+<img src="/2021/10/19/DataStructure/UnionFind2.png" class>
+
+
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">int find(int p) &#123;
+    assert(p &gt;&#x3D; 0 &amp;&amp; p &lt;&#x3D; count);
+    while (p !&#x3D; parent[p])
+        p &#x3D; parent[p];
+    return p;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">bool isConnected(int p, int q) &#123;
+    return find(p) &#x3D;&#x3D; find(q);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void unionSet(int p, int q) &#123;
+    int pRoot &#x3D; find(p);
+    int qRoot &#x3D; find(q);
+    if (pRoot &#x3D;&#x3D; qRoot)
+        return;
+    parent[pRoot] &#x3D; qRoot;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+
+
+<p>完整实现</p>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">&#x2F;&#x2F;
+&#x2F;&#x2F; Created by mo on 2021&#x2F;7&#x2F;29.
+&#x2F;&#x2F;
+
+#ifndef UNIONFIND_UNIONFIND_H
+#define UNIONFIND_UNIONFIND_H
+
+#include &lt;iostream&gt;
+#include &lt;cassert&gt;
+
+using namespace std;
+&#x2F;&#x2F;第一版Union-Find
+namespace UF1 &#123;
+    class UnionFind &#123;
+
+    private:
+        int *id;&#x2F;&#x2F;Union-Find本质就是一个数组
+        int count; &#x2F;&#x2F; 数据个数
+    public:
+        &#x2F;&#x2F; 构造函数
+        UnionFind(int n) &#123;
+            count &#x3D; n;
+            id &#x3D; new int[n];
+            &#x2F;&#x2F; 初始化, 每一个id[i]指向自己, 没有合并的元素
+            for (int i &#x3D; 0; i &lt; n; i++)
+                id[i] &#x3D; i;
+        &#125;
+        &#x2F;&#x2F;析构函数
+        ~UnionFind() &#123;
+            delete[] id;
+        &#125;
+        &#x2F;&#x2F; 查找过程, 查找元素p所对应的集合编号
+        int find(int p) &#123;
+            assert(p &gt;&#x3D; 0 &amp;&amp; p &lt;&#x3D; count);
+            return id[p];
+        &#125;
+        &#x2F;&#x2F; 查看元素p和元素q是否所属一个集合
+        &#x2F;&#x2F; O(1)复杂度
+        bool isConnected(int p, int q) &#123;
+            return find(p) &#x3D;&#x3D; find(q);
+        &#125;
+        &#x2F;&#x2F; 合并元素p和元素q所属的集合
+        &#x2F;&#x2F; O(n) 复杂度
+        void unionSet(int p, int q) &#123;
+            int pId &#x3D; find(p);
+            int qId &#x3D; find(q);
+            if (pId &#x3D;&#x3D; qId)
+                return;
+            &#x2F;&#x2F; 合并过程需要遍历一遍所有元素, 将两个元素的所属集合编号合并，就是合并两个集合
+            for (int i &#x3D; 0; i &lt; count; i++) &#123;
+                if (id[i] &#x3D;&#x3D; pId)
+                    id[i] &#x3D; qId;
+            &#125;
+        &#125;
+    &#125;;
+&#125;
+&#x2F;&#x2F;第二版Union-Find
+namespace UF2 &#123;
+    class UnionFind &#123;
+    private:
+        int *parent;
+        int count;
+
+    public:
+        UnionFind(int count) &#123;
+            parent &#x3D; new int[count];
+            this-&gt;count &#x3D; count;
+            for (int i &#x3D; 0; i &lt; count; i++) &#123;
+                parent[i] &#x3D; i;
+            &#125;
+        &#125;
+
+        ~UnionFind() &#123;
+            delete[] parent;
+        &#125;
+
+        int find(int p) &#123;
+            assert(p &gt;&#x3D; 0 &amp;&amp; p &lt;&#x3D; count);
+            while (p !&#x3D; parent[p])
+                p &#x3D; parent[p];
+            return p;
+        &#125;
+
+        bool isConnected(int p, int q) &#123;
+            return find(p) &#x3D;&#x3D; find(q);
+        &#125;
+
+        void unionSet(int p, int q) &#123;
+            int pRoot &#x3D; find(p);
+            int qRoot &#x3D; find(q);
+            if (pRoot &#x3D;&#x3D; qRoot)
+                return;
+            parent[pRoot] &#x3D; qRoot;
+        &#125;
+    &#125;;
+&#125;
+&#x2F;&#x2F;第三版Union-Find
+namespace UF3 &#123;
+    class UnionFind &#123;
+    private:
+        int *parent; &#x2F;&#x2F; parent[i]表示第i个元素所指向的父节点
+        int *sz;&#x2F;&#x2F; sz[i]表示以i为根的集合中元素个数
+        int count;&#x2F;&#x2F; 数据个数
+    public:
+        &#x2F;&#x2F;构造函数
+        UnionFind(int count) &#123;
+            parent &#x3D; new int[count];
+            sz &#x3D; new int[count];
+            this-&gt;count &#x3D; count;
+            for (int i &#x3D; 0; i &lt; count; i++) &#123;
+                parent[i] &#x3D; i;
+                sz[i] &#x3D; 1;
+            &#125;
+        &#125;
+        &#x2F;&#x2F;析构函数
+        ~UnionFind() &#123;
+            delete[] parent;
+            delete[] sz;
+        &#125;
+        &#x2F;&#x2F; 查找过程, 查找元素p所对应的集合编号
+        &#x2F;&#x2F; O(h)复杂度, h为树的高度
+        int find(int p) &#123;
+            assert(p &gt;&#x3D; 0 &amp;&amp; p &lt;&#x3D; count);
+            &#x2F;&#x2F; 不断去查询自己的父亲节点, 直到到达根节点
+            &#x2F;&#x2F; 根节点的特点: parent[p] &#x3D;&#x3D; p
+            while (p !&#x3D; parent[p]) &#123;
+                p &#x3D; parent[p];
+            &#125;
+            return p;
+        &#125;
+
+        &#x2F;&#x2F; 查看元素p和元素q是否所属一个集合
+        &#x2F;&#x2F; O(h)复杂度, h为树的高度
+        bool isConnected(int p, int q) &#123;
+            return find(p) &#x3D;&#x3D; find(q);
+        &#125;
+
+        &#x2F;&#x2F; 合并元素p和元素q所属的集合
+        &#x2F;&#x2F; O(h)复杂度, h为树的高度
+        void unionSet(int p, int q) &#123;
+            int pRoot &#x3D; find(p);
+            int qRoot &#x3D; find(q);
+
+            if (pRoot &#x3D;&#x3D; qRoot)
+                return;
+            &#x2F;&#x2F; 根据两个元素所在树的元素个数不同判断合并方向
+            &#x2F;&#x2F; 将元素个数少的集合合并到元素个数多的集合上
+            if (sz[pRoot] &lt; sz[qRoot]) &#123;
+                parent[pRoot] &#x3D; qRoot;
+                sz[qRoot] +&#x3D; sz[pRoot];
+            &#125; else &#123;
+                parent[qRoot] &#x3D; pRoot;
+                sz[pRoot] +&#x3D; sz[qRoot];
+            &#125;
+        &#125;
+    &#125;;
+&#125;
+&#x2F;&#x2F;第四版Union-Find
+namespace UF4 &#123;
+    class UnionFind &#123;
+    private:
+        int *rank; &#x2F;&#x2F; rank[i]表示以i为根的集合所表示的树的层数
+        int *parent;&#x2F;&#x2F; parent[i]表示第i个元素所指向的父节点
+        int count; &#x2F;&#x2F; 数据个数
+    public:
+        &#x2F;&#x2F;构造函数
+        UnionFind(int count) &#123;
+            parent &#x3D; new int[count];
+            rank &#x3D; new int[count];
+            this-&gt;count &#x3D; count;
+            for (int i &#x3D; 0; i &lt; count; i++) &#123;
+                parent[i] &#x3D; i;
+                rank[i] &#x3D; 1;
+            &#125;
+        &#125;
+        ~UnionFind() &#123;
+            delete[] parent;
+            delete[] rank;
+        &#125;
+
+        int find(int p) &#123;
+            assert(p &gt;&#x3D; 0 &amp;&amp; p &lt;&#x3D; count);
+            &#x2F;&#x2F; 不断去查询自己的父亲节点, 直到到达根节点
+            &#x2F;&#x2F; 根节点的特点: parent[p] &#x3D;&#x3D; p
+            while (p !&#x3D; parent[p]) &#123;
+                p &#x3D; parent[p];
+            &#125;
+            return p;
+        &#125;
+
+        &#x2F;&#x2F; 查看元素p和元素q是否所属一个集合
+        &#x2F;&#x2F; O(h)复杂度, h为树的高度
+        bool isConnected(int p, int q) &#123;
+            return find(p) &#x3D;&#x3D; find(q);
+        &#125;
+        &#x2F;&#x2F; 合并元素p和元素q所属的集合
+        &#x2F;&#x2F; O(h)复杂度, h为树的高度
+
+        void unionSet(int p, int q) &#123;
+
+            int pRoot &#x3D; find(p);
+            int qRoot &#x3D; find(q);
+
+            if (pRoot &#x3D;&#x3D; qRoot)
+                return;
+            &#x2F;&#x2F; 根据两个元素所在树的元素个数不同判断合并方向
+            &#x2F;&#x2F; 将元素个数少的集合合并到元素个数多的集合上
+            if (rank[pRoot] &lt; rank[qRoot]) &#123;
+                parent[pRoot] &#x3D; qRoot;
+            &#125; else if (rank[pRoot] &gt; rank[qRoot]) &#123;
+                parent[qRoot] &#x3D; pRoot;
+            &#125; else &#123;&#x2F;&#x2F; rank[pRoot] &#x3D;&#x3D; rank[qRoot]
+                parent[pRoot] &#x3D; qRoot;
+                rank[qRoot] +&#x3D; 1;   &#x2F;&#x2F; 此时, 我维护rank的值
+            &#125;
+        &#125;
+    &#125;;
+&#125;
+namespace UF5 &#123;
+    &#x2F;&#x2F; rank[i]表示以i为根的集合所表示的树的层数
+    &#x2F;&#x2F; 在后续的代码中, 我们并不会维护rank的语意, 也就是rank的值在路径压缩的过程中, 有可能不在是树的层数值
+    &#x2F;&#x2F; 这也是我们的rank不叫height或者depth的原因, 他只是作为比较的一个标准
+    class UnionFind &#123;
+
+    public: &#x2F;&#x2F; 后续, 我们要在外部操控并查集的数据, 在这里使用public
+        int *parent; &#x2F;&#x2F; parent[i]表示第i个元素所指向的父节点
+
+    private:
+        int *rank; &#x2F;&#x2F; rank[i]表示以i为根的集合所表示的树的层数
+&#x2F;&#x2F;        int* parent;&#x2F;&#x2F; parent[i]表示第i个元素所指向的父节点
+        int count; &#x2F;&#x2F; 数据个数
+    public:
+        &#x2F;&#x2F;构造函数
+        UnionFind(int count) &#123;
+            parent &#x3D; new int[count];
+            rank &#x3D; new int[count];
+            this-&gt;count &#x3D; count;
+            for (int i &#x3D; 0; i &lt; count; i++) &#123;
+                parent[i] &#x3D; i;
+                rank[i] &#x3D; 1;
+            &#125;
+        &#125;
+
+        ~UnionFind() &#123;
+            delete[] parent;
+            delete[] rank;
+        &#125;
+
+        int find(int p) &#123;
+            assert(p &gt;&#x3D; 0 &amp;&amp; p &lt; count);
+            &#x2F;&#x2F; 不断去查询自己的父亲节点, 直到到达根节点
+            &#x2F;&#x2F; 根节点的特点: parent[p] &#x3D;&#x3D; p
+
+            &#x2F;&#x2F; path compression 1
+            while (p !&#x3D; parent[p]) &#123;
+                parent[p] &#x3D; parent[parent[p]];
+                p &#x3D; parent[p];
+            &#125;
+            return p;
+
+            &#x2F;&#x2F; path compression 2, 递归算法
+&#x2F;&#x2F;            if (p !&#x3D; parent[p])&#123;
+&#x2F;&#x2F;                parent[p] &#x3D; find(parent[p]);
+&#x2F;&#x2F;            &#125;
+&#x2F;&#x2F;            return parent[p];
+        &#125;
+
+        &#x2F;&#x2F; 查看元素p和元素q是否所属一个集合
+        &#x2F;&#x2F; O(h)复杂度, h为树的高度
+        bool isConnected(int p, int q) &#123;
+            return find(p) &#x3D;&#x3D; find(q);
+        &#125;
+        &#x2F;&#x2F; 合并元素p和元素q所属的集合
+        &#x2F;&#x2F; O(h)复杂度, h为树的高度
+
+        void unionSet(int p, int q) &#123;
+
+            int pRoot &#x3D; find(p);
+            int qRoot &#x3D; find(q);
+
+            if (pRoot &#x3D;&#x3D; qRoot)
+                return;
+            &#x2F;&#x2F; 根据两个元素所在树的元素个数不同判断合并方向
+            &#x2F;&#x2F; 将元素个数少的集合合并到元素个数多的集合上
+            if (rank[pRoot] &lt; rank[qRoot]) &#123;
+                parent[pRoot] &#x3D; qRoot;
+            &#125; else if (rank[pRoot] &gt; rank[qRoot]) &#123;
+                parent[qRoot] &#x3D; pRoot;
+            &#125; else &#123;&#x2F;&#x2F; rank[pRoot] &#x3D;&#x3D; rank[qRoot]
+                parent[pRoot] &#x3D; qRoot;
+                rank[qRoot] +&#x3D; 1;   &#x2F;&#x2F; 此时, 我维护rank的值
+            &#125;
+        &#125;
+
+        &#x2F;&#x2F; 打印输出并查集中的parent数据
+        void show() &#123;
+            for (int i &#x3D; 0; i &lt; count; i++)
+                cout &lt;&lt; parent[i] &lt;&lt; &quot; &quot;;
+            cout &lt;&lt; endl;
+        &#125;
+    &#125;;
+&#125;
+namespace UF6 &#123;
+    &#x2F;&#x2F; rank[i]表示以i为根的集合所表示的树的层数
+    &#x2F;&#x2F; 在后续的代码中, 我们并不会维护rank的语意, 也就是rank的值在路径压缩的过程中, 有可能不在是树的层数值
+    &#x2F;&#x2F; 这也是我们的rank不叫height或者depth的原因, 他只是作为比较的一个标准
+    class UnionFind &#123;
+
+    public: &#x2F;&#x2F; 后续, 我们要在外部操控并查集的数据, 在这里使用public
+        int *parent; &#x2F;&#x2F; parent[i]表示第i个元素所指向的父节点
+
+    private:
+        int *rank; &#x2F;&#x2F; rank[i]表示以i为根的集合所表示的树的层数
+&#x2F;&#x2F;        int* parent;&#x2F;&#x2F; parent[i]表示第i个元素所指向的父节点
+        int count; &#x2F;&#x2F; 数据个数
+    public:
+        &#x2F;&#x2F;构造函数
+        UnionFind(int count) &#123;
+            parent &#x3D; new int[count];
+            rank &#x3D; new int[count];
+            this-&gt;count &#x3D; count;
+            for (int i &#x3D; 0; i &lt; count; i++) &#123;
+                parent[i] &#x3D; i;
+                rank[i] &#x3D; 1;
+            &#125;
+        &#125;
+
+        ~UnionFind() &#123;
+            delete[] parent;
+            delete[] rank;
+        &#125;
+
+        int find(int p) &#123;
+            assert(p &gt;&#x3D; 0 &amp;&amp; p &lt; count);
+            &#x2F;&#x2F; 不断去查询自己的父亲节点, 直到到达根节点
+            &#x2F;&#x2F; 根节点的特点: parent[p] &#x3D;&#x3D; p
+
+            &#x2F;&#x2F; path compression 1
+&#x2F;&#x2F;            while(p !&#x3D; parent[p])&#123;
+&#x2F;&#x2F;                parent[p] &#x3D; parent[parent[p]];
+&#x2F;&#x2F;                p &#x3D; parent[p];
+&#x2F;&#x2F;            &#125;
+&#x2F;&#x2F;            return p;
+
+            &#x2F;&#x2F; path compression 2, 递归算法
+            if (p !&#x3D; parent[p]) &#123;
+                parent[p] &#x3D; find(parent[p]);
+            &#125;
+            return parent[p];
+        &#125;
+
+        &#x2F;&#x2F; 查看元素p和元素q是否所属一个集合
+        &#x2F;&#x2F; O(h)复杂度, h为树的高度
+        bool isConnected(int p, int q) &#123;
+            return find(p) &#x3D;&#x3D; find(q);
+        &#125;
+        &#x2F;&#x2F; 合并元素p和元素q所属的集合
+        &#x2F;&#x2F; O(h)复杂度, h为树的高度
+
+        void unionSet(int p, int q) &#123;
+
+            int pRoot &#x3D; find(p);
+            int qRoot &#x3D; find(q);
+
+            if (pRoot &#x3D;&#x3D; qRoot)
+                return;
+            &#x2F;&#x2F; 根据两个元素所在树的元素个数不同判断合并方向
+            &#x2F;&#x2F; 将元素个数少的集合合并到元素个数多的集合上
+            if (rank[pRoot] &lt; rank[qRoot]) &#123;
+                parent[pRoot] &#x3D; qRoot;
+            &#125; else if (rank[pRoot] &gt; rank[qRoot]) &#123;
+                parent[qRoot] &#x3D; pRoot;
+            &#125; else &#123;&#x2F;&#x2F; rank[pRoot] &#x3D;&#x3D; rank[qRoot]
+                parent[pRoot] &#x3D; qRoot;
+                rank[qRoot] +&#x3D; 1;   &#x2F;&#x2F; 此时, 我维护rank的值
+            &#125;
+        &#125;
+
+        &#x2F;&#x2F; 打印输出并查集中的parent数据
+        void show() &#123;
+            for (int i &#x3D; 0; i &lt; count; i++)
+                cout &lt;&lt; parent[i] &lt;&lt; &quot; &quot;;
+            cout &lt;&lt; endl;
+        &#125;
+    &#125;;
+
+&#125;
+#endif &#x2F;&#x2F;UNIONFIND_UNIONFIND_H
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">&#x2F;&#x2F;
+&#x2F;&#x2F; Created by mozhenhai on 2021&#x2F;7&#x2F;30.
+&#x2F;&#x2F;
+
+#ifndef UNIONFIND_UNIONFINDTESTHELPER_H
+#define UNIONFIND_UNIONFINDTESTHELPER_H
+
+#include &lt;iostream&gt;
+#include &lt;ctime&gt;
+#include &lt;vector&gt;
+#include &quot;UnionFind.h&quot;
+
+using namespace std;
+
+&#x2F;&#x2F; 测试并查集的辅助函数
+
+namespace UnionFindTestHelper &#123;
+    &#x2F;&#x2F; 测试第一版本的并查集, 测试元素个数为n
+    void testUF1(int n) &#123;
+
+        srand(time(NULL));
+        UF1::UnionFind uf &#x3D; UF1::UnionFind(n);
+        time_t startTime &#x3D; clock();
+        &#x2F;&#x2F; 进行n次操作, 每次随机选择两个元素进行合并操作
+        for (int i &#x3D; 0; i &lt; n; i++) &#123;
+            int a &#x3D; rand() % n;
+            int b &#x3D; rand() % n;
+            uf.unionSet(a, b);
+        &#125;
+        &#x2F;&#x2F; 再进行n次操作, 每次随机选择两个元素, 查询他们是否同属一个集合
+        for (int i &#x3D; 0; i &lt; n; i++) &#123;
+            int a &#x3D; rand() % n;
+            int b &#x3D; rand() % n;
+            uf.isConnected(a, b);
+        &#125;
+        time_t endTime &#x3D; clock();
+
+        &#x2F;&#x2F; 打印输出对这2n个操作的耗时
+        cout &lt;&lt; &quot;UF1, &quot; &lt;&lt; 2 * n &lt;&lt; &quot;  ops, &quot; &lt;&lt; double(endTime - startTime) &#x2F; CLOCKS_PER_SEC &lt;&lt; &quot;s&quot; &lt;&lt; endl;
+    &#125;
+
+    &#x2F;&#x2F; 测试第二版本的并查集, 测试元素个数为n
+    void testUF2(int n) &#123;
+
+        srand(time(NULL));
+        UF2::UnionFind uf &#x3D; UF2::UnionFind(n);
+        time_t startTime &#x3D; clock();
+        &#x2F;&#x2F; 进行n次操作, 每次随机选择两个元素进行合并操作
+        for (int i &#x3D; 0; i &lt; n; i++) &#123;
+            int a &#x3D; rand() % n;
+            int b &#x3D; rand() % n;
+            uf.unionSet(a, b);
+        &#125;
+        &#x2F;&#x2F; 再进行n次操作, 每次随机选择两个元素, 查询他们是否同属一个集合
+        for (int i &#x3D; 0; i &lt; n; i++) &#123;
+            int a &#x3D; rand() % n;
+            int b &#x3D; rand() % n;
+            uf.isConnected(a, b);
+        &#125;
+        time_t endTime &#x3D; clock();
+
+        &#x2F;&#x2F; 打印输出对这2n个操作的耗时
+        cout &lt;&lt; &quot;UF2, &quot; &lt;&lt; 2 * n &lt;&lt; &quot;  ops, &quot; &lt;&lt; double(endTime - startTime) &#x2F; CLOCKS_PER_SEC &lt;&lt; &quot;s&quot; &lt;&lt; endl;
+    &#125;
+
+    &#x2F;&#x2F; 测试第三版本的并查集, 测试元素个数为n
+    void testUF3(int n) &#123;
+        srand(time(NULL));
+        UF3::UnionFind uf &#x3D; UF3::UnionFind(n);
+
+        time_t startTime &#x3D; clock();
+
+        for (int i &#x3D; 0; i &lt; n; i++) &#123;
+            int a &#x3D; rand() % n;
+            int b &#x3D; rand() % n;
+            uf.unionSet(a, b);
+        &#125;
+        for (int i &#x3D; 0; i &lt; n; i++) &#123;
+            int a &#x3D; rand() % n;
+            int b &#x3D; rand() % n;
+            uf.isConnected(a, b);
+        &#125;
+        time_t endTime &#x3D; clock();
+
+        cout &lt;&lt; &quot;UF3, &quot; &lt;&lt; 2 * n &lt;&lt; &quot;  ops, &quot; &lt;&lt; double(endTime - startTime) &#x2F; CLOCKS_PER_SEC &lt;&lt; &quot; s&quot; &lt;&lt; endl;
+    &#125;
+
+    &#x2F;&#x2F; 测试第四版本的并查集, 测试元素个数为n
+    void testUF4(int n) &#123;
+
+        srand(time(NULL));
+        UF4::UnionFind uf &#x3D; UF4::UnionFind(n);
+
+        time_t startTime &#x3D; clock();
+
+        for (int i &#x3D; 0; i &lt; n; i++) &#123;
+            int a &#x3D; rand() % n;
+            int b &#x3D; rand() % n;
+            uf.unionSet(a, b);
+        &#125;
+        for (int i &#x3D; 0; i &lt; n; i++) &#123;
+            int a &#x3D; rand() % n;
+            int b &#x3D; rand() % n;
+            uf.isConnected(a, b);
+        &#125;
+        time_t endTime &#x3D; clock();
+
+        cout &lt;&lt; &quot;UF4, &quot; &lt;&lt; 2 * n &lt;&lt; &quot;  ops, &quot; &lt;&lt; double(endTime - startTime) &#x2F; CLOCKS_PER_SEC &lt;&lt; &quot; s&quot; &lt;&lt; endl;
+    &#125;
+
+    &#x2F;&#x2F; 测试第五版本的并查集, 测试元素个数为n
+    void testUF5(int n) &#123;
+
+        srand(time(NULL));
+        UF5::UnionFind uf &#x3D; UF5::UnionFind(n);
+
+        time_t startTime &#x3D; clock();
+
+        for (int i &#x3D; 0; i &lt; n; i++) &#123;
+            int a &#x3D; rand() % n;
+            int b &#x3D; rand() % n;
+            uf.unionSet(a, b);
+        &#125;
+        for (int i &#x3D; 0; i &lt; n; i++) &#123;
+            int a &#x3D; rand() % n;
+            int b &#x3D; rand() % n;
+            uf.isConnected(a, b);
+        &#125;
+        time_t endTime &#x3D; clock();
+
+        cout &lt;&lt; &quot;UF5, &quot; &lt;&lt; 2 * n &lt;&lt; &quot;  ops, &quot; &lt;&lt; double(endTime - startTime) &#x2F; CLOCKS_PER_SEC &lt;&lt; &quot; s&quot; &lt;&lt; endl;
+    &#125;
+    &#x2F;&#x2F; 测试第六版本的并查集, 测试元素个数为n
+
+    void testUF6(int n) &#123;
+
+        srand(time(NULL));
+        UF6::UnionFind uf &#x3D; UF6::UnionFind(n);
+
+        time_t startTime &#x3D; clock();
+
+        for (int i &#x3D; 0; i &lt; n; i++) &#123;
+            int a &#x3D; rand() % n;
+            int b &#x3D; rand() % n;
+            uf.unionSet(a, b);
+        &#125;
+        for (int i &#x3D; 0; i &lt; n; i++) &#123;
+            int a &#x3D; rand() % n;
+            int b &#x3D; rand() % n;
+            uf.isConnected(a, b);
+        &#125;
+        time_t endTime &#x3D; clock();
+
+        cout &lt;&lt; &quot;UF6, &quot; &lt;&lt; 2 * n &lt;&lt; &quot;  ops, &quot; &lt;&lt; double(endTime - startTime) &#x2F; CLOCKS_PER_SEC &lt;&lt; &quot; s&quot; &lt;&lt; endl;
+    &#125;
+
+    &#x2F;&#x2F; 使用相同的测试数据测试UF的执行效率
+    template&lt;typename UF&gt;
+    void testUF(const string &amp;ufName, UF &amp;uf, const vector&lt;pair&lt;int, int&gt;&gt; &amp;unionTest,
+                const vector&lt;pair&lt;int, int&gt;&gt; &amp;connectTest) &#123;
+
+        time_t startTime &#x3D; clock();
+        for (int i &#x3D; 0; i &lt; unionTest.size(); i++) &#123;
+            int a &#x3D; unionTest[i].first;
+            int b &#x3D; unionTest[i].second;
+            uf.unionSet(a, b);
+        &#125;
+        for (int i &#x3D; 0; i &lt; connectTest.size(); i++) &#123;
+            int a &#x3D; connectTest[i].first;
+            int b &#x3D; connectTest[i].second;
+            uf.isConnected(a, b);
+        &#125;
+        time_t endTime &#x3D; clock();
+
+        cout &lt;&lt; ufName &lt;&lt; &quot; with &quot; &lt;&lt; unionTest.size() &lt;&lt; &quot; unionElements ops, &quot;;
+        cout &lt;&lt; connectTest.size() &lt;&lt; &quot; isConnected ops, &quot;;
+        cout &lt;&lt; double(endTime - startTime) &#x2F; CLOCKS_PER_SEC &lt;&lt; &quot; s&quot; &lt;&lt; endl;
+    &#125;
+&#125;
+
+#endif &#x2F;&#x2F;UNIONFIND_UNIONFINDTESTHELPER_H
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">&#x2F;&#x2F;
+&#x2F;&#x2F; Created by mozhenhai on 2021&#x2F;7&#x2F;30.
+&#x2F;&#x2F;
+
+#ifndef UNIONFIND_TEST_H
+#define UNIONFIND_TEST_H
+
+#include &lt;iostream&gt;
+#include &lt;cassert&gt;
+#include &quot;UnionFindTestHelper.h&quot;
+
+
+&#x2F;&#x2F; 使用相同的测试数据测试UF的执行效率
+template&lt;typename UF&gt;
+
+void testUF(const string &amp;ufName, UF &amp;uf, const vector&lt;pair&lt;int, int&gt;&gt; &amp;unionTest,
+            const vector&lt;pair&lt;int, int&gt;&gt; &amp;connectTest) &#123;
+
+    time_t startTime &#x3D; clock();
+    for (int i &#x3D; 0; i &lt; unionTest.size(); i++) &#123;
+        int a &#x3D; unionTest[i].first;
+        int b &#x3D; unionTest[i].second;
+        uf.unionSet(a, b);
+    &#125;
+    for (int i &#x3D; 0; i &lt; connectTest.size(); i++) &#123;
+        int a &#x3D; connectTest[i].first;
+        int b &#x3D; connectTest[i].second;
+        uf.isConnected(a, b);
+    &#125;
+    time_t endTime &#x3D; clock();
+
+    cout &lt;&lt; ufName &lt;&lt; &quot; with &quot; &lt;&lt; unionTest.size() &lt;&lt; &quot; unionElements ops, &quot;;
+    cout &lt;&lt; connectTest.size() &lt;&lt; &quot; isConnected ops, &quot;;
+    cout &lt;&lt; double(endTime - startTime) &#x2F; CLOCKS_PER_SEC &lt;&lt; &quot; s&quot; &lt;&lt; endl;
+&#125;
+
+void testUF123456() &#123;
+    &#x2F;&#x2F; 对比UF1, UF2, UF3, UF4, UF5和UF6的时间性能
+    &#x2F;&#x2F; 在这里, 我们对于不同的UnionFind的实现, 使用相同的测试用例, 让测试结果更加准确
+
+    &#x2F;&#x2F; 使用5,000,000的数据规模
+    int n &#x3D; 5000000;
+
+    srand(time(NULL));
+
+    &#x2F;&#x2F; 生成unionElements的测试用例
+    vector&lt;pair&lt;int, int&gt;&gt; unionTest;
+    for (int i &#x3D; 0; i &lt; n; i++) &#123;
+        int a &#x3D; rand() % n;
+        int b &#x3D; rand() % n;
+        unionTest.push_back(make_pair(a, b));
+    &#125;
+
+    &#x2F;&#x2F; 生成isConnected的测试用例
+    vector&lt;pair&lt;int, int&gt;&gt; connectTest;
+    for (int i &#x3D; 0; i &lt; n; i++) &#123;
+        int a &#x3D; rand() % n;
+        int b &#x3D; rand() % n;
+        connectTest.push_back(make_pair(a, b));
+    &#125;
+    &#x2F;&#x2F; 测试我们的UF1 ~ UF6
+
+    &#x2F;&#x2F; 100万数据对于UF1和UF2来说太慢了, 不再测试
+&#x2F;&#x2F;    UF1::UnionFind uf1 &#x3D; UF1::UnionFind(n);
+&#x2F;&#x2F;    UnionFindTestHelper::testUF(&quot;UF1&quot;, uf1, unionTest, connectTest);
+&#x2F;&#x2F;
+&#x2F;&#x2F;    UF2::UnionFind uf2 &#x3D; UF2::UnionFind(n);
+&#x2F;&#x2F;    UnionFindTestHelper::testUF(&quot;UF2&quot;, uf2, unionTest, connectTest);
+
+    UF3::UnionFind uf3 &#x3D; UF3::UnionFind(n);
+    testUF(&quot;UF3&quot;, uf3, unionTest, connectTest);
+
+    UF4::UnionFind uf4 &#x3D; UF4::UnionFind(n);
+    testUF(&quot;UF4&quot;, uf4, unionTest, connectTest);
+
+    UF5::UnionFind uf5 &#x3D; UF5::UnionFind(n);
+    testUF(&quot;UF5&quot;, uf5, unionTest, connectTest);
+
+    UF6::UnionFind uf6 &#x3D; UF6::UnionFind(n);
+    testUF(&quot;UF6&quot;, uf6, unionTest, connectTest);
+&#125;
+
+void test() &#123;
+
+    &#x2F;&#x2F; 使用5,000,000的数据规模
+    int n &#x3D; 5000000;
+
+    srand(time(NULL));
+
+    &#x2F;&#x2F; 生成unionElements的测试用例
+    vector&lt;pair&lt;int, int&gt;&gt; unionTest;
+    for (int i &#x3D; 0; i &lt; n; i++) &#123;
+        int a &#x3D; rand() % n;
+        int b &#x3D; rand() % n;
+        unionTest.push_back(make_pair(a, b));
+    &#125;
+
+    &#x2F;&#x2F; 生成isConnected的测试用例
+    vector&lt;pair&lt;int, int&gt;&gt; connectTest;
+    for (int i &#x3D; 0; i &lt; n; i++) &#123;
+        int a &#x3D; rand() % n;
+        int b &#x3D; rand() % n;
+        connectTest.push_back(make_pair(a, b));
+    &#125;
+
+    &#x2F;&#x2F; 测试我们的UF1 ~ UF6
+
+    &#x2F;&#x2F; 100万数据对于UF1和UF2来说太慢了, 不再测试
+&#x2F;&#x2F;    UF1::UnionFind uf1 &#x3D; UF1::UnionFind(n);
+&#x2F;&#x2F;    UnionFindTestHelper::testUF(&quot;UF1&quot;, uf1, unionTest, connectTest);
+&#x2F;&#x2F;
+&#x2F;&#x2F;    UF2::UnionFind uf2 &#x3D; UF2::UnionFind(n);
+&#x2F;&#x2F;    UnionFindTestHelper::testUF(&quot;UF2&quot;, uf2, unionTest, connectTest);
+
+    UF3::UnionFind uf3 &#x3D; UF3::UnionFind(n);
+    UnionFindTestHelper::testUF(&quot;UF3&quot;, uf3, unionTest, connectTest);
+
+    UF4::UnionFind uf4 &#x3D; UF4::UnionFind(n);
+    UnionFindTestHelper::testUF(&quot;UF4&quot;, uf4, unionTest, connectTest);
+
+    UF5::UnionFind uf5 &#x3D; UF5::UnionFind(n);
+    UnionFindTestHelper::testUF(&quot;UF5&quot;, uf5, unionTest, connectTest);
+
+    UF6::UnionFind uf6 &#x3D; UF6::UnionFind(n);
+    UnionFindTestHelper::testUF(&quot;UF6&quot;, uf6, unionTest, connectTest);
+&#125;
+
+void testUF56() &#123;
+
+    &#x2F;&#x2F; 为了能够方便地看出两种路径压缩算法的不同,我们只使用有5个元素的并查集进行试验
+    int n &#x3D; 5;
+
+    UF5::UnionFind uf5 &#x3D; UF5::UnionFind(n);
+    UF6::UnionFind uf6 &#x3D; UF6::UnionFind(n);
+
+    &#x2F;&#x2F; 我们将我们的并查集初始设置成如下的样子
+    &#x2F;&#x2F;            0
+    &#x2F;&#x2F;           &#x2F;
+    &#x2F;&#x2F;          1
+    &#x2F;&#x2F;         &#x2F;
+    &#x2F;&#x2F;        2
+    &#x2F;&#x2F;       &#x2F;
+    &#x2F;&#x2F;      3
+    &#x2F;&#x2F;     &#x2F;
+    &#x2F;&#x2F;    4
+    for (int i &#x3D; 1; i &lt; n; i++) &#123;
+        uf5.parent[i] &#x3D; i - 1;
+        uf6.parent[i] &#x3D; i - 1;
+    &#125;
+
+    &#x2F;&#x2F; 现在, 我们对两个并查集调用find(4)操作
+    uf5.find(n - 1);
+    uf6.find(n - 1);
+
+    &#x2F;&#x2F; 通过show, 我们可以看出, 使用迭代的路径压缩, 我们的并查集变成这个样子:
+    &#x2F;&#x2F;     0
+    &#x2F;&#x2F;    &#x2F; \
+    &#x2F;&#x2F;   1   2
+    &#x2F;&#x2F;  &#x2F; \
+    &#x2F;&#x2F; 3  4
+    cout &lt;&lt; &quot;UF implements Path Compression by recursion:&quot; &lt;&lt; endl;
+    uf5.show();
+
+    cout &lt;&lt; endl;
+
+    &#x2F;&#x2F; 使用递归的路径压缩, 我们的并查集变成这个样子:
+    &#x2F;&#x2F;     0
+    &#x2F;&#x2F;  &#x2F; &#x2F; \ \
+    &#x2F;&#x2F; 1 2   3 4
+    cout &lt;&lt; &quot;UF implements Path Compression without recursion:&quot; &lt;&lt; endl;
+    uf6.show();
+
+
+    &#x2F;&#x2F; 大家也可以调大n的值, 看看结果的不同:)
+
+&#125;
+
+
+#endif &#x2F;&#x2F;UNIONFIND_TEST_H
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">#include &lt;iostream&gt;
+#include &quot;UnionFindTestHelper.h&quot;
+#include &quot;test.h&quot;
+
+int main() &#123;
+    std::cout &lt;&lt; &quot;Hello, World!&quot; &lt;&lt; std::endl;
+
+&#x2F;&#x2F;    int n &#x3D; 100000;
+&#x2F;&#x2F;    UnionFindTestHelper::testUF1(n);
+&#x2F;&#x2F;    UnionFindTestHelper::testUF2(n);
+&#x2F;&#x2F;    UnionFindTestHelper::testUF3(n);
+&#x2F;&#x2F;    UnionFindTestHelper::testUF4(n);
+&#x2F;&#x2F;    UnionFindTestHelper::testUF5(n);
+&#x2F;&#x2F;    UnionFindTestHelper::testUF6(n);
+&#x2F;&#x2F;    testUF123456();
+    testUF56();
+
+
+    return 0;
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 
                 
             </div>
