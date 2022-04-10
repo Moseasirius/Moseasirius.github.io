@@ -411,7 +411,7 @@
                 <p>WebServer</p>
 <span id="more"></span> 
 
-<h1 id="1"><a href="#1" class="headerlink" title="1"></a>1</h1><h2 id="Linux环境"><a href="#Linux环境" class="headerlink" title="Linux环境"></a>Linux环境</h2><p>Linux 开发环境的搭建   虚拟机安装Ubuntu   云服务器</p>
+<h1 id="Linux系统编程入门"><a href="#Linux系统编程入门" class="headerlink" title="Linux系统编程入门"></a>Linux系统编程入门</h1><h2 id="Linux环境搭建"><a href="#Linux环境搭建" class="headerlink" title="Linux环境搭建"></a>Linux环境搭建</h2><p>Linux 开发环境的搭建   虚拟机安装Ubuntu   云服务器</p>
 <p>安装Xshell XFTP</p>
 <p>安装VScode</p>
 <h2 id="GCC"><a href="#GCC" class="headerlink" title="GCC"></a>GCC</h2><p>GCC 原名为GNU C语言编译器 (GNU C Complier)</p>
@@ -685,7 +685,8 @@ app  include  lib  main.c  src
 mo@mo-virtual-machine:~&#x2F;Linux&#x2F;lesson06&#x2F;library$ .&#x2F;app 
 .&#x2F;app: error while loading shared libraries: libminmax.so: cannot open shared object file: No such file or directory<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="动态库加载失败原因"><a href="#动态库加载失败原因" class="headerlink" title="动态库加载失败原因"></a>动态库加载失败原因</h3><pre class="line-numbers language-none"><code class="language-none">
+<p><strong>动态库加载失败原因</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">
 
 工作原理
 
@@ -707,7 +708,8 @@ mo@mo-virtual-machine:~&#x2F;Linux&#x2F;lesson06&#x2F;library$ ldd app
 
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="解决动态库加载失败"><a href="#解决动态库加载失败" class="headerlink" title="解决动态库加载失败"></a>解决动态库加载失败</h3><pre class="line-numbers language-none"><code class="language-none">
+<p><strong>解决动态库加载失败</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">
 加入动态库的路径到系统的动态载入器的搜索路径里面
 动态库何时加载到内存  程序使用动态库代码的时候
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
@@ -797,6 +799,394 @@ min: &#x3D;1<span aria-hidden="true" class="line-numbers-rows"><span></span><spa
 <p>缺点：</p>
 <p>  加载速度比静态库慢</p>
 <p>  发布程序是需要提供依赖的动态库</p>
+<h2 id="Makefile"><a href="#Makefile" class="headerlink" title="Makefile"></a>Makefile</h2><p>什么是Makefile</p>
+<p>一个工程中的源文件不计其数，其按类型、功能、模块分别放在若干个目录中。</p>
+<p>Makefile 文件定义了一系列的规则来制定那些文件需要先编译，那些文件需要后编译，那些文件需要重新编译，甚至与进行更复杂的功能操作，因为Makefile文件就像 一个Shell脚本一样，也可以执行操作系统的命令。</p>
+<p>Makefile 带来的好处就是自动化编译，一旦写好，只需要一个make命令，整个工程完全自动编译，极大提高了软件开发的效率。make是一个命令工具，是一个解释Makefile文件中指令的命令工具，一般来说，大多数的IDE都有这个命令，比如Delphi的make Visual C++的nmake Linux下的GNU的make。</p>
+<p>Makefile文件命名和规则</p>
+<p>文件命名</p>
+<ul>
+<li>makefile 或者 Makefile</li>
+</ul>
+<p>Makefile g规则</p>
+<ul>
+<li><p>一个Makefile文件可以有一个或者多个规则</p>
+<p> 目标…:依赖…</p>
+<p>​        命令(Shell命令)</p>
+<p>​          …</p>
+<p>目标：最终要生成的文件(伪目标除外)</p>
+<p>依赖：生成目标所需要的文件或者是目标</p>
+<p>命令：通过执行命令对依赖操作生成目标(命令前必须Tab缩进)</p>
+</li>
+<li><p>Makefile 中的其它规则一般都是为第一条规则服务的。</p>
+</li>
+</ul>
+<p>命令在执行之前，需要先检查规则中的依赖是否存在</p>
+<ul>
+<li><p>如果存在，执行命令</p>
+</li>
+<li><p>如果不存在，向下检查其他的规则，检查有没有一个规则是用来生成这依赖的，如果找到了，则执行该规则中的命令</p>
+</li>
+</ul>
+<p>检测更新，在执行规则中的命令是，会比较目标和依赖文件的时间</p>
+<ul>
+<li><p>如果依赖的时间比目标的时间晚，需要重新生成目标</p>
+</li>
+<li><p>如果依赖的时间比目标的时间早，目标不需要更新，对应规则中的命令不需要被执行</p>
+</li>
+</ul>
+<p><strong>自定义变量</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">变量名&#x3D;变量值 
+
+var&#x3D;hello<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>预定义变量</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">AR : 归档维护程序的名称，默认值为 ar
+
+CC : C 编译器的名称，默认值为 cc
+
+CXX : C++ 编译器的名称，默认值为 g++
+
+$@ : 目标的完整名称
+
+$&lt; : 第一个依赖文件的名称
+
+$^ : 所有的依赖文件<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>获取变量的值</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">$(变量名)
+
+$(var)
+
+app:main.c a.c b.c
+
+gcc -c main.c a.c b.c
+
+#自动变量只能在规则的命令中使用
+
+app:main.c a.c b.c
+
+$(CC) -c $^ -o $@<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p> <strong>模式匹配</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">add.o:add.c
+	gcc -c add.c
+div.o:div.c
+	gcc -c div.c
+sub.o:sub.c
+	gcc -c sub.c
+mult.o:mult.c
+	gcc -c mult.c
+main.o:main.c
+	gcc -c main.c
+%.o:%.c
+	- %: 通配符，匹配一个字符串
+	- 两个%匹配的是同一个字符串
+%.o:%.c
+	gcc -c $&lt; -o $@<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="GDB"><a href="#GDB" class="headerlink" title="GDB"></a>GDB</h2><p>什么是 GDB</p>
+<ul>
+<li><p> GDB 是由 GNU 软件系统社区提供的调试工具，同 GCC 配套组成了一套完整的开发环境，GDB 是 Linux 和许多类 Unix 系统中的标准开发环境。</p>
+</li>
+<li><p> 一般来说，GDB 主要帮助你完成下面四个方面的功能：</p>
+</li>
+</ul>
+<ol>
+<li><p>启动程序，可以按照自定义的要求随心所欲的运行程序</p>
+</li>
+<li><p>可让被调试的程序在所指定的调置的断点处停住（断点可以是条件表达式）</p>
+</li>
+<li><p>当程序被停住时，可以检查此时程序中所发生的事</p>
+</li>
+<li><p>可以改变程序，将一个 BUG 产生的影响修正从而测试其他 BUG</p>
+</li>
+</ol>
+<ul>
+<li><p>通常，在为调试而编译时，我们会（）关掉编译器的优化选项（<code>-O</code>）， 并打开调试选项（<code>-g</code>）。另外，<code>-Wall</code>在尽量不影响程序行为的情况下选项打开所有warning，也可以发现许多问题，避免一些不必要的 BUG。 </p>
+</li>
+<li><p> gcc -g -Wall program.c -o program</p>
+</li>
+<li><p><code>-g</code> 选项的作用是在可执行文件中加入源代码的信息，比如可执行文件中第几条机器指令对应源代码的第几行，但并不是把整个源文件嵌入到可执行文件中，所以在调试时必须保证 gdb 能找到源文件</p>
+</li>
+</ul>
+<p><strong>GDB命令 启动、退出、查看代码</strong></p>
+<p>启动和退出</p>
+<pre class="line-numbers language-none"><code class="language-none">gdb 可执行程序
+quit
+ <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>给程序设置参数/获取设置参数</p>
+<pre class="line-numbers language-none"><code class="language-none">set args 10 20
+show args<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>GDB 使用帮助</p>
+<pre class="line-numbers language-none"><code class="language-none">help<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>查看当前文件代码</p>
+<pre class="line-numbers language-none"><code class="language-none">list&#x2F;l （从默认位置显示）
+list&#x2F;l 行号 （从指定的行显示）
+list&#x2F;l 函数名（从指定的函数显示）<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>查看非当前文件代码</p>
+<pre class="line-numbers language-none"><code class="language-none">list&#x2F;l 文件名:行号
+list&#x2F;l 文件名:函数名<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>设置显示的行数</p>
+<pre class="line-numbers language-none"><code class="language-none">show list&#x2F;listsize
+set list&#x2F;listsize 行数<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p><strong>GDB 命令 – 断点操作</strong></p>
+<p>设置断点</p>
+<pre class="line-numbers language-none"><code class="language-none">b&#x2F;break 行号
+b&#x2F;break 函数名
+b&#x2F;break 文件名:行号
+b&#x2F;break 文件名:函数<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>查看断点</p>
+<pre class="line-numbers language-none"><code class="language-none">i&#x2F;info b&#x2F;break<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>删除断点</p>
+<pre class="line-numbers language-none"><code class="language-none">d&#x2F;del&#x2F;delete 断点编号<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>设置断点无效</p>
+<pre class="line-numbers language-none"><code class="language-none">dis&#x2F;disable 断点编号<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>设置断点生效</p>
+<pre class="line-numbers language-none"><code class="language-none">ena&#x2F;enable 断点编号<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>设置条件断点（一般用在循环的位置）</p>
+<pre class="line-numbers language-none"><code class="language-none">b&#x2F;break 10 if i&#x3D;&#x3D;5<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><strong>GDB 命令 – 调试命令</strong></p>
+<p>运行GDB程序</p>
+<pre class="line-numbers language-none"><code class="language-none">start（程序停在第一行）
+run（遇到断点才停）<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p> 继续运行，到下一个断点停</p>
+<pre class="line-numbers language-none"><code class="language-none">c&#x2F;continue<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>向下执行一行代码（不会进入函数体）</p>
+<pre class="line-numbers language-none"><code class="language-none">n&#x2F;next<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>变量操作</p>
+<pre class="line-numbers language-none"><code class="language-none">p&#x2F;print 变量名（打印变量值）
+ptype 变量名（打印变量类型）<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>向下单步调试（遇到函数进入函数体）</p>
+<pre class="line-numbers language-none"><code class="language-none">s&#x2F;step
+finish（跳出函数体）<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>自动变量操作</p>
+<pre class="line-numbers language-none"><code class="language-none">display 变量名（自动打印指定变量的值）
+i&#x2F;info display
+undisplay 编号<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>其它操作</p>
+<pre class="line-numbers language-none"><code class="language-none">set var 变量名&#x3D;变量值 （循环中用的较多）
+until （跳出循环）<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+
+
+<h2 id="标准C库IO函数和LInux系统IO函数对比"><a href="#标准C库IO函数和LInux系统IO函数对比" class="headerlink" title="标准C库IO函数和LInux系统IO函数对比"></a>标准C库IO函数和LInux系统IO函数对比</h2><p>文件IO</p>
+<p>文件输入和输出</p>
+<p>看对象 如果站在文件的角度 如果站在内存的角度</p>
+<p>我们一般站在内存的角度</p>
+<p>输入就是从文件读取数据到内存</p>
+<p>输出就是从内存写出数据到文件</p>
+<p>标准C库IO函数和Linux系统的IO函数的区别</p>
+<p>标准C库IO函数是跨平台的，就是用标准C库IO函数开发的程序可以在不同的操作系统（Windows  LInux Mac ）运行</p>
+<p>比如Qt也是跨平台的</p>
+<p>标准C库第三方库，不属于操作系统，在各个平台上调用各个平台的API，库在封装的时候，针对不同平台，采用不同平台的API。</p>
+<p>什么时候使用Linux系统的IO函数 网络通信的时候</p>
+<pre class="line-numbers language-none"><code class="language-none">#include &lt;stdio.h&gt;
+
+FILE *fopen(const char *pathname, const char *mode);
+
+FILE *fdopen(int fd, const char *mode);
+
+FILE *freopen(const char *pathname, const char *mode, FILE *stream);
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><img src="/2022/03/23/WebServer/mosea\source_posts\WebServer\image-20220409172456039.png" alt="image-20220409172456039"></p>
+<p>文件描述符（整型值）：用来定位文件</p>
+<p>文件读写指针：用来读数据写数据</p>
+<p>I/O缓冲区（内存地址）：写缓冲区，如果缓冲区数据满了，调用Linux IO函数写到磁盘里面。如果强制刷新缓冲区，也会写到磁盘里面。缓冲区其实是内存，这样做为了降低写磁盘的次数。</p>
+<p>Linux系统的IO函数（write read）没有缓冲区</p>
+<pre class="line-numbers language-none"><code class="language-none">#include &lt;stdio.h&gt;
+size_t fread(void *ptr, size_t size, size_t nmemb, FILE *stream);
+size_t fwrite(const void *ptr, size_t size, size_t nmemb,FILE *stream);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>标准C库IO函数和Linux系统的IO函数是调用和被调用的关系 ，Linux系统的IO函数更加偏底层。</p>
+<p><img src="/2022/03/23/WebServer/mosea\source_posts\WebServer\image-20220409172900496.png" alt="image-20220409172900496"></p>
+<h2 id="虚拟地址空间"><a href="#虚拟地址空间" class="headerlink" title="虚拟地址空间"></a>虚拟地址空间</h2><p><img src="/2022/03/23/WebServer/mosea\source_posts\WebServer\image-20220409172935249.png" alt="image-20220409172935249"></p>
+<p>虚拟地址空间存在吗？</p>
+<p>不存在，是一种处理技术。一个可执行程序运行起来以后（进程），对应一个虚拟地址空间。</p>
+<p>虚拟地址经过内存逻辑管理单元（MMU）映射到真实的物理内存地址上。</p>
+<p>虚拟地址———&gt;物理地址</p>
+<h2 id="文件描述符"><a href="#文件描述符" class="headerlink" title="文件描述符"></a>文件描述符</h2><p><img src="/2022/03/23/WebServer/mosea\source_posts\WebServer\image-20220409173002487.png" alt="image-20220409173002487"></p>
+<p>程序在没有加载到内存的时候，以文件的形式存在磁盘上面。</p>
+<p>程序和进程</p>
+<p>Linux经典一句，一切皆文件</p>
+<p>文件描述符在内核区，由内核管理，在内存管理里面有一个进程控制块(PCB)管理文件描述符。我们所说的内核就是一个程序。PCB是一个非常复杂的结构体。在这个结构体里面有一个数组，这个数组就是一个文件描述符表。一个文件描述符对应一个文件。为什么要用数组来存储呢？一个进程可以同时打开多个文件。一个文件描述符表的大小默认是1024。每一个进程都有一个PCB，所以一个进程默认最多能打开1024-3个文件，前面三个文件描述符默认是打开的。分别为标准输入，标准输出，标准错误。指向的是当前的终端。一个设备文件。</p>
+<h2 id="Linux-系统-IO-函数"><a href="#Linux-系统-IO-函数" class="headerlink" title="Linux 系统 IO 函数"></a>Linux 系统 IO 函数</h2><p><strong>open函数</strong></p>
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">#include &lt;sys&#x2F;types.h&gt;
+#include &lt;sys&#x2F;stat.h&gt;
+#include &lt;fcntl.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;errno.h&gt;
+#include &lt;unistd.h&gt;
+
+int main()&#123;
+
+    &#x2F;&#x2F;打开一个文件
+    int  fd &#x3D; open(&quot;a.txt&quot;,O_RDONLY);
+    if(fd&#x3D;&#x3D;-1)&#123;
+        perror(&quot;open&quot;);
+    &#125;
+    else&#123;
+        printf(&quot;fd: %d\n&quot;,fd);
+    &#125;
+    &#x2F;&#x2F;读写操作
+    
+    &#x2F;&#x2F;关闭
+    close(fd);
+    return 0;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">NAME
+       open, openat, creat - open and possibly create a file
+
+SYNOPSIS
+       #include &lt;sys&#x2F;types.h&gt;
+       #include &lt;sys&#x2F;stat.h&gt;
+       #include &lt;fcntl.h&gt;
+        &#x2F;&#x2F;打开一个已经存在的文件
+       int open(const char *pathname, int flags);
+        参数：
+            pathname：要打开的文件路径
+            flags：对文件的操作权限设置还有其他的设置
+            O_RDONLY, O_WRONLY, or O_RDWR.这三个设置是互斥的
+        
+        返回值：返回一个新的文件描述符，返回的是文件描述符的序号 如果调用失败，返回-1
+
+        errno: 属于Linux系统函数库，库里面的一个全局变量，记录的是最近的错误号
+        如没有权限，文件不存在
+	   void perror(const char *s);
+		作用：打印error对应的错误描述s参数：用户描述，比如hello,最终输出的内容是 hello:xxx 实际的错误描述
+
+       int open(const char *pathname, int flags, mode_t mode);
+
+       int creat(const char *pathname, mode_t mode);
+
+       int openat(int dirfd, const char *pathname, int flags);
+       int openat(int dirfd, const char *pathname, int flags, mode_t mode);
+
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">NAME
+       perror - print a system error message
+
+SYNOPSIS
+       #include &lt;stdio.h&gt;
+
+       void perror(const char *s);
+
+       #include &lt;errno.h&gt;
+
+       const char * const sys_errlist[];
+       int sys_nerr;
+       int errno;       
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<p>read write函数</p>
+<p>lseek函数</p>
+<p>stat lstat函数</p>
+<h2 id="模拟现实ls-l命令"><a href="#模拟现实ls-l命令" class="headerlink" title="模拟现实ls-l命令"></a>模拟现实ls-l命令</h2><h2 id="文件属性操作函数"><a href="#文件属性操作函数" class="headerlink" title="文件属性操作函数"></a>文件属性操作函数</h2><h2 id="目录操作函数"><a href="#目录操作函数" class="headerlink" title="目录操作函数"></a>目录操作函数</h2><h2 id="目录遍历函数"><a href="#目录遍历函数" class="headerlink" title="目录遍历函数"></a>目录遍历函数</h2><h2 id="dup-dup2函数"><a href="#dup-dup2函数" class="headerlink" title="dup dup2函数"></a>dup dup2函数</h2><h2 id="fcntl函数"><a href="#fcntl函数" class="headerlink" title="fcntl函数"></a>fcntl函数</h2><h1 id="Linux多进程开发"><a href="#Linux多进程开发" class="headerlink" title="Linux多进程开发"></a>Linux多进程开发</h1><p>进程概述</p>
+<p>进程状态转换</p>
+<p>进程创建</p>
+<p>父子进程虚拟地址空间情况</p>
+<p>父子进程关系及GDB多进程调试</p>
+<p>exec函数族</p>
+<p>进程退出、孤儿进程、僵尸进程</p>
+<p>wait函数</p>
+<p>waitpid函数</p>
+<p>进程间通信</p>
+<p>匿名管道概述</p>
+<p>父子进程通过匿名管道通信</p>
+<p>匿名管道通信案例</p>
+<p>管道的读写特点和管道设置为非阻塞</p>
+<p>有名管道介绍及使用</p>
+<p>有名管道实现简答版聊天功能</p>
+<p>内存映射</p>
+<p>信号概述</p>
+<p>kill raise abort 函数</p>
+<p>alarm 函数</p>
+<p>setitimer定时器函数</p>
+<p>signal信号捕捉函数</p>
+<p>信号集及相关函数</p>
+<p>sigprocmask函数使用</p>
+<p>sigaction 信号捕捉函数</p>
+<p>SIGCHLD信号</p>
+<p>共享内存</p>
+<p>守护进程</p>
+<h1 id="Linux多线程开发"><a href="#Linux多线程开发" class="headerlink" title="Linux多线程开发"></a>Linux多线程开发</h1><p>线程概述</p>
+<p>创建线程</p>
+<p>终止线程</p>
+<p>连接已终止的线程</p>
+<p>线程的分离</p>
+<p>线程取消</p>
+<p>线程属性</p>
+<p>线程同步</p>
+<p>互斥锁</p>
+<p>死锁</p>
+<p>读写锁</p>
+<p>生产者和消费者模型</p>
+<p>条件变量</p>
+<p>信号量</p>
+<h1 id="Linux网络编程"><a href="#Linux网络编程" class="headerlink" title="Linux网络编程"></a>Linux网络编程</h1><p>网络结构模式</p>
+<p>MAC地址 IP地址 端口</p>
+<p>网络模型</p>
+<p>协议</p>
+<p>网络通信的过程</p>
+<p>socket介绍</p>
+<p>字节序</p>
+<p>字节序转换函数</p>
+<p>socket地址</p>
+<p>IP地址转换函数</p>
+<p>TCP通信流程</p>
+<p>socket函数</p>
+<p>TCP通信实现</p>
+<p>TCP三次握手</p>
+<p>滑动窗口</p>
+<p>TCP四次挥手</p>
+<p>多进程实现并发服务器</p>
+<p>多线程实现并发服务器</p>
+<p>TCP状态转换</p>
+<p>半关闭 端口复用</p>
+<p>IO多路复用简介</p>
+<p>select API介绍及代码编写</p>
+<p>poll API介绍及代码编写</p>
+<p>epoll API介绍及代码编写</p>
+<p>epoll两种工作模式</p>
+<p>UDP通信实现</p>
+<p>广播 组播</p>
+<p>本地套接字通信</p>
+<h1 id="项目实战与总结"><a href="#项目实战与总结" class="headerlink" title="项目实战与总结"></a>项目实战与总结</h1><p>阻塞和非阻塞 同步和异步</p>
+<p>Unix Linux上的五种IO模型</p>
+<p>Web服务器简介及HTTP协议</p>
+<p>服务器编程基本框架和两种高效的事件处理模式</p>
+<p>线程同步机制类封装及线程池实现</p>
+<p>项目整体流程代码实现</p>
+<p>解析HTTP请求报文</p>
+<p>解析请求完成及生成响应信息</p>
+<p>定时检测非活跃连接、服务器压力测试</p>
 
                 
             </div>
