@@ -1626,6 +1626,235 @@ int main() &#123;
 &#125;
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
+<h2 id="Heap-最大堆"><a href="#Heap-最大堆" class="headerlink" title="Heap 最大堆"></a>Heap 最大堆</h2><pre class="line-numbers language-C++" data-language="C++"><code class="language-C++">#include&lt;iostream&gt;
+#include&lt;vector&gt;
+#include&lt;string&gt;
+#include &lt;algorithm&gt;
+#include &lt;string&gt;
+#include &lt;ctime&gt;
+#include &lt;cmath&gt;
+#include &lt;cassert&gt;
+#include &lt;typeinfo&gt;
+using namespace std;
+
+template&lt;typename Item&gt;
+
+class MaxHeap &#123;
+
+private:
+    Item *data;
+    int count;
+    int capacity;
+
+    void shiftUp(int k) &#123;
+        while (k &gt; 1 &amp;&amp; data[k &#x2F; 2] &lt; data[k])&#x2F;&#x2F;k&gt;1防止越界父节点的元素值是否小于子节点
+        &#123;
+            swap(data[k &#x2F; 2], data[k]);
+            k &#x2F;&#x3D; 2;&#x2F;&#x2F;更新k
+
+        &#125;
+    &#125;
+
+    void shiftDown(int k) &#123;
+        &#x2F;&#x2F;判断k节点有孩子，这里判断左孩子，一棵完全二叉树中，可能只有左孩子而没有右孩子，不可能只有右孩子而没有左孩子
+        while (2 * k &lt;&#x3D; count) &#123;
+            int j &#x3D; 2 * k;&#x2F;&#x2F;在此轮循环中，data[k]和data[j]交换位置
+            if (j + 1 &lt;&#x3D; count &amp;&amp; data[j + 1] &gt; data[j])&#x2F;&#x2F;说明有右孩子，而且右孩子的值比左孩子的值大
+            &#123;
+                j &#x3D; j + 1;
+            &#125;
+            &#x2F;&#x2F; data[j] 是 data[2*k]和data[2*k+1]中的最大值
+            if (data[k] &gt;&#x3D; data[j])
+                break;
+            swap(data[k], data[j]);&#x2F;&#x2F;可以优化，不用每一遍都swap，可以最后再交换(插入排序优化  思想）
+            k &#x3D; j;
+        &#125;
+    &#125;
+
+public:
+    &#x2F;&#x2F;构造函数，构造一个空堆，可容纳capacity个元素
+    MaxHeap(int capacity) &#123;
+        data &#x3D; new Item[capacity + 1];&#x2F;&#x2F;因为我们从数组下标索引1开始存数据
+        count &#x3D; 0;
+        this-&gt;capacity &#x3D; capacity;
+    &#125;
+
+    &#x2F;&#x2F;Heapify
+    MaxHeap(Item array[], int n) &#123;
+        data &#x3D; new Item[n + 1];
+        capacity &#x3D; n;
+        for (int i &#x3D; 0; i &lt; n; i++) &#123;
+            data[i + 1] &#x3D;&#x3D; array[i];
+
+        &#125;
+        count &#x3D; n;
+        for (int i &#x3D; count &#x2F; 2; i &gt;&#x3D; 1; i--) &#123;
+            shiftDown(i);
+        &#125;
+    &#125;
+
+    &#x2F;&#x2F;析构函数
+    ~MaxHeap() &#123;
+        delete[] data;
+
+    &#125;
+
+    &#x2F;&#x2F;返回堆中元素的个数
+    int size() &#123;
+        return count;
+    &#125;
+
+    bool isEmpty() &#123;
+        return count &#x3D;&#x3D; 0;
+    &#125;
+
+    void insert(Item item) &#123;
+        assert(count + 1 &lt;&#x3D; capacity);
+        data[count + 1] &#x3D; item;&#x2F;&#x2F;隐藏数组越界问题,可以先判断后开辟新的空间解决
+        count++;
+        shiftUp(count);
+    &#125;
+
+    void print() &#123;
+        for (int i &#x3D; 1; i &lt;&#x3D; size(); i++) &#123;
+            cout &lt;&lt; data[i] &lt;&lt; &quot; &quot;;
+        &#125;
+        cout &lt;&lt; endl;
+    &#125;
+
+    Item extractMax() &#123;
+        assert(count &gt; 0);
+        Item ret &#x3D; data[1];
+        swap(data[1], data[count]);
+        count--;
+        shiftDown(1);
+        return ret;
+
+    &#125;
+
+public:
+    &#x2F;&#x2F; 以树状打印整个堆结构
+    void testPrint() &#123;
+
+        &#x2F;&#x2F; 我们的testPrint只能打印100个元素以内的堆的树状信息
+        if (size() &gt;&#x3D; 100) &#123;
+            cout &lt;&lt; &quot;This print function can only work for less than 100 int&quot;;
+            return;
+        &#125;
+
+        &#x2F;&#x2F; 我们的testPrint只能处理整数信息
+        if (typeid(Item) !&#x3D; typeid(int)) &#123;
+            cout &lt;&lt; &quot;This print function can only work for int item&quot;;
+            return;
+        &#125;
+
+        cout &lt;&lt; &quot;The max heap size is: &quot; &lt;&lt; size() &lt;&lt; endl;
+        cout &lt;&lt; &quot;Data in the max heap: &quot;;
+        for (int i &#x3D; 1; i &lt;&#x3D; size(); i++) &#123;
+            &#x2F;&#x2F; 我们的testPrint要求堆中的所有整数在[0, 100)的范围内
+            assert(data[i] &gt;&#x3D; 0 &amp;&amp; data[i] &lt; 100);
+            cout &lt;&lt; data[i] &lt;&lt; &quot; &quot;;
+        &#125;
+        cout &lt;&lt; endl;
+        cout &lt;&lt; endl;
+
+        int n &#x3D; size();
+        int max_level &#x3D; 0;
+        int number_per_level &#x3D; 1;
+        while (n &gt; 0) &#123;
+            max_level +&#x3D; 1;
+            n -&#x3D; number_per_level;
+            number_per_level *&#x3D; 2;
+        &#125;
+
+        int max_level_number &#x3D; int(pow(2, max_level - 1));
+        int cur_tree_max_level_number &#x3D; max_level_number;
+        int index &#x3D; 1;
+        for (int level &#x3D; 0; level &lt; max_level; level++) &#123;
+            string line1 &#x3D; string(max_level_number * 3 - 1, &#39; &#39;);
+
+            int cur_level_number &#x3D; min(count - int(pow(2, level)) + 1, int(pow(2, level)));
+            bool isLeft &#x3D; true;
+            for (int index_cur_level &#x3D; 0; index_cur_level &lt; cur_level_number; index++, index_cur_level++) &#123;
+                putNumberInLine(data[index], line1, index_cur_level, cur_tree_max_level_number * 3 - 1, isLeft);
+                isLeft &#x3D; !isLeft;
+            &#125;
+            cout &lt;&lt; line1 &lt;&lt; endl;
+
+            if (level &#x3D;&#x3D; max_level - 1)
+                break;
+
+            string line2 &#x3D; string(max_level_number * 3 - 1, &#39; &#39;);
+            for (int index_cur_level &#x3D; 0; index_cur_level &lt; cur_level_number; index_cur_level++)
+                putBranchInLine(line2, index_cur_level, cur_tree_max_level_number * 3 - 1);
+            cout &lt;&lt; line2 &lt;&lt; endl;
+
+            cur_tree_max_level_number &#x2F;&#x3D; 2;
+        &#125;
+    &#125;
+
+private:
+    void putNumberInLine(int num, string &amp;line, int index_cur_level, int cur_tree_width, bool isLeft) &#123;
+
+        int sub_tree_width &#x3D; (cur_tree_width - 1) &#x2F; 2;
+        int offset &#x3D; index_cur_level * (cur_tree_width + 1) + sub_tree_width;
+        assert(offset + 1 &lt; line.size());
+        if (num &gt;&#x3D; 10) &#123;
+            line[offset + 0] &#x3D; &#39;0&#39; + num &#x2F; 10;
+            line[offset + 1] &#x3D; &#39;0&#39; + num % 10;
+        &#125; else &#123;
+            if (isLeft)
+                line[offset + 0] &#x3D; &#39;0&#39; + num;
+            else
+                line[offset + 1] &#x3D; &#39;0&#39; + num;
+        &#125;
+    &#125;
+
+    void putBranchInLine(string &amp;line, int index_cur_level, int cur_tree_width) &#123;
+
+        int sub_tree_width &#x3D; (cur_tree_width - 1) &#x2F; 2;
+        int sub_sub_tree_width &#x3D; (sub_tree_width - 1) &#x2F; 2;
+        int offset_left &#x3D; index_cur_level * (cur_tree_width + 1) + sub_sub_tree_width;
+        assert(offset_left + 1 &lt; line.size());
+        int offset_right &#x3D; index_cur_level * (cur_tree_width + 1) + sub_tree_width + 1 + sub_sub_tree_width;
+        assert(offset_right &lt; line.size());
+
+        line[offset_left + 1] &#x3D; &#39;&#x2F;&#39;;
+        line[offset_right + 0] &#x3D; &#39;\\&#39;;
+    &#125;
+&#125;;
+void testHeapSort() &#123;
+    MaxHeap&lt;int&gt; maxHeap &#x3D; MaxHeap&lt;int&gt;(100);
+    cout &lt;&lt; maxHeap.size() &lt;&lt; endl;
+    int n &#x3D; 15;
+    srand(time(NULL));
+    for (int i &#x3D; 0; i &lt; n; i++) &#123;
+        maxHeap.insert(rand() % 100);&#x2F;&#x2F;[0,100)
+    &#125;
+    maxHeap.print();
+    maxHeap.testPrint();
+
+	&#x2F;&#x2F;while (!maxHeap.isEmpty())
+    &#x2F;&#x2F;将maxHeap中的数据通过extractMax取出来，
+    &#x2F;&#x2F;取出来的数据应该是从大到小顺序取出来的
+    int *array &#x3D; new int[n];
+    for (int i &#x3D; 0; i &lt; n; i++) &#123;
+        array[i] &#x3D; maxHeap.extractMax();
+        cout &lt;&lt; array[i] &lt;&lt; &quot; &quot;;
+    &#125;
+    cout &lt;&lt; endl;
+    for (int i &#x3D; 1; i &lt; n; i++) &#123;
+        assert(array[i - 1] &gt;&#x3D; array[i]);
+    &#125;
+    delete[] array;
+&#125;
+int main()&#123;
+	testHeapSort();
+	std::cout&lt;&lt;&quot;Hello&quot;&lt;&lt;endl;
+	return 0;
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 
                 
             </div>
