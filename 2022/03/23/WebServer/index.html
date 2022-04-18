@@ -1008,7 +1008,8 @@ FILE *fdopen(int fd, const char *mode);
 FILE *freopen(const char *pathname, const char *mode, FILE *stream);
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><img src="/2022/03/23/WebServer/mosea\source_posts\WebServer\image-20220409172456039.png" alt="image-20220409172456039"></p>
+<img src="/2022/03/23/WebServer/image-20220409172456039.png" class>
+
 <p>文件描述符（整型值）：用来定位文件</p>
 <p>文件读写指针：用来读数据写数据</p>
 <p>I/O缓冲区（内存地址）：写缓冲区，如果缓冲区数据满了，调用Linux IO函数写到磁盘里面。如果强制刷新缓冲区，也会写到磁盘里面。缓冲区其实是内存，这样做为了降低写磁盘的次数。</p>
@@ -1018,13 +1019,20 @@ size_t fread(void *ptr, size_t size, size_t nmemb, FILE *stream);
 size_t fwrite(const void *ptr, size_t size, size_t nmemb,FILE *stream);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p>标准C库IO函数和Linux系统的IO函数是调用和被调用的关系 ，Linux系统的IO函数更加偏底层。</p>
-<p><img src="/2022/03/23/WebServer/mosea\source_posts\WebServer\image-20220409172900496.png" alt="image-20220409172900496"></p>
-<h2 id="虚拟地址空间"><a href="#虚拟地址空间" class="headerlink" title="虚拟地址空间"></a>虚拟地址空间</h2><p><img src="/2022/03/23/WebServer/mosea\source_posts\WebServer\image-20220409172935249.png" alt="image-20220409172935249"></p>
+<img src="/2022/03/23/WebServer/image-20220409172900496.png" class>
+
+
+
+<h2 id="虚拟地址空间"><a href="#虚拟地址空间" class="headerlink" title="虚拟地址空间"></a>虚拟地址空间</h2><img src="/2022/03/23/WebServer/image-20220409172935249.png" class>
+
+
+
 <p>虚拟地址空间存在吗？</p>
 <p>不存在，是一种处理技术。一个可执行程序运行起来以后（进程），对应一个虚拟地址空间。</p>
 <p>虚拟地址经过内存逻辑管理单元（MMU）映射到真实的物理内存地址上。</p>
 <p>虚拟地址———&gt;物理地址</p>
-<h2 id="文件描述符"><a href="#文件描述符" class="headerlink" title="文件描述符"></a>文件描述符</h2><p><img src="/2022/03/23/WebServer/mosea\source_posts\WebServer\image-20220409173002487.png" alt="image-20220409173002487"></p>
+<h2 id="文件描述符"><a href="#文件描述符" class="headerlink" title="文件描述符"></a>文件描述符</h2><img src="/2022/03/23/WebServer/image-20220409173002487.png" class>
+
 <p>程序在没有加载到内存的时候，以文件的形式存在磁盘上面。</p>
 <p>程序和进程</p>
 <p>Linux经典一句，一切皆文件</p>
