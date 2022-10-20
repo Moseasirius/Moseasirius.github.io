@@ -1,414 +1,201 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="zh-CN">
-
-
 <head>
-    <meta charset="utf-8">
-    <meta name="keywords" content="STL, moblog">
-    <meta name="description" content="">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta name="renderer" content="webkit|ie-stand|ie-comp">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="format-detection" content="telephone=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <!-- Global site tag (gtag.js) - Google Analytics -->
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-    <title>STL | moblog</title>
-    <link rel="icon" type="image/png" href="/favicon.png">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
-    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
-    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/matery.css">
-    <link rel="stylesheet" type="text/css" href="/css/my.css">
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"mosirius.cn","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
 
-    <script src="/libs/jquery/jquery.min.js"></script>
+  <meta name="description" content="STL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="STL">
+<meta property="og:url" content="https://mosirius.cn/2021/04/03/STL/index.html">
+<meta property="og:site_name" content="moblog">
+<meta property="og:description" content="STL">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-04-03T13:07:42.000Z">
+<meta property="article:modified_time" content="2022-04-16T08:02:23.716Z">
+<meta property="article:author" content="moseairius">
+<meta property="article:tag" content="C++">
+<meta name="twitter:card" content="summary">
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<link rel="canonical" href="https://mosirius.cn/2021/04/03/STL/">
 
 
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
 
-
-<body>
-    <header class="navbar-fixed">
-    <nav id="headNav" class="bg-color nav-transparent">
-        <div id="navContainer" class="nav-wrapper container">
-            <div class="brand-logo">
-                <a href="/" class="waves-effect waves-light">
-                    
-                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
-                    
-                    <span class="logo-span">moblog</span>
-                </a>
-            </div>
-            
-
-<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
-<ul class="right nav-menu">
+  <title>STL | moblog</title>
   
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/" class="waves-effect waves-light">
-      
-      <i class="fas fa-home" style="zoom: 0.6;"></i>
-      
-      <span>首页</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/tags" class="waves-effect waves-light">
-      
-      <i class="fas fa-tags" style="zoom: 0.6;"></i>
-      
-      <span>标签</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/categories" class="waves-effect waves-light">
-      
-      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
-      
-      <span>分类</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/archives" class="waves-effect waves-light">
-      
-      <i class="fas fa-archive" style="zoom: 0.6;"></i>
-      
-      <span>归档</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/about" class="waves-effect waves-light">
-      
-      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
-      
-      <span>关于</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/contact" class="waves-effect waves-light">
-      
-      <i class="fas fa-comments" style="zoom: 0.6;"></i>
-      
-      <span>留言板</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/friends" class="waves-effect waves-light">
-      
-      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
-      
-      <span>友情链接</span>
-    </a>
-    
-  </li>
-  
-  <li>
-    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
-      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
-    </a>
-  </li>
-</ul>
 
 
-<div id="mobile-nav" class="side-nav sidenav">
 
-    <div class="mobile-head bg-color">
-        
-        <img src="/medias/logo.png" class="logo-img circle responsive-img">
-        
-        <div class="logo-name">moblog</div>
-        <div class="logo-desc">
-            
-            Never really desperate, only the lost of the soul.
-            
-        </div>
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
+  </div>
 
-    
+  <div class="site-meta">
 
-    <ul class="menu-list mobile-menu-list">
-        
-        <li class="m-nav-item">
-	  
-		<a href="/" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-home"></i>
-			
-			首页
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/tags" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-tags"></i>
-			
-			标签
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/categories" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-bookmark"></i>
-			
-			分类
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/archives" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-archive"></i>
-			
-			归档
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/about" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-user-circle"></i>
-			
-			关于
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/contact" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-comments"></i>
-			
-			留言板
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/friends" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-address-book"></i>
-			
-			友情链接
-		</a>
-          
-        </li>
-        
-        
-    </ul>
-</div>
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">moblog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
 
-
-        </div>
-
-        
-    </nav>
-
-</header>
-
-    
-
-
-
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/3.jpg')">
-    <div class="container" style="right: 0px;left: 0px;">
-        <div class="row">
-            <div class="col s12 m12 l12">
-                <div class="brand">
-                    <h1 class="description center-align post-title">STL</h1>
-                </div>
-            </div>
-        </div>
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
     </div>
+  </div>
 </div>
 
 
 
 
-<main class="post-container content">
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
 
     
-    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
-<style>
-    #articleContent h1::before,
-    #articleContent h2::before,
-    #articleContent h3::before,
-    #articleContent h4::before,
-    #articleContent h5::before,
-    #articleContent h6::before {
-        display: block;
-        content: " ";
-        height: 100px;
-        margin-top: -100px;
-        visibility: hidden;
-    }
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
 
-    #articleContent :focus {
-        outline: none;
-    }
 
-    .toc-fixed {
-        position: fixed;
-        top: 64px;
-    }
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
 
-    .toc-widget {
-        width: 345px;
-        padding-left: 20px;
-    }
+          <div class="content post posts-expand">
+            
 
-    .toc-widget .toc-title {
-        padding: 35px 0 15px 17px;
-        font-size: 1.5rem;
-        font-weight: bold;
-        line-height: 1.5rem;
-    }
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://mosirius.cn/2021/04/03/STL/">
 
-    .toc-widget ol {
-        padding: 0;
-        list-style: none;
-    }
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="moseairius">
+      <meta itemprop="description" content="">
+    </span>
 
-    #toc-content {
-        padding-bottom: 30px;
-        overflow: auto;
-    }
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="moblog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          STL
+        </h1>
 
-    #toc-content ol {
-        padding-left: 10px;
-    }
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
 
-    #toc-content ol li {
-        padding-left: 10px;
-    }
+              <time title="创建时间：2021-04-03 21:07:42" itemprop="dateCreated datePublished" datetime="2021-04-03T21:07:42+08:00">2021-04-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-04-16 16:02:23" itemprop="dateModified" datetime="2022-04-16T16:02:23+08:00">2022-04-16</time>
+              </span>
 
-    #toc-content .toc-link:hover {
-        color: #42b983;
-        font-weight: 700;
-        text-decoration: underline;
-    }
+          
 
-    #toc-content .toc-link::before {
-        background-color: transparent;
-        max-height: 25px;
-
-        position: absolute;
-        right: 23.5vw;
-        display: block;
-    }
-
-    #toc-content .is-active-link {
-        color: #42b983;
-    }
-
-    #floating-toc-btn {
-        position: fixed;
-        right: 15px;
-        bottom: 76px;
-        padding-top: 15px;
-        margin-bottom: 0;
-        z-index: 998;
-    }
-
-    #floating-toc-btn .btn-floating {
-        width: 48px;
-        height: 48px;
-    }
-
-    #floating-toc-btn .btn-floating i {
-        line-height: 48px;
-        font-size: 1.4rem;
-    }
-</style>
-<div class="row">
-    <div id="main-content" class="col s12 m12 l9">
-        <!-- 文章内容详情 -->
-<div id="artDetail">
-    <div class="card">
-        <div class="card-content article-info">
-            <div class="row tag-cate">
-                <div class="col s7">
-                    
-                    <div class="article-tag">
-                        
-                            <a href="/tags/C/">
-                                <span class="chip bg-color">C++</span>
-                            </a>
-                        
-                    </div>
-                    
-                </div>
-                <div class="col s5 right-align">
-                    
-                </div>
-            </div>
-
-            <div class="post-info">
-                
-                <div class="post-date info-break-policy">
-                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-04-03
-                </div>
-                
-
-                
-
-                
-
-                
-
-                
-            </div>
         </div>
-        <hr class="clearfix">
+      </header>
 
-        
-        <!-- 是否加载使用自带的 prismjs. -->
-        <link rel="stylesheet" href="/libs/prism/prism.css">
-        
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
-        
-
-        <div class="card-content article-card-content">
-            <div id="articleContent">
-                <p>STL<span id="more"></span> </p>
+      
+        <p>STL<span id="more"></span> </p>
 <p>The Standard Template Library (STL) is a set of C++ template classes to provide common programming data structures and functions such as lists, stacks, arrays, etc. It is a library of container classes, algorithms, and iterators. It is a generalized library and so, its components are parameterized. A working knowledge of <a target="_blank" rel="noopener" href="https://www.geeksforgeeks.org/templates-cpp/">template classes</a> is a prerequisite for working with STL.</p>
 <p><strong>STL has four components</strong></p>
 <ul>
@@ -4064,573 +3851,202 @@ there are <span class="token number">3</span> elements with key  z  <span class=
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
-                
-            </div>
-            <hr/>
-
-            
-
-
-
-            <div class="tag_share" style="display: block;">
-                <div class="post-meta__tag-list" style="display: inline-block;">
-                    
-                        <div class="article-tag">
-                            
-                                <a href="/tags/C/">
-                                    <span class="chip bg-color">C++</span>
-                                </a>
-                            
-                        </div>
-                    
-                </div>
-                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
-                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
-<div id="article-share">
-
-    
-
-    
-
-</div>
-
-                </div>
-            </div>
-            
-        </div>
     </div>
 
     
-
+    
     
 
-    
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/C/" rel="tag"># C++</a>
+          </div>
 
-    
-
-    
-
-    
-
-    
-
-    
-
-<article id="prenext-posts" class="prev-next articles">
-    <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
-            <div class="card">
-                <a href="/2021/04/03/CSP/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="CSP">
-                        
-                        <span class="card-title">CSP</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            CPS
-                        
-                    </div>
-                    <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-04-03
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-user fa-fw"></i>
-                            moseairius
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/CSP/">
-                        <span class="chip bg-color">CSP</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
+
+
         
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2021/03/25/Leetcode/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="Leetcode">
-                        
-                        <span class="card-title">Leetcode</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            坚持 练习 谨慎
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-25
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-user fa-fw"></i>
-                            moseairius
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Leetcode/">
-                        <span class="chip bg-color">Leetcode</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/03/25/Leetcode/" rel="prev" title="Leetcode">
+      <i class="fa fa-chevron-left"></i> Leetcode
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/04/03/CSP/" rel="next" title="CSP">
+      CSP <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
-</article>
-
-</div>
-
-
-
-<!-- 代码块功能依赖 -->
-<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
-
-<!-- 代码语言 -->
+      </footer>
+    
+  </article>
+  
+  
+  
 
 
-<!-- 代码块复制 -->
 
-<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+          </div>
+          
 
-
-<!-- 代码块收缩 -->
-
-
-    </div>
-    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
-        <div class="toc-widget card" style="background-color: white;">
-            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
-            <div id="toc-content"></div>
-        </div>
-    </div>
-</div>
-
-<!-- TOC 悬浮按钮. -->
-
-<div id="floating-toc-btn" class="hide-on-med-and-down">
-    <a class="btn-floating btn-large bg-color">
-        <i class="fas fa-list-ul"></i>
-    </a>
-</div>
-
-
-<script src="/libs/tocbot/tocbot.min.js"></script>
 <script>
-    $(function () {
-        tocbot.init({
-            tocSelector: '#toc-content',
-            contentSelector: '#articleContent',
-            headingsOffset: -($(window).height() * 0.4 - 45),
-            collapseDepth: Number('3'),
-            headingSelector: 'h1,h2, h3, h4'
-        });
-
-        // modify the toc link href to support Chinese.
-        let i = 0;
-        let tocHeading = 'toc-heading-';
-        $('#toc-content a').each(function () {
-            $(this).attr('href', '#' + tocHeading + (++i));
-        });
-
-        // modify the heading title id to support Chinese.
-        i = 0;
-        $('#articleContent').children('h1,h2, h3, h4').each(function () {
-            $(this).attr('id', tocHeading + (++i));
-        });
-
-        // Set scroll toc fixed.
-        let tocHeight = parseInt($(window).height() * 0.4 - 64);
-        let $tocWidget = $('.toc-widget');
-        $(window).scroll(function () {
-            let scroll = $(window).scrollTop();
-            /* add post toc fixed. */
-            if (scroll > tocHeight) {
-                $tocWidget.addClass('toc-fixed');
-            } else {
-                $tocWidget.removeClass('toc-fixed');
-            }
-        });
-
-        
-        /* 修复文章卡片 div 的宽度. */
-        let fixPostCardWidth = function (srcId, targetId) {
-            let srcDiv = $('#' + srcId);
-            if (srcDiv.length === 0) {
-                return;
-            }
-
-            let w = srcDiv.width();
-            if (w >= 450) {
-                w = w + 21;
-            } else if (w >= 350 && w < 450) {
-                w = w + 18;
-            } else if (w >= 300 && w < 350) {
-                w = w + 16;
-            } else {
-                w = w + 14;
-            }
-            $('#' + targetId).width(w);
-        };
-
-        // 切换TOC目录展开收缩的相关操作.
-        const expandedClass = 'expanded';
-        let $tocAside = $('#toc-aside');
-        let $mainContent = $('#main-content');
-        $('#floating-toc-btn .btn-floating').click(function () {
-            if ($tocAside.hasClass(expandedClass)) {
-                $tocAside.removeClass(expandedClass).hide();
-                $mainContent.removeClass('l9');
-            } else {
-                $tocAside.addClass(expandedClass).show();
-                $mainContent.addClass('l9');
-            }
-            fixPostCardWidth('artDetail', 'prenext-posts');
-        });
-        
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
     });
+  }
 </script>
 
-    
-
-</main>
-
-
-
-
-    <footer class="page-footer bg-color">
-    
-        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
-<style>
-    .aplayer .aplayer-lrc p {
-        
-        display: none;
-        
-        font-size: 12px;
-        font-weight: 700;
-        line-height: 16px !important;
-    }
-
-    .aplayer .aplayer-lrc p.aplayer-lrc-current {
-        
-        display: none;
-        
-        font-size: 15px;
-        color: #42b983;
-    }
-
-    
-    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
-        left: -66px !important;
-    }
-
-    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
-        left: 0px !important;
-    }
-
-    
-</style>
-<div class="">
-    
-    <div class="row">
-        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
-                   server="netease"
-                   type="playlist"
-                   id="503838841"
-                   fixed='true'
-                   autoplay='false'
-                   theme='#42b983'
-                   loop='all'
-                   order='random'
-                   preload='auto'
-                   volume='0.7'
-                   list-folded='true'
-        >
-        </meting-js>
-    </div>
-</div>
-
-<script src="/libs/aplayer/APlayer.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
-
-    
-    <div class="container row center-align" style="margin-bottom: 15px !important;">
-        <div class="col s12 m8 l8 copy-right">
-            Copyright&nbsp;&copy;
-            
-                <span id="year">2021-2022</span>
-            
-            <span id="year">2021</span>
-            <a href="/about" target="_blank">moseairius</a>
-            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
-            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
-            <br>
-            
-            
-            
-            
-            
-            <br>
-            
-            <span id="sitetime">载入运行时间...</span>
-            <script>
-                function siteTime() {
-                    var seconds = 1000;
-                    var minutes = seconds * 60;
-                    var hours = minutes * 60;
-                    var days = hours * 24;
-                    var years = days * 365;
-                    var today = new Date();
-                    var startYear = "2021";
-                    var startMonth = "3";
-                    var startDate = "14";
-                    var startHour = "0";
-                    var startMinute = "0";
-                    var startSecond = "0";
-                    var todayYear = today.getFullYear();
-                    var todayMonth = today.getMonth() + 1;
-                    var todayDate = today.getDate();
-                    var todayHour = today.getHours();
-                    var todayMinute = today.getMinutes();
-                    var todaySecond = today.getSeconds();
-                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
-                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
-                    var diff = t2 - t1;
-                    var diffYears = Math.floor(diff / years);
-                    var diffDays = Math.floor((diff / days) - diffYears * 365);
-                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
-                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
-                        minutes);
-                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
-                        diffMinutes * minutes) / seconds);
-                    if (startYear == todayYear) {
-                        document.getElementById("year").innerHTML = todayYear;
-                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
-                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
-                    } else {
-                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
-                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
-                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
-                    }
-                }
-                setInterval(siteTime, 1000);
-            </script>
-            
-            <br>
-            
-            <span id="icp"><img src="/medias/icp.png" style="vertical-align: text-bottom;" />
-                <a href="/null" target="_blank">桂ICP备2021002249号-1</a>
-            </span>
-            
         </div>
-        <div class="col s12 m4 l4 social-link ">
-    <a href="https://github.com/Moseasirius" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
-        <i class="fab fa-github"></i>
-    </a>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
 
+  <aside class="sidebar">
+    <div class="sidebar-inner">
 
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
 
-    <a href="mailto:zhenhaimo@foxmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
-        <i class="fas fa-envelope-open"></i>
-    </a>
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A0%87%E5%87%86%E6%A8%A1%E6%9D%BF%E5%BA%93"><span class="nav-number">1.</span> <span class="nav-text">标准模板库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8"><span class="nav-number">1.1.</span> <span class="nav-text">容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="nav-number">1.2.</span> <span class="nav-text">迭代器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E6%B3%95"><span class="nav-number">1.3.</span> <span class="nav-text">算法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vector"><span class="nav-number">2.</span> <span class="nav-text">vector</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#vector-vector-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="nav-number">2.0.0.1.</span> <span class="nav-text">vector::vector()函数 功能 构造函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vector-operator-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E5%AF%B9vector%E8%BF%9B%E8%A1%8C%E8%B5%8B%E5%80%BC"><span class="nav-number">2.0.0.2.</span> <span class="nav-text">vector::operator&#x3D;()函数 功能：对vector进行赋值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vector-operator-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%8E%B7%E5%8F%96%E6%8C%87%E5%AE%9A%E4%BD%8D%E7%BD%AE"><span class="nav-number">2.0.0.3.</span> <span class="nav-text">vector::operator函数 功能：获取指定位置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vector-assign-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E5%AF%B9vector%E4%B8%AD%E7%9A%84%E5%85%83%E7%B4%A0%E8%B5%8B%E5%80%BC"><span class="nav-number">2.0.0.4.</span> <span class="nav-text">vector::assign()函数 功能：对vector中的元素赋值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vector-begin-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0%E7%9A%84%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="nav-number">2.0.0.5.</span> <span class="nav-text">vector::begin()函数 功能：返回第一个元素的迭代器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vector-end-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E6%9C%80%E6%9C%AB%E5%85%83%E7%B4%A0%E7%9A%84%E8%BF%AD%E4%BB%A3%E5%99%A8-%E6%B3%A8%EF%BC%9A%E5%AE%9E%E6%8C%87%E5%90%91%E6%9C%80%E6%9C%AB%E5%85%83%E7%B4%A0%E7%9A%84%E4%B8%8B%E4%B8%80%E4%B8%AA%E4%BD%8D%E7%BD%AE%EF%BC%89"><span class="nav-number">2.0.0.6.</span> <span class="nav-text">vector::end()函数 功能：返回最末元素的迭代器(注：实指向最末元素的下一个位置）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vector-rbegin-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9Evector%E5%B0%BE%E9%83%A8%E7%9A%84%E9%80%86%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="nav-number">2.0.0.7.</span> <span class="nav-text">vector::rbegin()函数 功能：返回vector尾部的逆迭代器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vector-rend-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9Evector%E8%B5%B7%E5%A7%8B%E7%9A%84%E9%80%86%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="nav-number">2.0.0.8.</span> <span class="nav-text">vector::rend()函数 功能：返回vector起始的逆迭代器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vector-back-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E6%9C%AB%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0"><span class="nav-number">2.0.0.9.</span> <span class="nav-text">vector::back()函数 功能：返回末一个元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vector-front-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0"><span class="nav-number">2.0.0.10.</span> <span class="nav-text">vector::front()函数 功能：返回第一个元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vector-push-back-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E5%9C%A8vector%E6%9C%80%E5%90%8E%E6%B7%BB%E5%8A%A0%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0"><span class="nav-number">2.0.0.11.</span> <span class="nav-text">vector::push_back()函数 功能：在vector最后添加一个元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vector-pop-back-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E7%A7%BB%E9%99%A4%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0"><span class="nav-number">2.0.0.12.</span> <span class="nav-text">vector::pop_back()函数 功能：移除最后一个元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vector-insert-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E6%8F%92%E5%85%A5%E5%85%83%E7%B4%A0%E5%88%B0vector%E4%B8%AD"><span class="nav-number">2.0.0.13.</span> <span class="nav-text">vector:insert()函数 功能：插入元素到vector中</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vector-erase-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E5%88%A0%E9%99%A4%E6%8C%87%E5%AE%9A%E5%85%83%E7%B4%A0"><span class="nav-number">2.0.0.14.</span> <span class="nav-text">vector::erase()函数 功能：删除指定元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vector-clear-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E6%B8%85%E7%A9%BA%E6%89%80%E6%9C%89%E5%85%83%E7%B4%A0"><span class="nav-number">2.0.0.15.</span> <span class="nav-text">vector::clear()函数 功能：清空所有元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vector-empty-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%E5%88%A4%E6%96%ADvector%E6%98%AF%E5%90%A6%E4%B8%BA%E7%A9%BA-%E8%BF%94%E5%9B%9Etrue%E6%97%B6%E4%B8%BA%E7%A9%BA%EF%BC%89"><span class="nav-number">2.0.0.16.</span> <span class="nav-text">vector::empty()函数 功能判断vector是否为空,(返回true时为空）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vector-size-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9Evector%E5%85%83%E7%B4%A0%E6%95%B0%E9%87%8F%E5%A4%A7%E5%B0%8F"><span class="nav-number">2.0.0.17.</span> <span class="nav-text">vector::size()函数 功能：返回vector元素数量大小</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vector-resize-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E6%94%B9%E5%8F%98vector%E5%85%83%E7%B4%A0%E6%95%B0%E9%87%8F%E7%9A%84%E5%A4%A7%E5%B0%8F"><span class="nav-number">2.0.0.18.</span> <span class="nav-text">vector::resize()函数 功能：改变vector元素数量的大小</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vector-swap-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E4%BA%A4%E6%8D%A2%E4%B8%A4%E4%B8%AAvector"><span class="nav-number">2.0.0.19.</span> <span class="nav-text">vector::swap()函数 功能：交换两个vector</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vector-get-allocator-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9Evector%E7%9A%84%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E5%99%A8"><span class="nav-number">2.0.0.20.</span> <span class="nav-text">vector::get_allocator()函数 功能：返回vector的内存分配器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vector-at-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E6%8C%87%E5%AE%9A%E4%BD%8D%E7%BD%AE%E7%9A%84%E5%85%83%E7%B4%A0"><span class="nav-number">2.0.0.21.</span> <span class="nav-text">vector::at()函数 功能：返回指定位置的元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vector-max-size-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9Evector%E6%89%80%E8%83%BD%E5%AE%B9%E7%BA%B3%E5%85%83%E7%B4%A0%E7%9A%84%E6%9C%80%E5%A4%A7%E6%95%B0%E9%87%8F%E4%B8%8A"><span class="nav-number">2.0.0.22.</span> <span class="nav-text">vector::max_size()函数 功能：返回vector所能容纳元素的最大数量上</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vector-capacity-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9Evector%E6%89%80%E8%83%BD%E5%AE%B9%E7%BA%B3%E7%9A%84%E5%85%83%E7%B4%A0%E6%95%B0%E9%87%8F%EF%BC%8C%E5%9C%A8%E4%B8%8D%E9%87%8D%E6%96%B0%E5%88%86%E9%85%8D%E5%86%85%E5%AD%98%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B"><span class="nav-number">2.0.0.23.</span> <span class="nav-text">vector::capacity()函数 功能：返回vector所能容纳的元素数量，在不重新分配内存的情况下</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#priority-queue"><span class="nav-number">3.</span> <span class="nav-text">priority_queue</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#priority-queue-empty-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E5%A6%82%E6%9E%9C%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97%E4%B8%BA%E7%A9%BA%EF%BC%8C%E5%88%99%E8%BF%94%E5%9B%9E%E7%9C%9F"><span class="nav-number">3.0.0.1.</span> <span class="nav-text">priority_queue::empty()函数 功能：如果优先队列为空，则返回真</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#priority-queue-pop-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E5%88%A0%E9%99%A4%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0"><span class="nav-number">3.0.0.2.</span> <span class="nav-text">priority_queue::pop()函数 功能：删除第一个元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#priority-queue-push-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E5%8A%A0%E5%85%A5%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0"><span class="nav-number">3.0.0.3.</span> <span class="nav-text">priority_queue::push()函数 功能：加入一个元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#priority-queue-size-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97%E4%B8%AD%E6%8B%A5%E6%9C%89%E7%9A%84%E5%85%83%E7%B4%A0%E7%9A%84%E4%B8%AA%E6%95%B0"><span class="nav-number">3.0.0.4.</span> <span class="nav-text">priority_queue::size()函数 功能：返回优先队列中拥有的元素的个数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#priority-queue-top-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97%E4%B8%AD%E6%9C%89%E6%9C%80%E9%AB%98%E4%BC%98%E5%85%88%E7%BA%A7%E7%9A%84%E5%85%83%E7%B4%A0"><span class="nav-number">3.0.0.5.</span> <span class="nav-text">priority_queue::top()函数 功能：返回优先队列中有最高优先级的元素</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#String"><span class="nav-number">3.1.</span> <span class="nav-text">String</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#string-string-%E5%8A%9F%E8%83%BD%EF%BC%9A%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%EF%BC%8C%E7%94%A8%E4%BA%8E%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">3.1.0.1.</span> <span class="nav-text">string::string() 功能：构造函数，用于字符串初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#string-operator-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%9E%E6%8E%A5%E4%B8%A4%E4%B8%AA%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">3.1.0.2.</span> <span class="nav-text">string::operator+&#x3D;()函数 功能：连接两个字符串</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#string-operator-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%B5%8B%E5%80%BC"><span class="nav-number">3.1.0.3.</span> <span class="nav-text">string::operator&#x3D;()函数 功能：字符串赋值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#string-operator-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%8E%B7%E5%8F%96%E7%89%B9%E5%AE%9A%E7%9A%84%E5%AD%97%E7%AC%A6"><span class="nav-number">3.1.0.4.</span> <span class="nav-text">string::operator[] () 功能：获取特定的字符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#string-assign-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E4%B8%BA%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%B5%8B%E6%96%B0%E5%80%BC"><span class="nav-number">3.1.0.5.</span> <span class="nav-text">string::assign()函数 功能：为字符串赋新值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#string-append-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E5%9C%A8%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%9C%AB%E5%B0%BE%E6%B7%BB%E5%8A%A0%E6%96%87%E6%9C%AC"><span class="nav-number">3.1.0.6.</span> <span class="nav-text">string::append()函数 功能：在字符串的末尾添加文本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#string-begin-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E4%B8%80%E4%B8%AA%E8%BF%AD%E4%BB%A3%E5%99%A8%EF%BC%9B%E6%8C%87%E5%90%91%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%AD%97%E7%AC%A6"><span class="nav-number">3.1.0.7.</span> <span class="nav-text">string::begin()函数 功能：返回一个迭代器；指向第一个字符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#string-end-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E4%B8%80%E4%B8%AA%E8%BF%AD%E4%BB%A3%E5%99%A8%EF%BC%9B%E6%8C%87%E5%90%91%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%9C%AB%E5%B0%BE%E3%80%82-%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E5%AD%97%E7%AC%A6%E7%9A%84%E4%B8%8B%E4%B8%80%E4%B8%AA%E4%BD%8D%E7%BD%AE"><span class="nav-number">3.1.0.8.</span> <span class="nav-text">string::end()函数  功能：返回一个迭代器；指向字符串的末尾。(最后一个字符的下一个位置)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#string-rbegin-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E4%B8%80%E4%B8%AA%E9%80%86%E5%90%91%E8%BF%AD%E4%BB%A3%E5%99%A8%EF%BC%8C%E6%8C%87%E5%90%91%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E5%AD%97%E7%AC%A6"><span class="nav-number">3.1.0.9.</span> <span class="nav-text">string::rbegin()函数 功能：返回一个逆向迭代器，指向最后一个字符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#string-rend-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E4%B8%80%E4%B8%AA%E9%80%86%E5%90%91%E8%BF%AD%E4%BB%A3%E5%99%A8%EF%BC%8C%E6%8C%87%E5%90%91%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0%E7%9A%84%E5%89%8D%E4%B8%80%E4%B8%AA%E4%BD%8D%E7%BD%AE"><span class="nav-number">3.1.0.10.</span> <span class="nav-text">string::rend()函数 功能：返回一个逆向迭代器，指向第一个元素的前一个位置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#string-push-back-%E5%8A%9F%E8%83%BD%EF%BC%9AAppend-character-to-string%E5%BE%85%E5%AE%8C%E5%96%84"><span class="nav-number">3.1.0.11.</span> <span class="nav-text">string::push_back() 功能：Append character to string待完善</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#string-insert-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E6%8F%92%E5%85%A5%E5%AD%97%E7%AC%A6"><span class="nav-number">3.1.0.12.</span> <span class="nav-text">string::insert()函数 功能：插入字符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#string-erase-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E5%88%A0%E9%99%A4%E5%AD%97%E7%AC%A6"><span class="nav-number">3.1.0.13.</span> <span class="nav-text">string::erase()函数 功能：删除字符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#string-clear-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9AClear-string"><span class="nav-number">3.1.0.14.</span> <span class="nav-text">string::clear()函数 功能：Clear string</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#string-empty-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E5%A6%82%E6%9E%9C%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%BA%E7%A9%BA%EF%BC%8C%E8%BF%94%E5%9B%9E%E7%9C%9F"><span class="nav-number">3.1.0.15.</span> <span class="nav-text">string::empty()函数 功能：如果字符串为空，返回真</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#string-c-str-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E5%B0%86%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%BB%A5C%E5%AD%97%E7%AC%A6%E6%95%B0%E7%BB%84%E7%9A%84%E5%BD%A2%E5%BC%8F%E8%BF%94%E5%9B%9E"><span class="nav-number">3.1.0.16.</span> <span class="nav-text">string::c_str()函数 功能：将字符串以C字符数组的形式返回</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#string-copy-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E5%B0%86%E5%86%85%E5%AE%B9%E5%A4%8D%E5%88%B6%E4%B8%BA%E4%B8%80%E4%B8%AA%E5%AD%97%E7%AC%A6%E6%95%B0%E7%BB%84"><span class="nav-number">3.1.0.17.</span> <span class="nav-text">string::copy()函数 功能：将内容复制为一个字符数组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#string-length-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E9%95%BF%E5%BA%A6"><span class="nav-number">3.1.0.18.</span> <span class="nav-text">string::length()函数 功能：返回字符串的长度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#string-size-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E5%AD%97%E7%AC%A6%E7%9A%84%E6%95%B0%E9%87%8F"><span class="nav-number">3.1.0.19.</span> <span class="nav-text">string::size()函数 功能：返回字符串中字符的数量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#string-capacity-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E9%87%8D%E6%96%B0%E5%88%86%E9%85%8D%E7%A9%BA%E9%97%B4%E5%89%8D%E7%9A%84%E5%AD%97%E7%AC%A6%E5%AE%B9%E9%87%8F"><span class="nav-number">3.1.0.20.</span> <span class="nav-text">string::capacity()函数 功能：返回重新分配空间前的字符容量</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#string-max-size-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E5%A4%A7%E5%8F%AF%E8%83%BD%E4%B8%AA%E6%95%B0"><span class="nav-number">3.1.0.20.1.</span> <span class="nav-text">string::max_size()函数 功能：返回字符的最大可能个数</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#string-swap-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E4%BA%A4%E6%8D%A2%E4%B8%A4%E4%B8%AA%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E5%86%85%E5%AE%B9"><span class="nav-number">3.1.0.21.</span> <span class="nav-text">string::swap()函数 功能：交换两个字符串的内容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#string-find-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E5%9C%A8%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E6%9F%A5%E6%89%BE%E5%AD%97%E7%AC%A6"><span class="nav-number">3.1.0.22.</span> <span class="nav-text">string::find()函数 功能：在字符串中查找字符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#string-substr-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E6%9F%90%E4%B8%AA%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">3.1.0.23.</span> <span class="nav-text">string::substr()函数 功能：返回某个子字符串</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#string-at-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E6%8C%89%E7%BB%99%E5%AE%9A%E7%B4%A2%E5%BC%95%E5%80%BC%E8%BF%94%E5%9B%9E%E5%AD%97%E7%AC%A6"><span class="nav-number">3.1.0.24.</span> <span class="nav-text">string::at()函数 功能：按给定索引值返回字符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#string-compare-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E6%AF%94%E8%BE%83%E4%B8%A4%E4%B8%AA%E5%AD%97%E7%AC%A6%E4%B8%B2-%E7%9B%B8%E7%AD%89%E8%BF%94%E5%9B%9E0%EF%BC%8C%E4%B8%8D%E7%9B%B8%E7%AD%89%E8%BF%94%E5%9B%9E-1"><span class="nav-number">3.1.0.25.</span> <span class="nav-text">string::compare()函数 功能：比较两个字符串,相等返回0，不相等返回-1</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#stack"><span class="nav-number">4.</span> <span class="nav-text">stack</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#stack-empty-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E6%A0%88%E4%B8%BA%E7%A9%BA%E5%88%99%E8%BF%94%E5%9B%9E%E7%9C%9F"><span class="nav-number">4.0.0.1.</span> <span class="nav-text">stack::empty()函数 功能：栈为空则返回真</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#stack-pop-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E7%A7%BB%E9%99%A4%E6%A0%88%E9%A1%B6%E5%85%83%E7%B4%A0"><span class="nav-number">4.0.0.2.</span> <span class="nav-text">stack::pop()函数 功能：移除栈顶元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#stack-push-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E5%9C%A8%E6%A0%88%E9%A1%B6%E6%B7%BB%E5%8A%A0%E5%85%83%E7%B4%A0"><span class="nav-number">4.0.0.3.</span> <span class="nav-text">stack::push()函数 功能：在栈顶添加元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#stack-size-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E6%A0%88%E4%B8%AD%E5%85%83%E7%B4%A0%E6%95%B0%E7%9B%AE"><span class="nav-number">4.0.0.4.</span> <span class="nav-text">stack::size()函数 功能：返回栈中元素数目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#stack-top-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E6%A0%88%E9%A1%B6%E5%85%83%E7%B4%A0"><span class="nav-number">4.0.0.5.</span> <span class="nav-text">stack::top()函数 功能：返回栈顶元素</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#queue"><span class="nav-number">5.</span> <span class="nav-text">queue</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#queue-queue-%E5%87%BD%E6%95%B0-%E5%88%9B%E5%BB%BAqueue"><span class="nav-number">5.0.0.1.</span> <span class="nav-text">queue::queue()函数 创建queue</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#queue-size-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E9%98%9F%E5%88%97%E4%B8%AD%E5%85%83%E7%B4%A0%E7%9A%84%E4%B8%AA%E6%95%B0"><span class="nav-number">5.0.0.2.</span> <span class="nav-text">queue::size()函数 功能：返回队列中元素的个数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#queue-push-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E5%9C%A8%E9%98%9F%E5%88%97%E6%9C%AB%E5%B0%BE%E5%8A%A0%E5%85%A5%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0"><span class="nav-number">5.0.0.3.</span> <span class="nav-text">queue::push()函数 功能：在队列末尾加入一个元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#queue-pop-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E5%88%A0%E9%99%A4%E9%98%9F%E5%88%97%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0"><span class="nav-number">5.0.0.4.</span> <span class="nav-text">queue::pop()函数 功能：删除队列第一个元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#queue-front-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD-%E8%BF%94%E5%9B%9E%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0"><span class="nav-number">5.0.0.5.</span> <span class="nav-text">queue::front()函数 功能:返回第一个元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#queue-back-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0"><span class="nav-number">5.0.0.6.</span> <span class="nav-text">queue::back()函数 功能：返回最后一个元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#queue-empty-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E5%A6%82%E6%9E%9C%E9%98%9F%E5%88%97%E4%B8%BA%E7%A9%BA%E5%88%99%E8%BF%94%E5%9B%9E%E7%9C%9F"><span class="nav-number">5.0.0.7.</span> <span class="nav-text">queue::empty()函数 功能：如果队列为空则返回真</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#deuque"><span class="nav-number">6.</span> <span class="nav-text">deuque</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#deque-deque-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%96%B0%E5%8F%8C%E5%90%91%E9%98%9F%E5%88%97"><span class="nav-number">6.0.0.1.</span> <span class="nav-text">deque::deque()函数 功能：创建一个新双向队列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#deque-operator-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%E8%B5%8B%E5%80%BC%E5%8F%8C%E5%90%91%E9%98%9F%E5%88%97"><span class="nav-number">6.0.0.2.</span> <span class="nav-text">deque::operator&#x3D;()函数 功能赋值双向队列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#deque-operator%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9AAccess-element"><span class="nav-number">6.0.0.3.</span> <span class="nav-text">deque::operator函数 功能：Access element</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#deque-assign%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%AE%BE%E7%BD%AE%E5%8F%8C%E5%90%91%E9%98%9F%E5%88%97%E7%9A%84%E5%80%BC"><span class="nav-number">6.0.0.4.</span> <span class="nav-text">deque::assign函数 功能：设置双向队列的值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#deque-begin-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E6%8C%87%E5%90%91%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0%E7%9A%84%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="nav-number">6.0.0.5.</span> <span class="nav-text">deque::begin()函数 功能：返回指向第一个元素的迭代器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#deque-end-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E6%8C%87%E5%90%91%E5%B0%BE%E9%83%A8%E7%9A%84%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="nav-number">6.0.0.6.</span> <span class="nav-text">deque::end()函数 功能：返回指向尾部的迭代器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#deque-rbegin-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E6%8C%87%E5%90%91%E5%B0%BE%E9%83%A8%E7%9A%84%E9%80%86%E5%90%91%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="nav-number">6.0.0.7.</span> <span class="nav-text">deque::rbegin()函数 功能：返回指向尾部的逆向迭代器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#deque-rend-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E6%8C%87%E5%90%91%E5%A4%B4%E9%83%A8%E7%9A%84%E9%80%86%E5%90%91%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="nav-number">6.0.0.8.</span> <span class="nav-text">deque::rend()函数 功能：返回指向头部的逆向迭代器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#deque-back-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0"><span class="nav-number">6.0.0.9.</span> <span class="nav-text">deque::back()函数 功能：返回最后一个元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#deque-front-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0"><span class="nav-number">6.0.0.10.</span> <span class="nav-text">deque::front()函数 功能：返回第一个元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#deque-push-back-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E5%9C%A8%E5%B0%BE%E9%83%A8%E5%8A%A0%E5%85%A5%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0"><span class="nav-number">6.0.0.11.</span> <span class="nav-text">deque::push_back()函数 功能：在尾部加入一个元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#deque-pop-back-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD-%E5%88%A0%E9%99%A4%E5%B0%BE%E9%83%A8%E7%9A%84%E5%85%83%E7%B4%A0"><span class="nav-number">6.0.0.12.</span> <span class="nav-text">deque::pop_back()函数 功能: 删除尾部的元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#deque-push-front-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E5%9C%A8%E5%A4%B4%E9%83%A8%E5%8A%A0%E5%85%A5%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0"><span class="nav-number">6.0.0.13.</span> <span class="nav-text">deque::push_front()函数 功能：在头部加入一个元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#deque-pop-front-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E5%88%A0%E9%99%A4%E5%A4%B4%E9%83%A8%E7%9A%84%E5%85%83%E7%B4%A0"><span class="nav-number">6.0.0.14.</span> <span class="nav-text">deque::pop_front()函数 功能：删除头部的元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#deque-insert-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E6%8F%92%E5%85%A5-%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0%E5%88%B0%E5%8F%8C%E5%90%91%E9%98%9F%E5%88%97%E4%B8%AD"><span class="nav-number">6.0.0.15.</span> <span class="nav-text">deque::insert()函数 功能：插入 一个元素到双向队列中</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#deque-erase-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E5%88%A0%E9%99%A4%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0"><span class="nav-number">6.0.0.16.</span> <span class="nav-text">deque::erase()函数 功能：删除一个元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#deque-clear-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E5%88%A0%E9%99%A4%E6%89%80%E6%9C%89%E5%85%83%E7%B4%A0"><span class="nav-number">6.0.0.17.</span> <span class="nav-text">deque::clear()函数 功能：删除所有元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#deque-empty-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E7%9C%9F%E5%A6%82%E6%9E%9C%E5%8F%8C%E5%90%91%E9%98%9F%E5%88%97%E4%B8%BA%E7%A9%BA"><span class="nav-number">6.0.0.18.</span> <span class="nav-text">deque::empty()函数 功能：返回真如果双向队列为空</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#deque-size-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E5%8F%8C%E5%90%91%E9%98%9F%E5%88%97%E4%B8%AD%E5%85%83%E7%B4%A0%E7%9A%84%E4%B8%AA%E6%95%B0"><span class="nav-number">6.0.0.19.</span> <span class="nav-text">deque::size()函数 功能：返回双向队列中元素的个数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#deque-resize-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E6%94%B9%E5%8F%98%E5%8F%8C%E5%90%91%E9%98%9F%E5%88%97%E7%9A%84%E5%A4%A7%E5%B0%8F"><span class="nav-number">6.0.0.20.</span> <span class="nav-text">deque::resize()函数 功能：改变双向队列的大小</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#deque-swap-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E5%92%8C%E5%8F%A6%E4%B8%80%E4%B8%AA%E5%8F%8C%E5%90%91%E9%98%9F%E5%88%97%E4%BA%A4%E6%8D%A2%E5%85%83%E7%B4%A0"><span class="nav-number">6.0.0.21.</span> <span class="nav-text">deque::swap()函数 功能：和另一个双向队列交换元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#deque-get-allocator-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E5%8F%8C%E5%90%91%E9%98%9F%E5%88%97%E7%9A%84%E9%85%8D%E7%BD%AE%E5%99%A8"><span class="nav-number">6.0.0.22.</span> <span class="nav-text">deque::get_allocator()函数 功能：返回双向队列的配置器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#deque-at-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E6%8C%87%E5%AE%9A%E5%85%83%E7%B4%A0"><span class="nav-number">6.0.0.23.</span> <span class="nav-text">deque()::at()函数 功能：返回指定元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#deque-max-size-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E5%8F%8C%E5%90%91%E9%98%9F%E5%88%97%E8%83%BD%E5%AE%B9%E7%BA%B3%E7%9A%84%E6%9C%80%E5%A4%A7%E5%85%83%E7%B4%A0%E4%B8%AA%E6%95%B0"><span class="nav-number">6.0.0.24.</span> <span class="nav-text">deque::max_size()函数 功能：返回双向队列能容纳的最大元素个数</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#list"><span class="nav-number">7.</span> <span class="nav-text">list</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#list-list-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E6%9E%84%E9%80%A0list"><span class="nav-number">7.0.0.1.</span> <span class="nav-text">list::list()函数 功能：构造list</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#list-operator-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%B5%8B%E5%80%BClist"><span class="nav-number">7.0.0.2.</span> <span class="nav-text">list::operator&#x3D;()函数 功能：赋值list</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#list-assign-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E7%BB%99list%E8%B5%8B%E5%80%BC"><span class="nav-number">7.0.0.3.</span> <span class="nav-text">list::assign()函数 功能：给list赋值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#list-begin-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E6%8C%87%E5%90%91%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0%E7%9A%84%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="nav-number">7.0.0.4.</span> <span class="nav-text">list::begin()函数 功能：返回指向第一个元素的迭代器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#list-end-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E6%9C%AB%E5%B0%BE%E7%9A%84%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="nav-number">7.0.0.5.</span> <span class="nav-text">list::end()函数 功能：返回末尾的迭代器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#list-rbegin-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E6%8C%87%E5%90%91list%E5%B0%BE%E9%83%A8%E7%9A%84%E9%80%86%E5%90%91%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="nav-number">7.0.0.6.</span> <span class="nav-text">list::rbegin()函数 功能：返回指向list尾部的逆向迭代器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#list-rend-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E6%8C%87%E5%90%91%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0%E7%9A%84%E9%80%86%E5%90%91%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="nav-number">7.0.0.7.</span> <span class="nav-text">list::rend()函数 功能：返回指向第一个元素的逆向迭代器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#list-back-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0"><span class="nav-number">7.0.0.8.</span> <span class="nav-text">list::back()函数 功能：返回最后一个元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#list-front-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0"><span class="nav-number">7.0.0.9.</span> <span class="nav-text">list::front()函数 功能：返回第一个元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#list-push-back-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E5%9C%A8list%E7%9A%84%E6%9C%AB%E5%B0%BE%E6%B7%BB%E5%8A%A0%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0"><span class="nav-number">7.0.0.10.</span> <span class="nav-text">list::push_back()函数 功能：在list的末尾添加一个元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#list-pop-back-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A-%E5%88%A0%E9%99%A4%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0"><span class="nav-number">7.0.0.11.</span> <span class="nav-text">list::pop_back()函数 功能： 删除最后一个元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#list-push-front-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E5%9C%A8list%E7%9A%84%E5%A4%B4%E9%83%A8%E6%B7%BB%E5%8A%A0%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0"><span class="nav-number">7.0.0.12.</span> <span class="nav-text">list::push_front()函数 功能：在list的头部添加一个元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#list-pop-front-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E5%88%A0%E9%99%A4%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0"><span class="nav-number">7.0.0.13.</span> <span class="nav-text">list::pop_front()函数 功能：删除第一个元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#list-insert-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E6%8F%92%E5%85%A5%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0%E5%88%B0list%E4%B8%AD-%E6%8F%92%E5%85%A5%E4%B8%8B%E6%A0%87%E7%9A%84%E5%89%8D%E9%9D%A2%EF%BC%89"><span class="nav-number">7.0.0.14.</span> <span class="nav-text">list::insert()函数 功能：插入一个元素到list中(插入下标的前面）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#list-erase-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E5%88%A0%E9%99%A4%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0%E6%88%96%E8%80%85%E4%B8%80%E7%BB%84%E8%BF%9E%E7%BB%AD%E5%85%83%E7%B4%A0"><span class="nav-number">7.0.0.15.</span> <span class="nav-text">list:erase()函数 功能：删除一个元素或者一组连续元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#list-clear-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E5%88%A0%E9%99%A4%E6%89%80%E6%9C%89%E5%85%83%E7%B4%A0"><span class="nav-number">7.0.0.16.</span> <span class="nav-text">list::clear()函数 功能：删除所有元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#list-empty-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E5%A6%82%E6%9E%9Clist%E6%98%AF%E7%A9%BA%E7%9A%84%E5%88%99%E8%BF%94%E5%9B%9Etrue"><span class="nav-number">7.0.0.17.</span> <span class="nav-text">list::empty()函数 功能：如果list是空的则返回true</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#list-size-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9Elist%E4%B8%AD%E5%85%83%E7%B4%A0%E7%9A%84%E4%B8%AA%E6%95%B0"><span class="nav-number">7.0.0.18.</span> <span class="nav-text">list::size()函数 功能：返回list中元素的个数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#list-resize-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E6%94%B9%E5%8F%98list%E7%9A%84%E5%A4%A7%E5%B0%8F"><span class="nav-number">7.0.0.19.</span> <span class="nav-text">list::resize()函数 功能：改变list的大小</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#list-swap-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E4%BA%A4%E6%8D%A2%E4%B8%A4%E4%B8%AAlist"><span class="nav-number">7.0.0.20.</span> <span class="nav-text">list::swap()函数 功能：交换两个list</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#list-get-allocator-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9Elist%E7%9A%84%E9%80%82%E9%85%8D%E5%99%A8"><span class="nav-number">7.0.0.21.</span> <span class="nav-text">list::get_allocator()函数 功能：返回list的适配器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#list-max-size-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9Elist%E8%83%BD%E5%AE%B9%E7%BA%B3%E7%9A%84%E6%9C%80%E5%A4%A7%E5%85%83%E7%B4%A0%E6%95%B0%E9%87%8F"><span class="nav-number">7.0.0.22.</span> <span class="nav-text">list::max_size()函数 功能：返回list能容纳的最大元素数量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#list-sort-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E7%BB%99list%E6%8E%92%E5%BA%8F"><span class="nav-number">7.0.0.23.</span> <span class="nav-text">list::sort()函数 功能：给list排序</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#set"><span class="nav-number">8.</span> <span class="nav-text">set</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#set-set-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E6%9E%84%E9%80%A0set"><span class="nav-number">8.0.0.1.</span> <span class="nav-text">set::set()函数 功能：构造set</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#set-operator-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%B5%8B%E5%80%BCset"><span class="nav-number">8.0.0.2.</span> <span class="nav-text">set::operator&#x3D;()函数 功能：赋值set</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#set-begin-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E6%8C%87%E5%90%91%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0%E7%9A%84%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="nav-number">8.0.0.3.</span> <span class="nav-text">set::begin()函数  功能：返回指向第一个元素的迭代器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#set-end-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E6%8C%87%E5%90%91%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0%E7%9A%84%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="nav-number">8.0.0.4.</span> <span class="nav-text">set::end()函数 功能：返回指向最后一个元素的迭代器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#set-rbegin-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E6%8C%87%E5%90%91%E9%9B%86%E5%90%88%E4%B8%AD%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0%E7%9A%84%E5%8F%8D%E5%90%91%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="nav-number">8.0.0.5.</span> <span class="nav-text">set::rbegin()函数 功能：返回指向集合中最后一个元素的反向迭代器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#set-rend-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E6%8C%87%E5%90%91%E9%9B%86%E5%90%88%E4%B8%AD%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0%E7%9A%84%E5%8F%8D%E5%90%91%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="nav-number">8.0.0.6.</span> <span class="nav-text">set::rend()函数  功能：返回指向集合中第一个元素的反向迭代器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#set-insert-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A-%E5%9C%A8%E9%9B%86%E5%90%88%E4%B8%AD%E6%8F%92%E5%85%A5%E5%85%83%E7%B4%A0"><span class="nav-number">8.0.0.7.</span> <span class="nav-text">set::insert()函数 功能： 在集合中插入元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#set-erase-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E5%88%A0%E9%99%A4%E9%9B%86%E5%90%88%E4%B8%AD%E7%9A%84%E5%85%83%E7%B4%A0"><span class="nav-number">8.0.0.8.</span> <span class="nav-text">set::erase()函数 功能：删除集合中的元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#set-find-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E4%B8%80%E4%B8%AA%E6%8C%87%E5%90%91%E8%A2%AB%E6%9F%A5%E6%89%BE%E5%85%83%E7%B4%A0%E7%9A%84%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="nav-number">8.0.0.9.</span> <span class="nav-text">set::find()函数 功能：返回一个指向被查找元素的迭代器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#set-clear-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E6%B8%85%E9%99%A4%E6%89%80%E6%9C%89%E5%85%83%E7%B4%A0"><span class="nav-number">8.0.0.10.</span> <span class="nav-text">set::clear()函数 功能：清除所有元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#set-empty-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E5%A6%82%E6%9E%9C%E9%9B%86%E5%90%88%E4%B8%BA%E7%A9%BA%EF%BC%8C%E8%BF%94%E5%9B%9Etrue"><span class="nav-number">8.0.0.11.</span> <span class="nav-text">set::empty()函数 功能：如果集合为空，返回true</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#set-count-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E6%9F%90%E4%B8%AA%E5%80%BC%E5%85%83%E7%B4%A0%E7%9A%84%E4%B8%AA%E6%95%B0"><span class="nav-number">8.0.0.12.</span> <span class="nav-text">set::count()函数 功能：返回某个值元素的个数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#set-size-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E9%9B%86%E5%90%88%E4%B8%AD%E5%85%83%E7%B4%A0%E7%9A%84%E6%95%B0%E7%9B%AE"><span class="nav-number">8.0.0.13.</span> <span class="nav-text">set::size()函数 功能：集合中元素的数目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#set-swap-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E4%BA%A4%E6%8D%A2%E4%B8%A4%E4%B8%AA%E9%9B%86%E5%90%88%E5%8F%98%E9%87%8F"><span class="nav-number">8.0.0.14.</span> <span class="nav-text">set::swap()函数 功能：交换两个集合变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#set-get-allocator-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD-%E8%BF%94%E5%9B%9E%E9%9B%86%E5%90%88%E5%88%86%E9%85%8D%E5%99%A8"><span class="nav-number">8.0.0.15.</span> <span class="nav-text">set::get_allocator()函数 功能:返回集合分配器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#set-key-comp-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E4%B8%80%E4%B8%AA%E7%94%A8%E4%BA%8E%E5%85%83%E7%B4%A0%E9%97%B4%E6%AF%94%E8%BE%83%E7%9A%84%E5%87%BD%E6%95%B0"><span class="nav-number">8.0.0.16.</span> <span class="nav-text">set::key_comp()函数 功能：返回一个用于元素间比较的函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#set-value-comp-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E4%B8%80%E4%B8%AA%E7%94%A8%E4%BA%8E%E6%AF%94%E8%BE%83%E5%85%83%E7%B4%A0%E9%97%B4%E7%9A%84%E5%80%BC%E7%9A%84%E5%87%BD%E6%95%B0"><span class="nav-number">8.0.0.17.</span> <span class="nav-text">set::value_comp()函数 功能：返回一个用于比较元素间的值的函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#set-lower-bound-%E5%87%BD%E6%95%B0-%E8%BF%94%E5%9B%9E%E6%8C%87%E5%90%91%E5%A4%A7%E4%BA%8E%E7%AD%89%E4%BA%8E%E6%9F%90%E5%80%BC%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0%E7%9A%84%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="nav-number">8.0.0.18.</span> <span class="nav-text">set::lower_bound()函数 返回指向大于等于某值的第一个元素的迭代器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#set-upper-bound-%E5%87%BD%E6%95%B0-%E8%BF%94%E5%9B%9E%E6%8C%87%E5%90%91%E5%A4%A7%E4%BA%8E%E7%AD%89%E4%BA%8E%E6%9F%90%E5%80%BC%E7%9A%84%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="nav-number">8.0.0.19.</span> <span class="nav-text">set::upper_bound()函数 返回指向大于等于某值的迭代器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#set-max-size-%E5%87%BD%E6%95%B0-%E8%BF%94%E5%9B%9E%E9%9B%86%E5%90%88%E8%83%BD%E5%AE%B9%E7%BA%B3%E7%9A%84%E5%85%83%E7%B4%A0%E7%9A%84%E6%9C%80%E5%A4%A7%E9%99%90%E5%80%BC"><span class="nav-number">8.0.0.20.</span> <span class="nav-text">set::max_size()函数 返回集合能容纳的元素的最大限值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#set-equal-range-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E9%9B%86%E5%90%88%E4%B8%AD%E4%B8%8E%E7%BB%99%E5%AE%9A%E5%80%BC%E7%9B%B8%E7%AD%89%E7%9A%84%E4%B8%8A%E4%B8%8B%E9%99%90%E7%9A%84%E4%B8%A4%E4%B8%AA%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="nav-number">8.0.0.21.</span> <span class="nav-text">set::equal_range()函数 功能：返回集合中与给定值相等的上下限的两个迭代器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#multiset-count-%E5%87%BD%E6%95%B0-%E4%B8%8Eset-count-%E6%9C%89%E5%8C%BA%E5%88%AB"><span class="nav-number">8.0.0.22.</span> <span class="nav-text">multiset::count()函数 与set::count()有区别</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#map"><span class="nav-number">9.</span> <span class="nav-text">map</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#map-map-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E6%9E%84%E9%80%A0map"><span class="nav-number">9.0.0.1.</span> <span class="nav-text">map::map()函数 功能：构造map</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#map-operator-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%B5%8B%E5%80%BCmap"><span class="nav-number">9.0.0.2.</span> <span class="nav-text">map::operator&#x3D;()函数 功能：赋值map</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#map-begin-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E6%8C%87%E5%90%91map%E5%A4%B4%E9%83%A8%E7%9A%84%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="nav-number">9.0.0.3.</span> <span class="nav-text">map::begin()函数 功能：返回指向map头部的迭代器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#map-end-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E6%8C%87%E5%90%91map%E6%9C%AB%E5%B0%BE%E7%9A%84%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="nav-number">9.0.0.4.</span> <span class="nav-text">map::end()函数 功能：返回指向map末尾的迭代器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#map-rbegin-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E4%B8%80%E4%B8%AA%E6%8C%87%E5%90%91map%E5%B0%BE%E9%83%A8%E7%9A%84%E9%80%86%E5%90%91%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="nav-number">9.0.0.5.</span> <span class="nav-text">map::rbegin()函数 功能：返回一个指向map尾部的逆向迭代器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#map-rend-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E4%B8%80%E4%B8%AA%E6%8C%87%E5%90%91map%E5%A4%B4%E9%83%A8%E7%9A%84%E9%80%86%E5%90%91%E8%BF%AD%E4%BB%A3"><span class="nav-number">9.0.0.6.</span> <span class="nav-text">map::rend()函数 功能：返回一个指向map头部的逆向迭代</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#map-insert-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E6%8F%92%E5%85%A5%E5%85%83%E7%B4%A0"><span class="nav-number">9.0.0.7.</span> <span class="nav-text">map::insert()函数 功能：插入元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#map-erase-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E5%88%A0%E9%99%A4%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0"><span class="nav-number">9.0.0.8.</span> <span class="nav-text">map::erase()函数 功能：删除一个元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#map-find-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E6%9F%A5%E6%89%BE%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0%EF%BC%8C%E5%A6%82%E6%9E%9C%E6%89%BE%E5%88%B0%E8%BF%94%E5%9B%9E%E6%94%B9%E5%85%83%E7%B4%A0%E7%9A%84%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="nav-number">9.0.0.9.</span> <span class="nav-text">map::find()函数 功能：查找一个元素，如果找到返回改元素的迭代器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#map-clear-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E5%88%A0%E9%99%A4%E6%89%80%E6%9C%89%E5%85%83%E7%B4%A0"><span class="nav-number">9.0.0.10.</span> <span class="nav-text">map::clear() 函数 功能：删除所有元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#map-empty-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E5%A6%82%E6%9E%9Cmap%E4%B8%BA%E7%A9%BA%E5%88%99%E8%BF%94%E5%9B%9Etrue"><span class="nav-number">9.0.0.11.</span> <span class="nav-text">map::empty()函数 功能：如果map为空则返回true</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#map-count-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E6%8C%87%E5%AE%9A%E5%85%83%E7%B4%A0%E5%87%BA%E7%8E%B0%E7%9A%84%E6%AC%A1%E6%95%B0"><span class="nav-number">9.0.0.12.</span> <span class="nav-text">map::count()函数 功能：返回指定元素出现的次数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#map-size-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9Emap%E4%B8%AD%E5%85%83%E7%B4%A0%E7%9A%84%E4%B8%AA%E6%95%B0"><span class="nav-number">9.0.0.13.</span> <span class="nav-text">map::size()函数 功能：返回map中元素的个数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#map-swap-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E4%BA%A4%E6%8D%A2%E4%B8%A4%E4%B8%AAmap"><span class="nav-number">9.0.0.14.</span> <span class="nav-text">map::swap()函数 功能：交换两个map</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#map-get-allocator-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9Emap%E7%9A%84%E9%85%8D%E7%BD%AE%E5%99%A8"><span class="nav-number">9.0.0.15.</span> <span class="nav-text">map::get_allocator()函数 功能：返回map的配置器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#may-key-comp-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E6%AF%94%E8%BE%83%E5%85%83%E7%B4%A0key%E7%9A%84%E5%87%BD%E6%95%B0"><span class="nav-number">9.0.0.16.</span> <span class="nav-text">may::key_comp()函数 功能：返回比较元素key的函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#map-value-comp-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E6%AF%94%E8%BE%83%E5%85%83%E7%B4%A0value%E7%9A%84%E5%87%BD%E6%95%B0"><span class="nav-number">9.0.0.17.</span> <span class="nav-text">map::value_comp()函数 功能：返回比较元素value的函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#map-lower-bound-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E9%94%AE%E5%80%BC%E5%A4%A7%E4%BA%8E%E7%AD%89%E4%BA%8E-gt-%E7%BB%99%E5%AE%9A%E5%85%83%E7%B4%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E4%BD%8D%E7%BD%AE"><span class="nav-number">9.0.0.18.</span> <span class="nav-text">map::lower_bound()函数 功能：返回键值大于等于(&gt;&#x3D;)给定元素的第一个位置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#map-upper-bound-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E9%94%AE%E5%80%BC%E5%A4%A7%E4%BA%8E-gt-%E7%BB%99%E5%AE%9A%E5%85%83%E7%B4%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E4%BD%8D%E7%BD%AE"><span class="nav-number">9.0.0.19.</span> <span class="nav-text">map::upper_bound()函数 功能：返回键值大于(&gt;)给定元素的第一个位置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#map-max-size-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9E%E5%8F%AF%E4%BB%A5%E5%AE%B9%E7%BA%B3%E7%9A%84%E6%9C%80%E5%A4%A7%E5%85%83%E7%B4%A0%E4%B8%AA%E6%95%B0"><span class="nav-number">9.0.0.20.</span> <span class="nav-text">map::max_size()函数 功能：返回可以容纳的最大元素个数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#map-equal-range-%E5%87%BD%E6%95%B0-%E5%8A%9F%E8%83%BD%EF%BC%9A%E8%BF%94%E5%9B%9Emap%E4%B8%AD%E4%B8%8E%E7%BB%99%E5%AE%9A%E5%80%BC%E7%9B%B8%E7%AD%89%E7%9A%84%E4%B8%8A%E4%B8%8B%E9%99%90%E7%9A%84%E4%B8%A4%E4%B8%AA%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="nav-number">9.0.0.21.</span> <span class="nav-text">map::equal_range()函数 功能：返回map中与给定值相等的上下限的两个迭代器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#multimap-count-%E5%87%BD%E6%95%B0-%E4%B8%8Emap-count-%E6%9C%89%E5%8C%BA%E5%88%AB"><span class="nav-number">9.0.0.22.</span> <span class="nav-text">multimap::count()函数 与map::count()有区别</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
 
-
-
-
-
-
-
-
-
-
-
-
-
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">moseairius</p>
+  <div class="site-description" itemprop="description"></div>
 </div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
     </div>
-</footer>
+  </aside>
+  <div id="sidebar-dimmer"></div>
 
-<div class="progress-bar"></div>
 
+      </div>
+    </main>
 
-    <!-- 搜索遮罩框 -->
-<div id="searchModal" class="modal">
-    <div class="modal-content">
-        <div class="search-header">
-            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
-                   class="search-input">
-        </div>
-        <div id="searchResult"></div>
-    </div>
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">moseairius</span>
 </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
 
-<script type="text/javascript">
-$(function () {
-    var searchFunc = function (path, search_id, content_id) {
-        'use strict';
-        $.ajax({
-            url: path,
-            dataType: "xml",
-            success: function (xmlResponse) {
-                // get the contents from search data
-                var datas = $("entry", xmlResponse).map(function () {
-                    return {
-                        title: $("title", this).text(),
-                        content: $("content", this).text(),
-                        url: $("url", this).text()
-                    };
-                }).get();
-                var $input = document.getElementById(search_id);
-                var $resultContent = document.getElementById(content_id);
-                $input.addEventListener('input', function () {
-                    var str = '<ul class=\"search-result-list\">';
-                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
-                    $resultContent.innerHTML = "";
-                    if (this.value.trim().length <= 0) {
-                        return;
-                    }
-                    // perform local searching
-                    datas.forEach(function (data) {
-                        var isMatch = true;
-                        var data_title = data.title.trim().toLowerCase();
-                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
-                        var data_url = data.url;
-                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
-                        var index_title = -1;
-                        var index_content = -1;
-                        var first_occur = -1;
-                        // only match artiles with not empty titles and contents
-                        if (data_title !== '' && data_content !== '') {
-                            keywords.forEach(function (keyword, i) {
-                                index_title = data_title.indexOf(keyword);
-                                index_content = data_content.indexOf(keyword);
-                                if (index_title < 0 && index_content < 0) {
-                                    isMatch = false;
-                                } else {
-                                    if (index_content < 0) {
-                                        index_content = 0;
-                                    }
-                                    if (i === 0) {
-                                        first_occur = index_content;
-                                    }
-                                }
-                            });
-                        }
-                        // show search results
-                        if (isMatch) {
-                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
-                            var content = data.content.trim().replace(/<[^>]+>/g, "");
-                            if (first_occur >= 0) {
-                                // cut out 100 characters
-                                var start = first_occur - 20;
-                                var end = first_occur + 80;
-                                if (start < 0) {
-                                    start = 0;
-                                }
-                                if (start === 0) {
-                                    end = 100;
-                                }
-                                if (end > content.length) {
-                                    end = content.length;
-                                }
-                                var match_content = content.substr(start, end);
-                                // highlight all keywords
-                                keywords.forEach(function (keyword) {
-                                    var regS = new RegExp(keyword, "gi");
-                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
-                                });
-
-                                str += "<p class=\"search-result\">" + match_content + "...</p>"
-                            }
-                            str += "</li>";
-                        }
-                    });
-                    str += "</ul>";
-                    $resultContent.innerHTML = str;
-                });
-            }
-        });
-    };
-
-    searchFunc('/search.xml', 'searchInput', 'searchResult');
-});
-</script>
-
-    <!-- 回到顶部按钮 -->
-<div id="backTop" class="top-scroll">
-    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
-        <i class="fas fa-arrow-up"></i>
-    </a>
-</div>
+        
 
 
-    <script src="/libs/materialize/materialize.min.js"></script>
-    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
-    <script src="/libs/aos/aos.js"></script>
-    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
-    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
-    <script src="/js/matery.js"></script>
 
-    <!-- Baidu Analytics -->
 
-    <!-- Baidu Push -->
 
-    
-    
 
-    
 
-    
 
-	
-    
+      </div>
+    </footer>
+  </div>
 
-    
-    
-    <script type="text/javascript" size="150" alpha='0.6'
-        zIndex="-1" src="/libs/background/ribbon-refresh.min.js" async="async"></script>
-    
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
-    
-    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
-    
+<script src="/js/utils.js"></script>
 
-    
-    <script src="/libs/instantpage/instantpage.js" type="module"></script>
-    
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  <script defer src="/lib/three/three.min.js"></script>
+    <script defer src="/lib/three/three-waves.min.js"></script>
+    <script defer src="/lib/three/canvas_sphere.min.js"></script>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
 
 </body>
-
 </html>
